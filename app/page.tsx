@@ -30,19 +30,19 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col w-full">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center">
+      <header className="sticky top-0 z-50 w-full mx-auto border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center px-8 mx-auto">
           <div className="mr-4 flex items-center">
             <Image
               src="/logo_unitar.png"
               width={40}
               height={40}
               alt="UNITAR Logo"
-              className="mr-2"
+              className="mr-2 w-32 h-20 rounded-full object-cover"
             />
-            <span className="hidden font-bold sm:inline-block">
+            <span className="hidden font-bold sr-only sm:inline-block">
               UNITAR International University
             </span>
           </div>
@@ -59,9 +59,9 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+      <section className="w-full py-12 min-h-[80vh] md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950 items-center justify-center flex">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -87,20 +87,20 @@ export default function Home() {
               </div>
             </div>
             <Image
-              src="/placeholder.svg?height=550&width=550"
+              src="/hero.jpg"
               width={550}
               height={550}
               alt="Student Orientation"
-              className="mx-auto aspect-square overflow-hidden rounded-xl object-cover object-center sm:w-full"
+              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
             />
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="container px-4 py-12 md:px-6">
+      <section className="container px-4 py-12 md:px-6 flex self-center">
         <Tabs defaultValue="account-setup" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2  md:grid-cols-4">
             <TabsTrigger
               value="account-setup"
               className="flex items-center gap-2"
@@ -153,6 +153,7 @@ export default function Home() {
                             <Link
                               href="https://auth.unitar.my/"
                               className="text-primary underline"
+                              target="_blank"
                             >
                               https://auth.unitar.my/
                             </Link>
@@ -167,11 +168,11 @@ export default function Home() {
                       </div>
                       <div className="rounded-lg border bg-muted/50 p-4">
                         <Image
-                          src="/placeholder.svg?height=200&width=300"
-                          width={300}
-                          height={200}
+                          src="/auth_unitar.png"
+                          width={500}
+                          height={500}
                           alt="Login Screen"
-                          className="mx-auto rounded-md"
+                          className="mx-auto rounded-md w-full h-auto"
                         />
                       </div>
                     </div>
@@ -199,11 +200,11 @@ export default function Home() {
                       </div>
                       <div className="rounded-lg border bg-muted/50 p-4">
                         <Image
-                          src="/placeholder.svg?height=200&width=300"
-                          width={300}
-                          height={200}
+                          src="/secondary_email.png"
+                          width={500}
+                          height={500}
                           alt="Backup Email Setup"
-                          className="mx-auto rounded-md"
+                          className="mx-auto rounded-md w-full h-auto"
                         />
                       </div>
                     </div>
@@ -246,11 +247,11 @@ export default function Home() {
                       </div>
                       <div className="rounded-lg border bg-muted/50 p-4">
                         <Image
-                          src="/placeholder.svg?height=200&width=300"
+                          src="/office.png"
                           width={300}
                           height={200}
                           alt="MFA Setup"
-                          className="mx-auto rounded-md"
+                          className="mx-auto rounded-md w-full h-auto"
                         />
                       </div>
                     </div>
@@ -360,13 +361,20 @@ export default function Home() {
                         </p>
                       </div>
                     </div>
-                    <div className="rounded-lg border bg-muted/50 p-4">
+                    <div className="rounded-lg border bg-muted/50 p-4 flex flex-row gap-4">
                       <Image
-                        src="/placeholder.svg?height=200&width=300"
+                        src="/cn.png"
                         width={300}
                         height={200}
                         alt="Student Resource Backpack"
-                        className="mx-auto rounded-md"
+                        className="mx-auto rounded-md w-32 h-32"
+                      />
+                      <Image
+                        src="/srb.png"
+                        width={300}
+                        height={200}
+                        alt="Student Resource Backpack"
+                        className="mx-auto rounded-md w-full h-auto"
                       />
                     </div>
                   </div>
@@ -561,9 +569,13 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Accordion type="single" collapsible className="w-full">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full text-left"
+                >
                   <AccordionItem value="item-1">
-                    <AccordionTrigger>
+                    <AccordionTrigger className="font-medium text-left">
                       How do I find my student matric ID to access UNITAR
                       systems?
                     </AccordionTrigger>
@@ -579,7 +591,7 @@ export default function Home() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
-                    <AccordionTrigger>
+                    <AccordionTrigger className="font-medium text-left">
                       How to collect my physical matric card?
                     </AccordionTrigger>
                     <AccordionContent>
@@ -595,7 +607,7 @@ export default function Home() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
-                    <AccordionTrigger>
+                    <AccordionTrigger className="font-medium text-left">
                       How do I join my (online) scheduled classes?
                     </AccordionTrigger>
                     <AccordionContent>
@@ -629,7 +641,7 @@ export default function Home() {
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
-                    <AccordionTrigger>
+                    <AccordionTrigger className="font-medium text-left">
                       Is it OK to join a Teams class session as a Guest?
                     </AccordionTrigger>
                     <AccordionContent>
@@ -664,7 +676,7 @@ export default function Home() {
 
       {/* Help & Support Section */}
       <section id="help" className="w-full py-12 md:py-16 lg:py-20 bg-muted/30">
-        <div className="container px-4 md:px-6">
+        <div className="container px-4 md:px-6 self-center mx-auto">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
             <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               Help & Support
@@ -689,11 +701,11 @@ export default function Home() {
               </CardHeader>
               <CardContent className="flex-1">
                 <Image
-                  src="/placeholder.svg?height=120&width=200"
-                  width={200}
-                  height={120}
+                  src="/osc.png"
+                  width={300}
+                  height={300}
                   alt="One Stop Centre"
-                  className="mx-auto rounded-md"
+                  className="mx-auto rounded-md w-full h-auto"
                 />
               </CardContent>
             </Card>
@@ -710,11 +722,11 @@ export default function Home() {
               </CardHeader>
               <CardContent className="flex-1">
                 <Image
-                  src="/placeholder.svg?height=120&width=200"
+                  src="/help_topic.png"
                   width={200}
                   height={120}
                   alt="Help Topic"
-                  className="mx-auto rounded-md"
+                  className="mx-auto rounded-md w-full h-auto"
                 />
               </CardContent>
             </Card>
@@ -731,11 +743,11 @@ export default function Home() {
               </CardHeader>
               <CardContent className="flex-1">
                 <Image
-                  src="/placeholder.svg?height=120&width=200"
+                  src="/sub_topic.png"
                   width={200}
                   height={120}
                   alt="Sub-Topic"
-                  className="mx-auto rounded-md"
+                  className="mx-auto rounded-md w-full h-auto"
                 />
               </CardContent>
             </Card>
