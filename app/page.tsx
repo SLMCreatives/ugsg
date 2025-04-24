@@ -99,8 +99,8 @@ export default function Home() {
 
       {/* Main Content */}
       <section className="container px-4 py-12 md:px-6 flex self-center">
-        <Tabs defaultValue="account-setup" className="w-full">
-          <TabsList className="grid w-full grid-cols-2  md:grid-cols-4">
+        <Tabs defaultValue="account-setup" className="w-full ">
+          <TabsList className="flex flex-row flex-wrap lg:justify-around justify-center w-full h-fit">
             <TabsTrigger
               value="account-setup"
               className="flex items-center gap-2"
