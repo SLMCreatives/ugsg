@@ -8,7 +8,9 @@ import {
   Shield,
   BookOpen,
   CheckSquare,
-  AlertCircle
+  AlertCircle,
+  ChevronDown,
+  ChevronRight
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -27,6 +29,12 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 
 export default function Home() {
   return (
@@ -149,19 +157,57 @@ export default function Home() {
                         <p>On your browser:</p>
                         <ul className="ml-6 list-disc space-y-2">
                           <li>
-                            Go to UNITARs Login Page:{" "}
-                            <Link
-                              href="https://auth.unitar.my/"
-                              className="text-primary underline"
-                              target="_blank"
-                            >
-                              https://auth.unitar.my/
-                            </Link>
+                            <p>
+                              Go to UNITARs Login Page:{" "}
+                              <Button variant={"default"}>
+                                <Link
+                                  href="https://auth.unitar.my/"
+                                  className=""
+                                  target="_blank"
+                                >
+                                  auth.unitar.my
+                                </Link>
+                              </Button>
+                            </p>
                           </li>
-                          <li>Key in Username: your matric number</li>
                           <li>
-                            Key in Default Password: Last 4 digits of matric no
-                            + Last 4 digits of IC/passport no
+                            Key in Your Login Details:
+                            <div className="p-4 bg-gray-50 text-sm rounded-xl ">
+                              Username:{" "}
+                              <span className="text-red-500 font-bold">
+                                Your Matric Number
+                              </span>
+                              <br></br>
+                              Default Password:{" "}
+                              <span className="text-red-500 font-bold">
+                                Last 4 digits of matric number +
+                              </span>{" "}
+                              <span className="text-red-500 font-bold">
+                                Last 4 digits of IC/passport no
+                              </span>
+                              <br></br>
+                              <p className="italic text-gray-700">
+                                Password Example:{" "}
+                                <TooltipProvider>
+                                  <Tooltip>
+                                    <TooltipTrigger className="underline font-bold">
+                                      7 7 9 9
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      Last 4 digits of matric number
+                                    </TooltipContent>
+                                  </Tooltip>{" "}
+                                  <Tooltip>
+                                    <TooltipTrigger className="underline font-bold">
+                                      3 8 8 3
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      Last 4 digits of IC/Passport number
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              </p>
+                            </div>
                           </li>
                           <li>Click Login</li>
                         </ul>
@@ -194,7 +240,12 @@ export default function Home() {
                       <div className="space-y-2">
                         <p>One-Time Action, prompted by Microsoft:</p>
                         <ul className="ml-6 list-disc space-y-2">
-                          <li>Enter your secondary email - TWICE</li>
+                          <li>
+                            Enter your personal email -{" "}
+                            <span className="text-red-500 font-bold">
+                              TWICE!
+                            </span>
+                          </li>
                           <li>Click Add/Change Email</li>
                         </ul>
                       </div>
@@ -212,47 +263,231 @@ export default function Home() {
                 </div>
 
                 {/* Step 3 */}
-                <div className="space-y-4">
+                <div className="space-y-4 ">
                   <div className="flex items-center gap-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
                       3
                     </div>
                     <h3 className="text-xl font-semibold">
-                      Set Up MFA (Microsoft Authenticator)
+                      Set Up Your Student Account
                     </h3>
                   </div>
                   <div className="ml-11 space-y-4">
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
-                        <p>On your Student Dashboard:</p>
-                        <ul className="ml-6 list-disc space-y-2">
-                          <li>Click O365</li>
-                          <li>Key in your student email then click Next</li>
+                        {/*  <p className="text-lg font-bold">
+                          Step 1 - Access Office365
+                        </p> */}
+                        <div className="flex flex-row gap-4 items-center">
+                          <p>
+                            On your{" "}
+                            <span className="font-bold">Student Dashboard</span>
+                          </p>
+                          <ChevronRight className="h-4 w-4 text-black" />
+                          <Button variant={"default"}>
+                            <Link
+                              href="https://auth.unitar.my/"
+                              className=""
+                              target="_blank"
+                            >
+                              auth.unitar.my
+                            </Link>
+                          </Button>
+                        </div>
+                        <ol className="ml-6 list-none space-y-2">
                           <li>
-                            Install Microsoft Authenticator on your device (iOS
-                            and/or Android)
+                            a. Click{" "}
+                            <span className="font-bold">Office365</span>
                           </li>
                           <li>
-                            Allow Microsoft Authenticator to access your Camera
+                            b. Key in your{" "}
+                            <span className="font-bold uppercase text-red-500">
+                              STUDENT EMAIL
+                            </span>{" "}
+                            then click Next
                           </li>
-                          <li>Click Add Account</li>
                           <li>
-                            Select Work or school account, then choose Scan QR
-                            code
+                            c. Key in your{" "}
+                            <span className="font-bold uppercase text-red-500">
+                              PASSWORD
+                            </span>{" "}
+                            then click Sign In
                           </li>
                           <li>
-                            Enter the number displayed into the authenticator
+                            d. Click <span className="font-bold">Next</span>{" "}
+                            (More information required to secure your account)
                           </li>
-                        </ul>
+                        </ol>
                       </div>
-                      <div className="rounded-lg border bg-muted/50 p-4">
-                        <Image
-                          src="/office.png"
-                          width={300}
-                          height={200}
-                          alt="MFA Setup"
-                          className="mx-auto rounded-md w-full h-auto"
-                        />
+                      <div className="rounded-lg border bg-muted/50 p-4 flex flex-col gap-2">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                          <Image
+                            src="/big-o.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                          />
+                          <Image
+                            src="/mfa1.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-54 h-auto"
+                          />
+                          <Image
+                            src="/mfa2-password.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-54 h-auto"
+                          />
+                          <Image
+                            src="/mfa3.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-54 h-auto"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Step 4 */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                      4
+                    </div>
+                    <h3 className="text-xl font-semibold">
+                      Secure Your Account - MFA Setup
+                    </h3>
+                  </div>
+                  <div className="ml-11 space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="space-y-2">
+                        <ol className="ml-6 list-none space-y-2">
+                          <li>
+                            a. Install{" "}
+                            <span className="font-bold">
+                              Microsoft Authenticator
+                            </span>{" "}
+                            on your device (iOS and/or Android)
+                            <div className="w-fit flex flex-row gap-4 items-center py-2">
+                              <Image
+                                src="/mauthlogo.png"
+                                width={500}
+                                height={500}
+                                alt="Microsoft Authenticator App"
+                                className="mx-auto w-24 h-auto shadow-md rounded-xl"
+                              />
+                              <Link
+                                href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458"
+                                target="_blank"
+                              >
+                                <Image
+                                  src="/appstore.png"
+                                  width={500}
+                                  height={500}
+                                  alt="App Store"
+                                  className="mx-auto w-32 h-auto drop-shadow-sm"
+                                />
+                              </Link>
+                              <Link
+                                href="https://play.google.com/store/apps/details?id=com.azure.authenticator&pli=1"
+                                target="_blank"
+                              >
+                                <Image
+                                  src="/gplay.png"
+                                  width={500}
+                                  height={500}
+                                  alt="App Store"
+                                  className="mx-auto w-32 h-auto drop-shadow-md"
+                                />
+                              </Link>
+                            </div>
+                            <p className="italic text-sm flex flex-row gap-2 items-center">
+                              Alternative MFA options below{" "}
+                              <ChevronDown className="h-4 w-4 text-black" />
+                            </p>
+                          </li>
+                          <li>
+                            b. Open the app and allow Microsoft Authenticator to{" "}
+                            <span className="font-bold">
+                              access your Camera
+                            </span>
+                          </li>
+                          <li>c. Click Add Account (+)</li>
+                          <li>
+                            d. Select{" "}
+                            <span className="font-bold">
+                              Work or School Account
+                            </span>
+                            , then choose Scan QR code
+                          </li>
+                          <li>
+                            e. Click the registered account that is displayed.
+                          </li>
+                          <li>
+                            f. Enter the number displayed into the
+                            authenticator.
+                          </li>
+                          <li>
+                            g. If the setup is successful, you will receive the
+                            following confirmation.
+                            <p className="font-bold flex flex-row gap-2 items-center py-2">
+                              <CheckCircle2 className="h-4 w-4 text-green-500" />{" "}
+                              Notification Approved
+                            </p>
+                          </li>
+                          <li>h. Click Next</li>
+                        </ol>
+                        <div className="bg-gray-50 p-4 rounded-xl flex w-fit">
+                          <p className="text-sm text-muted-background">
+                            ⚠️ Attention: Account might take 24 hours to be
+                            activated.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="rounded-lg border bg-muted/50 p-4 flex flex-col gap-2">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                          <Image
+                            src="/mauth2.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                          />
+                          <Image
+                            src="/mfad.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                          />
+                          <Image
+                            src="/mfae.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                          />
+                          <Image
+                            src="/mfaf.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                          />
+                          <Image
+                            src="/mfag.png"
+                            width={300}
+                            height={200}
+                            alt="MFA Setup"
+                            className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -361,7 +596,7 @@ export default function Home() {
                         </p>
                       </div>
                     </div>
-                    <div className="rounded-lg border bg-muted/50 p-4 flex flex-row gap-4">
+                    <div className="rounded-lg border bg-muted/50 p-4 flex flex-col gap-4">
                       <Image
                         src="/cn.png"
                         width={300}
@@ -412,8 +647,90 @@ export default function Home() {
                   </ul>
                 </div>
               </CardContent>
-              <CardFooter>
+              {/* <CardFooter>
                 <Button className="w-full">Go to CourseNetworking</Button>
+              </CardFooter> */}
+              {/*             </Card>
+               */}{" "}
+              <CardFooter className="flex flex-col gap-4">
+                <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
+                  <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+                    Having Trouble?
+                  </h2>
+                  <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+                    If you have any CN-related queries or issues, follow these
+                    steps to get help:
+                  </p>
+                </div>
+                <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
+                  <Card className="flex flex-col items-center justify-between">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                        <span className="text-2xl font-bold text-primary">
+                          1
+                        </span>
+                      </div>
+                      <CardTitle>Access One Stop Centre</CardTitle>
+                      <CardDescription>
+                        On your AUTH Student Dashboard, click the One Stop
+                        Centre icon.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-1">
+                      <Image
+                        src="/osc.png"
+                        width={300}
+                        height={300}
+                        alt="One Stop Centre"
+                        className="mx-auto rounded-md w-full h-auto"
+                      />
+                    </CardContent>
+                  </Card>
+                  <Card className="flex flex-col items-center justify-between">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                        <span className="text-2xl font-bold text-primary">
+                          2
+                        </span>
+                      </div>
+                      <CardTitle>Select Help Topic</CardTitle>
+                      <CardDescription>
+                        For Help Topic, select Portal/Course/Class/Email Access.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-1">
+                      <Image
+                        src="/help_topic.png"
+                        width={200}
+                        height={120}
+                        alt="Help Topic"
+                        className="mx-auto rounded-md w-full h-auto"
+                      />
+                    </CardContent>
+                  </Card>
+                  <Card className="flex flex-col items-center justify-between">
+                    <CardHeader className="text-center">
+                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                        <span className="text-2xl font-bold text-primary">
+                          3
+                        </span>
+                      </div>
+                      <CardTitle>Select Sub-Topic</CardTitle>
+                      <CardDescription>
+                        Select the Sub-Topic related to your issue/query.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-1">
+                      <Image
+                        src="/sub_topic.png"
+                        width={200}
+                        height={120}
+                        alt="Sub-Topic"
+                        className="mx-auto rounded-md w-full h-auto"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
               </CardFooter>
             </Card>
           </TabsContent>
@@ -687,7 +1004,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
+          {/* <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
             <Card className="flex flex-col items-center justify-between">
               <CardHeader className="text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
@@ -751,7 +1068,7 @@ export default function Home() {
                 />
               </CardContent>
             </Card>
-          </div>
+          </div> */}
 
           <div className="mx-auto mt-8 max-w-md">
             <Card>
