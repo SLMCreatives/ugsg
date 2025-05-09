@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -10,7 +11,8 @@ import {
   CheckSquare,
   AlertCircle,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  MessagesSquare
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -73,11 +75,15 @@ export default function Home() {
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                  Welcome to UNITAR – Lets Get You Started!
+                  Welcome to UNITAR International University
                 </h1>
+                <h2 className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none">
+                  Let's Get You Started!
+                </h2>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                  Heres everything you need to activate your account, access
-                  your courses, and thrive at UNITAR.
+                  Find out what you need to do to activate your student account,
+                  access your courses, and basically get a great head-start on
+                  your learning journey with UNITAR!
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -89,8 +95,10 @@ export default function Home() {
               <div className="flex items-center gap-2 text-sm">
                 <AlertCircle className="h-4 w-4 text-amber-500" />
                 <p className="font-medium">
-                  Before you start, check your email for your Matric Number and
-                  Default Password.
+                  Before you start, check your{" "}
+                  <span className="font-bold">personal email</span> for your{" "}
+                  <span className="font-bold">Matric Number</span> and{" "}
+                  <span className="font-bold">Default Password.</span>
                 </p>
               </div>
             </div>
@@ -158,7 +166,7 @@ export default function Home() {
                         <ul className="ml-6 list-disc space-y-2">
                           <li>
                             <p>
-                              Go to UNITARs Login Page:{" "}
+                              Go to UNITAR's Login Page:{" "}
                               <Button variant={"default"}>
                                 <Link
                                   href="https://auth.unitar.my/"
@@ -172,29 +180,33 @@ export default function Home() {
                           </li>
                           <li>
                             Key in Your Login Details:
-                            <div className="p-4 bg-gray-50 text-sm rounded-xl ">
-                              Username:{" "}
-                              <span className="text-red-500 font-bold">
+                            <div className="p-4 bg-gray-50 text-sm rounded-xl space-y-2">
+                              <p className="font-bold">Username:</p>
+                              <p className="text-red-500 font-bold bg-gray-200 text-center py-2 rounded-sm">
                                 Your Matric Number
-                              </span>
-                              <br></br>
-                              Default Password:{" "}
-                              <span className="text-red-500 font-bold">
-                                Last 4 digits of matric number +
-                              </span>{" "}
-                              <span className="text-red-500 font-bold">
-                                Last 4 digits of IC/passport no
-                              </span>
-                              <br></br>
+                              </p>
                               <p className="italic text-gray-700">
-                                Password Example:{" "}
+                                eg. MC2301XXXXX
+                              </p>
+                              <p className="font-bold">Default Password:</p>
+                              <div className="flex flex-row gap-2 justify-center w-full items-center">
+                                <p className="text-red-500 font-bold bg-gray-200 text-center py-2 rounded-sm w-full">
+                                  Last 4 digits of Matric No
+                                </p>{" "}
+                                +{" "}
+                                <p className="text-red-500 font-bold bg-gray-200 text-center py-2 rounded-sm w-full">
+                                  Last 4 digits of IC/Passport No
+                                </p>
+                              </div>
+                              <p className="italic text-gray-700">
+                                eg.{" "}
                                 <TooltipProvider>
                                   <Tooltip>
                                     <TooltipTrigger className="underline font-bold">
                                       7 7 9 9
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                      Last 4 digits of matric number
+                                      Last 4 digits of Matric No
                                     </TooltipContent>
                                   </Tooltip>{" "}
                                   <Tooltip>
@@ -202,17 +214,26 @@ export default function Home() {
                                       3 8 8 3
                                     </TooltipTrigger>
                                     <TooltipContent>
-                                      Last 4 digits of IC/Passport number
+                                      Last 4 digits of IC/Passport No
                                     </TooltipContent>
                                   </Tooltip>
                                 </TooltipProvider>
                               </p>
                             </div>
+                            <Image
+                              src="/auth_unitar.png"
+                              width={500}
+                              height={500}
+                              alt="Login Screen"
+                              className="mx-auto rounded-md w-full h-auto flex lg:hidden"
+                            />
                           </li>
-                          <li>Click Login</li>
+                          <li>
+                            Click <span className="font-bold">Login</span>
+                          </li>
                         </ul>
                       </div>
-                      <div className="rounded-lg border bg-muted/50 p-4">
+                      <div className="rounded-lg border bg-muted/50 p-4 hidden lg:flex">
                         <Image
                           src="/auth_unitar.png"
                           width={500}
@@ -275,58 +296,82 @@ export default function Home() {
                   <div className="ml-11 space-y-4">
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
-                        {/*  <p className="text-lg font-bold">
-                          Step 1 - Access Office365
-                        </p> */}
                         <div className="flex flex-row gap-4 items-center">
                           <p>
                             On your{" "}
                             <span className="font-bold">Student Dashboard</span>
                           </p>
-                          <ChevronRight className="h-4 w-4 text-black" />
-                          <Button variant={"default"}>
-                            <Link
-                              href="https://auth.unitar.my/"
-                              className=""
-                              target="_blank"
-                            >
-                              auth.unitar.my
-                            </Link>
-                          </Button>
                         </div>
                         <ol className="ml-6 list-none space-y-2">
-                          <li>
-                            a. Click{" "}
-                            <span className="font-bold">Office365</span>
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              a. Click{" "}
+                              <span className="font-bold">Office 365</span>
+                            </p>
+                            <Image
+                              src="/big-o.png"
+                              width={300}
+                              height={200}
+                              alt="Office 365"
+                              className="mx-auto rounded-md w-32 h-auto md:hidden flex"
+                            />
                           </li>
-                          <li>
-                            b. Key in your{" "}
-                            <span className="font-bold uppercase text-red-500">
-                              STUDENT EMAIL
-                            </span>{" "}
-                            then click Next
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              b. Key in your{" "}
+                              <span className="font-bold uppercase text-red-500">
+                                STUDENT EMAIL.
+                              </span>{" "}
+                              Then click <span className="font-bold">Next</span>
+                            </p>
+                            <Image
+                              src="/mfa1.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-54 h-auto md:hidden flex"
+                            />
                           </li>
-                          <li>
-                            c. Key in your{" "}
-                            <span className="font-bold uppercase text-red-500">
-                              PASSWORD
-                            </span>{" "}
-                            then click Sign In
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              c. Key in your{" "}
+                              <span className="font-bold uppercase text-red-500">
+                                PASSWORD.
+                              </span>{" "}
+                              Then click{" "}
+                              <span className="font-bold">Sign In</span>
+                            </p>
+                            <Image
+                              src="/mfa2-password.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-54 h-auto md:hidden flex"
+                            />
                           </li>
-                          <li>
-                            d. Click <span className="font-bold">Next</span>{" "}
-                            (More information required to secure your account)
+                          <li className="flex flex-col gap-2 w-fit items-start justify-start">
+                            <p>
+                              d. Click <span className="font-bold">Next</span>{" "}
+                              (More information required to secure your account)
+                            </p>
+                            <Image
+                              src="/mfa3.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-54 h-auto md:hidden flex"
+                            />
                           </li>
                         </ol>
                       </div>
-                      <div className="rounded-lg border bg-muted/50 p-4 flex flex-col gap-2">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                      <div className="rounded-lg border bg-muted/50 p-4 hidden md:flex flex-col gap-2">
+                        <div className="grid grid-cols-2 gap-4">
                           <Image
                             src="/big-o.png"
                             width={300}
                             height={200}
                             alt="MFA Setup"
-                            className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                            className="mx-auto rounded-md w-32 h-auto"
                           />
                           <Image
                             src="/mfa1.png"
@@ -368,12 +413,12 @@ export default function Home() {
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
                         <ol className="ml-6 list-none space-y-2">
-                          <li>
+                          <li className="flex flex-col gap-2 w-fit items-start">
                             a. Install{" "}
                             <span className="font-bold">
                               Microsoft Authenticator
                             </span>{" "}
-                            on your device (iOS and/or Android)
+                            on your device (iOS or Android)
                             <div className="w-fit flex flex-row gap-4 items-center py-2">
                               <Image
                                 src="/mauthlogo.png"
@@ -412,36 +457,95 @@ export default function Home() {
                               <ChevronDown className="h-4 w-4 text-black" />
                             </p>
                           </li>
-                          <li>
+                          <li className="flex flex-col gap-2 w-fit items-start">
                             b. Open the app and allow Microsoft Authenticator to{" "}
                             <span className="font-bold">
-                              access your Camera
+                              access your Camera.
                             </span>
                           </li>
-                          <li>c. Click Add Account (+)</li>
-                          <li>
-                            d. Select{" "}
-                            <span className="font-bold">
-                              Work or School Account
-                            </span>
-                            , then choose Scan QR code
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              c. Click{" "}
+                              <span className="font-bold">Add Account (+)</span>
+                            </p>
+                            <Image
+                              src="/mauth2.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                            />
                           </li>
-                          <li>
-                            e. Click the registered account that is displayed.
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              d. Select{" "}
+                              <span className="font-bold">
+                                Work or School Account
+                              </span>
+                              , then choose{" "}
+                              <span className="font-bold">Scan QR code</span>
+                            </p>
+                            <Image
+                              src="/mfad.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                            />
                           </li>
-                          <li>
-                            f. Enter the number displayed into the
-                            authenticator.
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              e. Click the registered account that is{" "}
+                              <span className="font-bold">displayed</span>.
+                            </p>
+                            <Image
+                              src="/mfae.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                            />
                           </li>
-                          <li>
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              f. Enter the number displayed into the
+                              authenticator.
+                            </p>
+                            <Image
+                              src="/mfaf.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                            />
+                          </li>
+                          <li className="flex flex-col gap-2 w-fit items-start">
                             g. If the setup is successful, you will receive the
                             following confirmation.
                             <p className="font-bold flex flex-row gap-2 items-center py-2">
                               <CheckCircle2 className="h-4 w-4 text-green-500" />{" "}
                               Notification Approved
                             </p>
+                            <Image
+                              src="/mfag.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                            />
                           </li>
-                          <li>h. Click Next</li>
+                          <li className="flex flex-col gap-2 w-fit items-start">
+                            <p>
+                              h. Click <span className="font-bold">Next</span>
+                            </p>
+                            <Image
+                              src="/mfag.png"
+                              width={300}
+                              height={200}
+                              alt="MFA Setup"
+                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                            />
+                          </li>
                         </ol>
                         <div className="bg-gray-50 p-4 rounded-xl flex w-fit">
                           <p className="text-sm text-muted-background">
@@ -450,8 +554,8 @@ export default function Home() {
                           </p>
                         </div>
                       </div>
-                      <div className="rounded-lg border bg-muted/50 p-4 flex flex-col gap-2">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                      <div className="rounded-lg border bg-muted/50 p-4 md:flex flex-col gap-2 hidden">
+                        <div className="grid grid-cols-2 gap-4">
                           <Image
                             src="/mauth2.png"
                             width={300}
@@ -543,8 +647,11 @@ export default function Home() {
               <CardHeader>
                 <CardTitle>Access Your Onboarding Materials</CardTitle>
                 <CardDescription>
-                  Learn how to access your Student Resource Backpack (SRB) with
-                  all your onboarding materials.
+                  Learn how to access your{" "}
+                  <span className="font-bold">
+                    Student Resource Backpack (SRB)
+                  </span>{" "}
+                  with all your onboarding materials.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -577,16 +684,20 @@ export default function Home() {
                         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
                           1
                         </div>
-                        <p>Log-in to your auth.unitar.my dashboard.</p>
+                        <p>
+                          Log-in to your{" "}
+                          <span className="font-bold">auth.unitar.my</span>{" "}
+                          dashboard.
+                        </p>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
                           2
                         </div>
-                        <p>Click the red CourseNetworking icon.</p>
+                        <p>Click CourseNetworking (Red Icon)</p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
+                        <div className="flex min-h-7 min-w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
                           3
                         </div>
                         <p>
@@ -615,7 +726,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="rounded-lg border p-4">
+                {/* <div className="rounded-lg border p-4">
                   <h4 className="mb-2 font-medium">
                     Whats in your Student Resource Backpack?
                   </h4>
@@ -645,7 +756,7 @@ export default function Home() {
                       <span>Student Support Services</span>
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </CardContent>
               {/* <CardFooter>
                 <Button className="w-full">Go to CourseNetworking</Button>
@@ -1003,74 +1114,22 @@ export default function Home() {
               to get help:
             </p>
           </div>
-
-          {/* <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
-            <Card className="flex flex-col items-center justify-between">
-              <CardHeader className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                  <span className="text-2xl font-bold text-primary">1</span>
-                </div>
-                <CardTitle>Access One Stop Centre</CardTitle>
-                <CardDescription>
-                  On your AUTH Student Dashboard, click the One Stop Centre
-                  icon.
-                </CardDescription>
+          <div className="mx-auto mt-8 max-w-md flex flex-row flex-wrap gap-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-center">WhatsApp Group</CardTitle>
               </CardHeader>
-              <CardContent className="flex-1">
-                <Image
-                  src="/osc.png"
-                  width={300}
-                  height={300}
-                  alt="One Stop Centre"
-                  className="mx-auto rounded-md w-full h-auto"
-                />
+              <CardContent>
+                <div className="flex items-center justify-center gap-2">
+                  <MessagesSquare className="h-5 w-5 text-primary" />
+                  <p className="font-medium">Whatsapp Group Invite</p>
+                </div>
+                <p className="mt-4 text-center text-sm text-muted-foreground">
+                  Please refer to the Welcome Email that was sent to your
+                  personal email.
+                </p>
               </CardContent>
             </Card>
-
-            <Card className="flex flex-col items-center justify-between">
-              <CardHeader className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                  <span className="text-2xl font-bold text-primary">2</span>
-                </div>
-                <CardTitle>Select Help Topic</CardTitle>
-                <CardDescription>
-                  For Help Topic, select Portal/Course/Class/Email Access.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1">
-                <Image
-                  src="/help_topic.png"
-                  width={200}
-                  height={120}
-                  alt="Help Topic"
-                  className="mx-auto rounded-md w-full h-auto"
-                />
-              </CardContent>
-            </Card>
-
-            <Card className="flex flex-col items-center justify-between">
-              <CardHeader className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                  <span className="text-2xl font-bold text-primary">3</span>
-                </div>
-                <CardTitle>Select Sub-Topic</CardTitle>
-                <CardDescription>
-                  Select the Sub-Topic related to your issue/query.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1">
-                <Image
-                  src="/sub_topic.png"
-                  width={200}
-                  height={120}
-                  alt="Sub-Topic"
-                  className="mx-auto rounded-md w-full h-auto"
-                />
-              </CardContent>
-            </Card>
-          </div> */}
-
-          <div className="mx-auto mt-8 max-w-md">
             <Card>
               <CardHeader>
                 <CardTitle className="text-center">Direct Contact</CardTitle>
