@@ -690,24 +690,44 @@ export default function Home() {
                           dashboard.
                         </p>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex flex-row items-center gap-3">
                         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
                           2
                         </div>
-                        <p>Click CourseNetworking (Red Icon)</p>
+                        <p>
+                          Click{" "}
+                          <span className="font-bold">CourseNetworking</span>
+                        </p>
+                        <Image
+                          src="/cn.png"
+                          width={300}
+                          height={200}
+                          alt="Student Resource Backpack"
+                          className="mx-auto rounded-md w-28 h-28 md:hidden flex"
+                        />
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex flex-row items-center gap-3">
                         <div className="flex min-h-7 min-w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
                           3
                         </div>
                         <p>
-                          Click {"COURSES"}... and select{" "}
-                          {"Student Resource Backpack"} to access your
-                          onboarding materials.
+                          Click <span className="font-bold">Courses</span> and
+                          then select{" "}
+                          <span className="font-bold">
+                            Student Resource Backpack
+                          </span>{" "}
+                          to access your onboarding materials.
                         </p>
                       </div>
+                      <Image
+                        src="/srb.png"
+                        width={300}
+                        height={200}
+                        alt="Student Resource Backpack"
+                        className="mx-auto rounded-md w-full h-auto md:hidden flex"
+                      />
                     </div>
-                    <div className="rounded-lg border bg-muted/50 p-4 flex flex-col gap-4">
+                    <div className="rounded-lg border bg-muted/50 p-4 md:flex hidden flex-col gap-4">
                       <Image
                         src="/cn.png"
                         width={300}
@@ -725,44 +745,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-
-                {/* <div className="rounded-lg border p-4">
-                  <h4 className="mb-2 font-medium">
-                    Whats in your Student Resource Backpack?
-                  </h4>
-                  <ul className="grid gap-2 sm:grid-cols-2">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <span>Student Handbook</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <span>Academic Calendar</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <span>Course Materials</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <span>Important Contacts</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <span>Campus Resources</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <span>Student Support Services</span>
-                    </li>
-                  </ul>
-                </div> */}
               </CardContent>
-              {/* <CardFooter>
-                <Button className="w-full">Go to CourseNetworking</Button>
-              </CardFooter> */}
-              {/*             </Card>
-               */}{" "}
               <CardFooter className="flex flex-col gap-4">
                 <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
                   <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
@@ -1013,7 +996,8 @@ export default function Home() {
                         welcome email from UNITAR.
                       </p>
                       <p className="mt-2 text-sm text-muted-foreground">
-                        NOTE: If you are unable to find the welcome email, email
+                        NOTE: If you are unable to find the{" "}
+                        <span className="font-bold">welcome email</span>, email
                         to admission@unitar.my.
                       </p>
                     </AccordionContent>
@@ -1155,8 +1139,8 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full border-t bg-background py-6">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+      <footer className="w-full border-t bg-background py-6 mx-auto">
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row mx-auto">
           <p className="text-center text-sm text-muted-foreground md:text-left">
             &copy; {new Date().getFullYear()} UNITAR International University.
             All rights reserved.
