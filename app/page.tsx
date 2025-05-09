@@ -473,10 +473,10 @@ export default function Home() {
                               width={300}
                               height={200}
                               alt="MFA Setup"
-                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2 md:hidden flex"
                             />
                           </li>
-                          <li className="flex flex-col gap-2 w-fit items-start">
+                          <li className="flex flex-col gap-2 w-fit items-start justify-start">
                             <p>
                               d. Select{" "}
                               <span className="font-bold">
@@ -490,7 +490,7 @@ export default function Home() {
                               width={300}
                               height={200}
                               alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
                             />
                           </li>
                           <li className="flex flex-col gap-2 w-fit items-start">
@@ -503,7 +503,7 @@ export default function Home() {
                               width={300}
                               height={200}
                               alt="MFA Setup"
-                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                              className="mx-auto rounded-md w-54 h-auto md:hidden flex"
                             />
                           </li>
                           <li className="flex flex-col gap-2 w-fit items-start">
@@ -516,7 +516,7 @@ export default function Home() {
                               width={300}
                               height={200}
                               alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto lg:col-span-2"
+                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
                             />
                           </li>
                           <li className="flex flex-col gap-2 w-fit items-start">
@@ -531,7 +531,7 @@ export default function Home() {
                               width={300}
                               height={200}
                               alt="MFA Setup"
-                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                              className="mx-auto rounded-md w-54 h-auto md:hidden flex"
                             />
                           </li>
                           <li className="flex flex-col gap-2 w-fit items-start">
@@ -543,7 +543,7 @@ export default function Home() {
                               width={300}
                               height={200}
                               alt="MFA Setup"
-                              className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
+                              className="mx-auto rounded-md w-54 h-auto md:hidden flex"
                             />
                           </li>
                         </ol>
