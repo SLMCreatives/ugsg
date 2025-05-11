@@ -1159,8 +1159,8 @@ export default function Home() {
                   <p className="font-medium">WhatsApp</p>
                 </div>
                 <p className="mt-4 text-center text-sm text-muted-foreground">
-                  Butiran hubungan WhatsApp tersedia dalam Emel "Welcome"
-                  yangdihantar ke emel peribadi anda.
+                  Butiran hubungan WhatsApp tersedia dalam Emel "Welcome" yang
+                  dihantar ke emel peribadi anda.
                 </p>
               </CardContent>
             </Card>
