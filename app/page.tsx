@@ -129,25 +129,34 @@ export default function Home() {
         id="start"
       >
         <Tabs defaultValue="account-setup" className="w-full">
-          <TabsList className="flex flex-row flex-wrap lg:justify-around justify-around w-full h-fit sticky top-20">
+          <TabsList className="lg:flex flex-row flex-wrap grid grid-cols-2 lg:justify-around justify-around w-full h-fit sticky top-2 z-50 bg-gray-200 gap-x-4">
             <TabsTrigger
               value="account-setup"
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 justify-between py-2"
             >
-              <Shield className="h-4 w-4" />
               <span>Account Setup</span>
+              <Shield className="h-4 w-4" />
             </TabsTrigger>
-            <TabsTrigger value="materials" className="flex items-center gap-2">
-              <BookOpen className="h-4 w-4" />
+            <TabsTrigger
+              value="materials"
+              className="flex items-center gap-2 justify-between py-2"
+            >
               <span>Onboarding Materials</span>
+              <BookOpen className="h-4 w-4" />
             </TabsTrigger>
-            <TabsTrigger value="checklist" className="flex items-center gap-2">
-              <CheckSquare className="h-4 w-4" />
+            <TabsTrigger
+              value="checklist"
+              className="flex items-center gap-2 justify-between py-2"
+            >
               <span>Checklist</span>
+              <CheckSquare className="h-4 w-4" />
             </TabsTrigger>
-            <TabsTrigger value="faqs" className="flex items-center gap-2">
-              <HelpCircle className="h-4 w-4" />
+            <TabsTrigger
+              value="faqs"
+              className="flex items-center gap-2 justify-between py-2"
+            >
               <span>FAQs</span>
+              <HelpCircle className="h-4 w-4" />
             </TabsTrigger>
           </TabsList>
 
