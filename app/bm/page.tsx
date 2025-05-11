@@ -461,32 +461,34 @@ export default function Home() {
                                 width={500}
                                 height={500}
                                 alt="Microsoft Authenticator App"
-                                className="mx-auto w-24 h-auto shadow-md rounded-xl"
+                                className="mx-auto w-24 h-auto drop-shadow-lg rounded-xl"
                               />
-                              <Link
-                                href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458"
-                                target="_blank"
-                              >
-                                <Image
-                                  src="/appstore.png"
-                                  width={500}
-                                  height={500}
-                                  alt="App Store"
-                                  className="mx-auto w-32 h-auto drop-shadow-sm"
-                                />
-                              </Link>
-                              <Link
-                                href="https://play.google.com/store/apps/details?id=com.azure.authenticator&pli=1"
-                                target="_blank"
-                              >
-                                <Image
-                                  src="/gplay.png"
-                                  width={500}
-                                  height={500}
-                                  alt="App Store"
-                                  className="mx-auto w-32 h-auto drop-shadow-md"
-                                />
-                              </Link>
+                              <div className="flex flex-col lg:flex-row">
+                                <Link
+                                  href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458"
+                                  target="_blank"
+                                >
+                                  <Image
+                                    src="/appstore.png"
+                                    width={500}
+                                    height={500}
+                                    alt="App Store"
+                                    className="mx-auto w-32 h-auto drop-shadow-sm"
+                                  />
+                                </Link>
+                                <Link
+                                  href="https://play.google.com/store/apps/details?id=com.azure.authenticator&pli=1"
+                                  target="_blank"
+                                >
+                                  <Image
+                                    src="/gplay.png"
+                                    width={500}
+                                    height={500}
+                                    alt="App Store"
+                                    className="mx-auto w-32 h-auto drop-shadow-md"
+                                  />
+                                </Link>
+                              </div>
                             </div>
                             <p className="italic text-sm flex flex-row gap-2 items-center">
                               Pilihan MFA alternatif di bawah{" "}
