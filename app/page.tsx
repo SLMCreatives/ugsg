@@ -767,7 +767,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
-                  <Card className="flex flex-row lg:flex-col  items-center justify-center">
+                  <Card className="flex flex-col  items-center justify-center">
                     <CardHeader>
                       <CardTitle className="flex flex-row gap-8 items-center justify-center">
                         <div className="mx-auto mb-4 flex min-h-12 min-w-12 items-center justify-center rounded-full bg-primary/10">
@@ -785,13 +785,13 @@ export default function Home() {
                         </div>
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="flex p-0 pr-6 items-center justify-center">
+                    <CardContent className="flex items-center justify-center">
                       <Image
                         src="/osc.png"
                         width={300}
                         height={300}
                         alt="One Stop Centre"
-                        className="mx-auto rounded-md w-64 h-auto"
+                        className="mx-auto rounded-md w-32 h-auto"
                       />
                     </CardContent>
                   </Card>
