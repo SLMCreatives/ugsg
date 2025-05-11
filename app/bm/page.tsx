@@ -268,7 +268,7 @@ export default function Home() {
                       2
                     </div>
                     <h3 className="text-xl font-semibold">
-                      Sediakan E-mel Sandaran Anda
+                      Sediakan Emel Sandaran Anda
                     </h3>
                   </div>
                   <div className="ml-11 space-y-4">
@@ -1051,7 +1051,7 @@ export default function Home() {
                     </AccordionTrigger>
                     <AccordionContent>
                       <p>
-                        Semak e-mel peribadi anda (peti masuk atau spam) untuk
+                        Semak emel peribadi anda (peti masuk atau spam) untuk
                         emel "Welcome" dari UNITAR.
                       </p>
                       <p className="mt-2 text-sm text-muted-foreground">
@@ -1186,7 +1186,7 @@ export default function Home() {
                 </div>
                 <p className="mt-4 text-center text-sm text-muted-foreground">
                   Untuk urusan segera atau jika anda tidak boleh mengakses One
-                  Stop Center, sila e-mel terus kepada kami.
+                  Stop Center, sila emel terus kepada kami.
                 </p>
               </CardContent>
               <CardFooter>
