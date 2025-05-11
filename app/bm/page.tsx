@@ -101,6 +101,12 @@ export default function Home() {
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
+                <Link href="/orientation/bm">
+                  <Button size="sm" className="gap-1.5" variant="outline">
+                    Agenda Orientasi
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <AlertCircle className="h-8 w-8 text-amber-500" />
