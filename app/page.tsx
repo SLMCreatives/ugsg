@@ -141,7 +141,7 @@ export default function Home() {
               value="materials"
               className="flex items-center gap-2 justify-between py-2"
             >
-              <span>Onboarding Materials</span>
+              <span>Materials</span>
               <BookOpen className="h-4 w-4" />
             </TabsTrigger>
             <TabsTrigger
