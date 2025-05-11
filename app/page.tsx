@@ -139,7 +139,7 @@ export default function Home() {
             </TabsTrigger>
             <TabsTrigger value="materials" className="flex items-center gap-2">
               <BookOpen className="h-4 w-4" />
-              <span>Materials</span>
+              <span>Onboarding Materials</span>
             </TabsTrigger>
             <TabsTrigger value="checklist" className="flex items-center gap-2">
               <CheckSquare className="h-4 w-4" />
