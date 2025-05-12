@@ -16,6 +16,7 @@ import {
 import Conventional from "@/components/oris/conventional";
 import Online from "@/components/oris/online";
 import { useState } from "react";
+import ConventionalENG from "@/components/oris/eng_c";
 
 export default function OrientationDetails() {
   const [orient, serOrient] = useState("conventional");
@@ -104,7 +105,7 @@ export default function OrientationDetails() {
       </section>
 
       {/* Conventional Orientation Section */}
-      {orient === "conventional" && <Conventional />}
+      {orient === "conventional" && <ConventionalENG />}
 
       {/* Online Orientation Section */}
       {orient === "online" && <Online />}

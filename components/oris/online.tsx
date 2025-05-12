@@ -1,6 +1,15 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
-import { FileText, DownloadIcon } from "lucide-react";
+import {
+  FileText,
+  DownloadIcon,
+  CalendarCheck,
+  ChevronDownCircle,
+  ClockIcon,
+  MapPin,
+  Laptop
+} from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -27,7 +36,7 @@ export default function Online() {
             Online Orientation
           </CardTitle>
           <CardDescription>
-            Information for students attending virtual orientation sessions
+            Information for students attending online orientation sessions
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -47,12 +56,6 @@ export default function Online() {
             <TabsContent value="ug-english" className="mt-6 space-y-8">
               {/* Orientation Agenda */}
               <div className="space-y-4">
-                <div className="flex flex-row items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-6 w-6 text-primary" />
-                    <h3 className="text-xl font-semibold">Agenda</h3>
-                  </div>
-                </div>
                 <Tabs defaultValue="orientation-english" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                     <TabsTrigger value="orientation-english">
@@ -66,46 +69,110 @@ export default function Online() {
                     value="orientation-english"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">English Orientation</p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_ug_en.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Undergraduate Orientation - Online (ENG)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          For Certificate, Foundation, Diploma & Bachelor's
+                          students
+                        </p>
                       </div>
-                      <Image
-                        src="/agenda/o_ug_en.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 May 2025</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">8:45 am - 1:00 pm</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">Microsoft Teams (Online)</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Orientation Schedule
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_ug_en.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_ug_en.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Download Schedule
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                   <TabsContent
                     value="orientation-bm"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">
-                          Sesi Orientasi Bahasa Melayu
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Undergraduate Orientation - Online (BM)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          For Certificate, Foundation, Diploma & Bachelor's
+                          students
                         </p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_ug_bm.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
                       </div>
-                      <Image
-                        src="/agenda/o_ug_bm.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 May 2025</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">1:30 pm - 5:30 pm</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">Microsoft Teams (Online)</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Orientation Schedule
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_ug_bm.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_ug_bm.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Download Schedule
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                 </Tabs>
@@ -122,12 +189,6 @@ export default function Online() {
             <TabsContent value="pg-english" className="mt-6 space-y-8">
               {/* Orientation Agenda */}
               <div className="space-y-4">
-                <div className="flex flex-row items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-6 w-6 text-primary" />
-                    <h3 className="text-xl font-semibold">Agenda</h3>
-                  </div>
-                </div>
                 <Tabs defaultValue="orientation-english" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                     <TabsTrigger value="orientation-english">
@@ -141,46 +202,108 @@ export default function Online() {
                     value="orientation-english"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">English Onboarding</p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_pg_en.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Postgraduate Orientation - Online (ENG)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          For Master's & Doctorate students
+                        </p>
                       </div>
-                      <Image
-                        src="/agenda/o_pg_en.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 May 2025 (Saturday)</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">10:00 am - 12:45 pm</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">Microsoft Teams (Online)</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Orientation Schedule
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_pg_en.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_pg_en.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Download Schedule
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                   <TabsContent
                     value="orientation-bm"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">
-                          Sesi Orientasi Bahasa Melayu
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Postgraduate Orientation - Online (BM)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          For Master's & Doctorate students
                         </p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_pg_bm.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
                       </div>
-                      <Image
-                        src="/agenda/o_pg_bm.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 May 2025 (Saturday)</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">1:30 pm - 4:30 pm</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">Microsoft Teams (Online)</p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Orientation Schedule
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_pg_bm.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_pg_bm.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Download Schedule
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                 </Tabs>

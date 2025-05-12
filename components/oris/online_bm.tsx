@@ -1,6 +1,15 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
-import { FileText, DownloadIcon } from "lucide-react";
+import {
+  FileText,
+  DownloadIcon,
+  CalendarCheck,
+  ChevronDownCircle,
+  ClockIcon,
+  MapPin,
+  Laptop
+} from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -10,9 +19,10 @@ import {
   CardContent
 } from "../ui/card";
 import Orvideo from "./orvideo";
+import Osupport from "./osupport";
+import MsteamsLink from "./teamslink";
 import Image from "next/image";
 import Link from "next/link";
-import MsteamsLinkBM from "./teamslink_bm";
 
 export default function OnlineBM() {
   return (
@@ -26,7 +36,7 @@ export default function OnlineBM() {
             Orientasi Atas Talian
           </CardTitle>
           <CardDescription>
-            Maklumat untuk pelajar yang menghadiri sesi orientasi atas talian
+            Maklumat untuk pelajar yang menghadiri sesi orientasi atas talian{" "}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -46,72 +56,136 @@ export default function OnlineBM() {
             <TabsContent value="ug-english" className="mt-6 space-y-8">
               {/* Orientation Agenda */}
               <div className="space-y-4">
-                <div className="flex flex-row items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-6 w-6 text-primary" />
-                    <h3 className="text-xl font-semibold">Agenda</h3>
-                  </div>
-                </div>
-                <Tabs defaultValue="orientation-bm" className="w-full">
+                <Tabs defaultValue="orientation-english" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+                    <TabsTrigger value="orientation-english">
+                      Bahasa Inggeris
+                    </TabsTrigger>
                     <TabsTrigger value="orientation-bm">
                       Bahasa Melayu
-                    </TabsTrigger>
-                    <TabsTrigger value="orientation-english">
-                      English
                     </TabsTrigger>
                   </TabsList>
                   <TabsContent
                     value="orientation-english"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">English Orientation</p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_ug_en.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Orientasi Atas Talian - Prasiswazah (ENG)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          Bagi pelajar Sijil, Asasi, Diploma dan Ijazah Muda.
+                        </p>
                       </div>
-                      <Image
-                        src="/agenda/o_ug_en.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 Mei 2025 (Sabtu)</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          8:45 pagi - 1:00 tengahari
+                        </p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          Microsoft Teams (Atas Talian)
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Jadual Orientasi
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_ug_en.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_ug_en.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Muat Turun Jadual
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                   <TabsContent
                     value="orientation-bm"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">
-                          Sesi Orientasi Bahasa Melayu
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Orientasi Atas Talian - Prasiswazah (BM)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          Bagi pelajar Sijil, Asasi, Diploma dan Ijazah Muda.
                         </p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_ug_bm.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
                       </div>
-                      <Image
-                        src="/agenda/o_ug_bm.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 Mei 2025 (Sabtu)</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          1:30 tengahari - 5:30 petang
+                        </p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          Microsoft Teams (Atas Talian)
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Jadual Orientasi
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_ug_bm.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_ug_bm.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Muat Turun Jadual
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                 </Tabs>
               </div>
 
               {/* M.Teams Links */}
-              <MsteamsLinkBM />
+              <MsteamsLink />
 
               {/* Online Readiness Video */}
               <Orvideo />
@@ -121,72 +195,136 @@ export default function OnlineBM() {
             <TabsContent value="pg-english" className="mt-6 space-y-8">
               {/* Orientation Agenda */}
               <div className="space-y-4">
-                <div className="flex flex-row items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-6 w-6 text-primary" />
-                    <h3 className="text-xl font-semibold">Agenda</h3>
-                  </div>
-                </div>
-                <Tabs defaultValue="orientation-bm" className="w-full">
+                <Tabs defaultValue="orientation-english" className="w-full">
                   <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+                    <TabsTrigger value="orientation-english">
+                      Bahasa Inggeris
+                    </TabsTrigger>
                     <TabsTrigger value="orientation-bm">
                       Bahasa Melayu
-                    </TabsTrigger>
-                    <TabsTrigger value="orientation-english">
-                      English
                     </TabsTrigger>
                   </TabsList>
                   <TabsContent
                     value="orientation-english"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">English Onboarding</p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_pg_en.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Orientasi Atas Talian - Pascasiswazah (ENG)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          Bagi pelajar Sarjana & Doktor Falsafah
+                        </p>
                       </div>
-                      <Image
-                        src="/agenda/o_pg_en.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 Mei 2025 (Sabtu)</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          10:00 pagi - 12:45 tengahari
+                        </p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          Microsoft Teams (Atas Talian)
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Jadual Orientasi
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_pg_en.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_pg_en.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Muat Turun Jadual
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                   <TabsContent
                     value="orientation-bm"
                     className="mt-6 space-y-8"
                   >
-                    <div className="flex flex-col gap-2">
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-bold">
-                          Sesi Orientasi Bahasa Melayu
+                    <div className="flex flex-col gap-3 bg-gray-100 p-4 rounded-lg">
+                      <div className="flex flex-col gap-0">
+                        <h3 className="text-xl font-semibold">
+                          Orientasi Atas Talian - Pascasiswazah (BM)
+                        </h3>
+                        <p className="italic text-sm text-muted-foreground">
+                          Bagi pelajar Sarjana & Doktor Falsafah
                         </p>
-                        <Button variant="default" className="gap-1.5" size="sm">
-                          <Link href="/agenda/o_pg_bm.jpg" target="_blank">
-                            <DownloadIcon className="h-4 w-4" />
-                          </Link>
-                        </Button>
                       </div>
-                      <Image
-                        src="/agenda/o_pg_bm.jpg"
-                        alt="Conventional Orientation Agenda"
-                        width={500}
-                        height={500}
-                        className="w-full h-auto object-contain rounded-lg"
-                      />
+                      <div className="flex flex-row gap-4">
+                        <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">17 Mei 2025 (Sabtu)</p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          1:30 tengahari - 4:30 petang
+                        </p>
+                      </div>
+                      <div className="flex flex-row gap-4">
+                        <Laptop className="min-h-6 min-w-6 text-yellow-600" />
+                        <p className="text-primary">
+                          Microsoft Teams (Atas Talian)
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <h4 className="italic pt-4 flex flex-row gap-4 items-center justify-center">
+                        Jadual Orientasi
+                        <ChevronDownCircle className="h-5 w-5 text-muted-foreground" />
+                      </h4>
+                      <Link
+                        href="/agenda/o_pg_bm.jpg"
+                        target="_blank"
+                        className="w-full flex flex-col gap-4"
+                      >
+                        <Image
+                          src="/agenda/o_pg_bm.jpg"
+                          alt="Conventional Orientation Agenda"
+                          width={500}
+                          height={500}
+                          className="w-full h-auto object-contain rounded-lg ring-1 ring-gray-800 drop-shadow-sm hover:drop-shadow-lg transition-all duration-200 ease-in-out"
+                        />
+
+                        <Button
+                          variant="outline"
+                          className="gap-1.5 w-full"
+                          size="sm"
+                        >
+                          <DownloadIcon className="h-4 w-4" /> Muat Turun Jadual
+                        </Button>
+                      </Link>
                     </div>
                   </TabsContent>
                 </Tabs>
               </div>
 
               {/* M.Teams Links */}
-              <MsteamsLinkBM />
+              <MsteamsLink />
 
               {/* Online Readiness Video */}
               <Orvideo />

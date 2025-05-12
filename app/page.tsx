@@ -51,7 +51,7 @@ export default function Home() {
               width={40}
               height={40}
               alt="UNITAR Logo"
-              className="mr-2 w-36 h-28 rounded-full object-cover"
+              className="mr-2 w-36 h-24 rounded-full object-cover"
             />
             <span className="hidden font-bold sr-only sm:inline-block">
               UNITAR International University
@@ -59,15 +59,15 @@ export default function Home() {
           </div>
           <nav className="flex flex-1 items-center justify-end space-x-4">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="#help">Help & Support</Link>
+              <Link href="#help">Bantuan</Link>
             </Button>
-            <Link href="/bm">
+            <Link href="/eng">
               <Button size="sm" variant="ghost" className="p-0 font-bold">
                 <Image
-                  src="/mal.png"
+                  src="/eng.png"
                   width={20}
                   height={20}
-                  alt="Bahasa Malaysia"
+                  alt="English"
                   className="w-auto max-h-6"
                 />
               </Button>
@@ -83,27 +83,27 @@ export default function Home() {
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                  Welcome to UNITAR International University
+                  Selamat Datang ke Universiti Antarabangsa UNITAR
                 </h1>
                 <h2 className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none">
-                  Let's Get You Started!
+                  Mari Mulakan Orientasi Anda!
                 </h2>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                  Find out what you need to do to activate your student account,
-                  access your courses, and basically get a great head-start on
-                  your learning journey with UNITAR!
+                  Ketahui perkara yang anda perlu lakukan untuk mengaktifkan
+                  akaun pelajar, akses kursus anda, dan dapatkan permulaan yang
+                  hebat bersama UNITAR!
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Link href="#start">
                   <Button size="sm" className="gap-1.5">
-                    Start My Orientation
+                    Mulakan Orientasi Saya
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="/orientation">
+                <Link href="/orientation/bm">
                   <Button size="sm" className="gap-1.5" variant="outline">
-                    Orientation Agenda
+                    Agenda Orientasi
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
@@ -111,10 +111,10 @@ export default function Home() {
               <div className="flex items-center gap-2 text-sm">
                 <AlertCircle className="h-8 w-8 text-amber-500" />
                 <p className="font-medium">
-                  Before you start, check your{" "}
-                  <span className="font-bold">personal email</span> for your{" "}
-                  <span className="font-bold">Matric Number</span> and{" "}
-                  <span className="font-bold">Default Password.</span>
+                  Sebelum bermula, pastikan anda dapat{" "}
+                  <span className="font-bold">Nombor Matrik</span> dan{" "}
+                  <span className="font-bold">Kata Laluan Lalai</span> daripada{" "}
+                  <span className="font-bold">emel peribadi</span> anda.
                 </p>
               </div>
             </div>
@@ -140,28 +140,28 @@ export default function Home() {
               value="account-setup"
               className="flex items-center gap-2 justify-between py-2"
             >
-              <span>Account Setup</span>
+              <span>Persediaan Akaun</span>
               <Shield className="h-4 w-4" />
             </TabsTrigger>
             <TabsTrigger
               value="materials"
               className="flex items-center gap-2 justify-between py-2"
             >
-              <span>Materials</span>
+              <span>Bahan Pengajian</span>
               <BookOpen className="h-4 w-4" />
             </TabsTrigger>
             <TabsTrigger
               value="checklist"
               className="flex items-center gap-2 justify-between py-2"
             >
-              <span>Checklist</span>
+              <span>Senarai Semak</span>
               <CheckSquare className="h-4 w-4" />
             </TabsTrigger>
             <TabsTrigger
               value="faqs"
               className="flex items-center gap-2 justify-between py-2"
             >
-              <span>FAQs</span>
+              <span>Soalan Lazim</span>
               <HelpCircle className="h-4 w-4" />
             </TabsTrigger>
           </TabsList>
@@ -170,10 +170,11 @@ export default function Home() {
           <TabsContent value="account-setup" className="mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Set Up Your Student Account</CardTitle>
+                <CardTitle>Sediakan Akaun Pelajar Anda</CardTitle>
                 <CardDescription>
-                  Follow these steps to set up your UNITAR student account and
-                  secure it with Multi-Factor Authentication (MFA).
+                  Ikuti langkah berikutnya untuk sediakan akaun pelajar UNITAR
+                  anda dan selamatkannya dengan Multi-Factor Authentication
+                  (MFA).
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-8">
@@ -184,7 +185,7 @@ export default function Home() {
                       1
                     </div>
                     <h3 className="text-xl font-semibold">
-                      Login to Student Dashboard
+                      Log masuk ke Dashboard Pelajar
                     </h3>
                   </div>
                   <div className="ml-11 space-y-4">
@@ -193,9 +194,9 @@ export default function Home() {
                         <ul className="ml-6 list-disc space-y-2">
                           <li>
                             <p>
-                              Go to{" "}
+                              Pergi ke{" "}
                               <span className="font-bold">
-                                UNITAR's Login Page
+                                Halaman Log Masuk UNITAR
                               </span>
                               :{" "}
                             </p>
@@ -222,34 +223,34 @@ export default function Home() {
                             />
                           </li>
                           <li className="space-y-2 pt-2">
-                            <p>Key in Your Login Details:</p>
+                            <p>Masukkan Butiran Log Masuk Anda:</p>
                             <div className="p-4 bg-black text-white text-sm rounded-lg space-y-2">
                               <p className="font-bold">Username:</p>
                               <p className="text-red-500 font-bold bg-gray-100 text-center py-2 rounded-sm">
-                                Your Matric Number
+                                Nombor Matrik anda
                               </p>
                               <p className="italic text-gray-200 text-xs text-center">
-                                eg. [ MC2301XXXXX ]
+                                Contoh. [ MC2301XXXXX ]
                               </p>
                               <p className="font-bold pt-4">
                                 Default Password:
                               </p>
                               <div className="flex flex-row gap-2 justify-center w-full items-center text-balance">
                                 <p className="text-red-500 font-bold bg-gray-100 text-center py-2 rounded-sm w-full">
-                                  Last 4 digits of Matric No
+                                  4 digit terakhir Nombor Matrik
                                 </p>{" "}
                                 +{" "}
                                 <p className="text-red-500 font-bold bg-gray-100 text-center py-2 rounded-sm w-full">
-                                  Last 4 digits of IC/Passport No
+                                  4 digit terakhir Nombor Kad Pengenalan/Pasport
                                 </p>
                               </div>
                               <p className="italic text-gray-200 text-center text-xs">
-                                eg. [ 77993883 ]
+                                Contoh. [ 77993883 ]
                               </p>
                             </div>
                           </li>
                           <li className="pt-4">
-                            Click <span className="font-bold">Login</span>
+                            Tekan <span className="font-bold">"Login"</span>
                           </li>
                         </ul>
                       </div>
@@ -273,27 +274,29 @@ export default function Home() {
                       2
                     </div>
                     <h3 className="text-xl font-semibold">
-                      Provide Your Backup Email
+                      Sediakan Emel Sandaran Anda
                     </h3>
                   </div>
                   <div className="ml-11 space-y-4">
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
                         <p>
-                          This is a{" "}
-                          <span className="font-bold">One-Time Action</span>{" "}
-                          (prompted by Microsoft)
+                          Ini adalah{" "}
+                          <span className="font-bold">Tindakan Sekali</span>{" "}
+                          (Digesa oleh Microsoft)
                         </p>
                         <ul className="ml-6 list-disc space-y-2">
                           <li>
-                            Enter your{" "}
+                            Masukan{" "}
                             <span className="font-bold text-red-500">
-                              Personal Email - TWICE!
+                              Emel Peribadi Anda - DUA KALI!
                             </span>
                           </li>
                           <li>
-                            Click{" "}
-                            <span className="font-bold">Add/Change Email</span>
+                            Tekan{" "}
+                            <span className="font-bold">
+                              "Add/Change Email"
+                            </span>
                           </li>
                         </ul>
                         <Image
@@ -324,7 +327,7 @@ export default function Home() {
                       3
                     </div>
                     <h3 className="text-xl font-semibold">
-                      Set Up Your Student Account
+                      Sediakan Akaun Pelajar Anda
                     </h3>
                   </div>
                   <div className="ml-11 space-y-4">
@@ -332,14 +335,17 @@ export default function Home() {
                       <div className="space-y-2">
                         <div className="flex flex-row gap-4 items-center">
                           <p>
-                            On your{" "}
-                            <span className="font-bold">Student Dashboard</span>
+                            Dalam{" "}
+                            <span className="font-bold">
+                              "Student Dashboard"
+                            </span>{" "}
+                            anda
                           </p>
                         </div>
                         <ol className="ml-6 list-none space-y-6 ">
                           <li className="flex flex-col gap-2 w-fit items-start">
                             <p>
-                              a. Click{" "}
+                              a. Tekan{" "}
                               <span className="font-bold">Office 365</span>
                             </p>
                             <Image
@@ -352,11 +358,12 @@ export default function Home() {
                           </li>
                           <li className="flex flex-col gap-2 w-fit items-start">
                             <p>
-                              b. Key in your{" "}
+                              b. Masukkan{" "}
                               <span className="font-bold uppercase text-red-500">
-                                STUDENT EMAIL.
+                                EMEL PELAJAR
                               </span>{" "}
-                              Then click <span className="font-bold">Next</span>
+                              anda. Lepas itu, tekan{" "}
+                              <span className="font-bold">"Next"</span>
                             </p>
                             <Image
                               src="/mfa1.png"
@@ -368,12 +375,12 @@ export default function Home() {
                           </li>
                           <li className="flex flex-col gap-2 w-fit items-start">
                             <p>
-                              c. Key in your{" "}
+                              c. Masukkan{" "}
                               <span className="font-bold uppercase text-red-500">
-                                PASSWORD.
+                                KATA LALUAN
                               </span>{" "}
-                              Then click{" "}
-                              <span className="font-bold">Sign In</span>
+                              anda. Lepas itu, tekan{" "}
+                              <span className="font-bold">"Sign In"</span>
                             </p>
                             <Image
                               src="/mfa2-password.png"
@@ -385,8 +392,9 @@ export default function Home() {
                           </li>
                           <li className="flex flex-col gap-2 w-fit items-start justify-start">
                             <p>
-                              d. Click <span className="font-bold">Next</span>{" "}
-                              (More information required to secure your account)
+                              d. Tekan <span className="font-bold">"Next"</span>{" "}
+                              (Maklumat lanjut diperlukan untuk melindungi akaun
+                              anda){" "}
                             </p>
                             <Image
                               src="/mfa3.png"
@@ -440,7 +448,7 @@ export default function Home() {
                       4
                     </div>
                     <h3 className="text-xl font-semibold">
-                      Secure Your Account - MFA Setup
+                      Lindungi Akaun Anda - Persediaan MFA
                     </h3>
                   </div>
                   <div className="ml-11 space-y-4">
@@ -448,11 +456,11 @@ export default function Home() {
                       <div className="space-y-2">
                         <ol className="ml-6 list-none space-y-6">
                           <li className="space-y-2 w-fit items-start">
-                            a. Install{" "}
+                            a. Muat turun dan pasang{" "}
                             <span className="font-bold">
-                              Microsoft Authenticator
+                              "Microsoft Authenticator"
                             </span>{" "}
-                            on your device (iOS or Android)
+                            pada peranti anda (iOS atau Android).
                             <div className="w-fit flex flex-row gap-4 items-center py-2">
                               <Image
                                 src="/mauthlogo.png"
@@ -489,20 +497,22 @@ export default function Home() {
                               </div>
                             </div>
                             <p className="italic text-sm flex flex-row gap-2 items-center">
-                              Alternative MFA options below{" "}
+                              Pilihan MFA alternatif di bawah{" "}
                               <ChevronDown className="h-4 w-4 text-black" />
                             </p>
                           </li>
                           <li className="space-y-2 w-fit items-start">
-                            b. Open the app and allow Microsoft Authenticator to{" "}
+                            b. Buka app dan benarkan Microsoft Authenticator{" "}
                             <span className="font-bold">
-                              access your Camera.
+                              mengakses Kamera anda.
                             </span>
                           </li>
                           <li className="space-y-2 w-fit items-start">
                             <p>
-                              c. Click{" "}
-                              <span className="font-bold">Add Account (+)</span>
+                              c. Tekan{" "}
+                              <span className="font-bold">
+                                "Add Account (+)"
+                              </span>
                             </p>
                             <Image
                               src="/mauth2.png"
@@ -514,12 +524,12 @@ export default function Home() {
                           </li>
                           <li className="space-y-2 w-fit items-start justify-start">
                             <p>
-                              d. Select{" "}
+                              d. Pilih{" "}
                               <span className="font-bold">
-                                Work or School Account
+                                "Work or School Account"
                               </span>
-                              , then choose{" "}
-                              <span className="font-bold">Scan QR code</span>
+                              , kemudian pilih{" "}
+                              <span className="font-bold">"Scan QR code"</span>
                             </p>
                             <Image
                               src="/mfad.png"
@@ -531,8 +541,8 @@ export default function Home() {
                           </li>
                           <li className="space-y-2 w-fit items-start">
                             <p>
-                              e. Click the registered account that is{" "}
-                              <span className="font-bold">displayed</span>.
+                              e. Klik akaun berdaftar yang{" "}
+                              <span className="font-bold">dipaparkan</span>.
                             </p>
                             <Image
                               src="/mfae.png"
@@ -544,8 +554,8 @@ export default function Home() {
                           </li>
                           <li className="space-y-2 w-fit items-start">
                             <p>
-                              f. Enter the number displayed into the
-                              authenticator.
+                              f. Masukkan nombor yang dipaparkan ke dalam
+                              pengesah.
                             </p>
                             <Image
                               src="/mfaf.png"
@@ -556,9 +566,9 @@ export default function Home() {
                             />
                           </li>
                           <li className="space-y-2 w-fit items-start">
-                            g. If the setup is successful, you will receive the
-                            following confirmation. Click{" "}
-                            <span className="font-bold">Next</span>
+                            g. Jika persediaan berjaya, anda akan menerima
+                            pengesahan berikutan. Tekan{" "}
+                            <span className="font-bold">"Next"</span>
                             <p className="font-bold flex flex-row gap-2 items-center py-2">
                               <CheckCircle2 className="h-4 w-4 text-green-500" />{" "}
                               Notification Approved
@@ -574,8 +584,8 @@ export default function Home() {
                         </ol>
                         <div className="bg-gray-50 p-4 rounded-xl flex w-fit">
                           <p className="text-sm text-muted-background">
-                            ⚠️ Attention: Account might take 24 hours to be
-                            activated.
+                            ⚠️ Perhatian: Akaun mungkin mengambil masa 24 jam
+                            untuk dibuat diaktifkan.
                           </p>
                         </div>
                       </div>
@@ -624,35 +634,35 @@ export default function Home() {
 
                 {/* Alternative MFA */}
                 <div className="rounded-lg border bg-muted/10 p-4">
-                  <h4 className="mb-2 font-medium">Alternative MFA Options</h4>
+                  <h4 className="mb-2 font-medium">Pilihan MFA Alternatif</h4>
                   <p className="mb-2 text-sm text-muted-foreground">
-                    If you cant set up Microsoft Authenticator, you can use
-                    these alternatives:
+                    Jika anda tidak dapat menyediakan Microsoft Authenticator,
+                    anda boleh menggunakan alternatif ini:
                   </p>
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2 text-sm">
-                      <p className="font-medium">Phone Authentication:</p>
+                      <p className="font-medium">Pengesahan Telefon:</p>
                       <ul className="ml-6 list-disc space-y-1">
-                        <li>Click I want to set up a different method</li>
-                        <li>Select Phone and click Confirm</li>
-                        <li>Enter your mobile number</li>
-                        <li>Select Receive a code and follow the prompts</li>
+                        <li>Tekan "I want to set up a different method"</li>
+                        <li>Pilih "Phone" and tekan "Confirm"</li>
+                        <li>Masukkan nombor telefon bimbit anda</li>
+                        <li>
+                          Pilih "Receive a code" dan ikut arahan seterusnya.
+                        </li>
                       </ul>
                     </div>
                     <div className="space-y-2 text-sm">
-                      <p className="font-medium">For Huawei Users:</p>
+                      <p className="font-medium">Untuk Pengguna Huawei:</p>
                       <ul className="ml-6 list-disc space-y-1">
                         <li>
-                          Download the Cooper Authy app via the Huawei
+                          Muat turun applikasi "Cooper Authy" melalui Huawei
                           AppGallery
                         </li>
                         <li>
-                          Open the app and tap the + at the top right corner
+                          Buka apl dan tekan + di penjuru kanan sebelah atas
                         </li>
-                        <li>
-                          Scan the QR code at the {"Authentication"} Screen
-                        </li>
-                        <li>Enter the 6-digit code and click Submit</li>
+                        <li>Imbas kod QR di Skrin {"Authentication"}.</li>
+                        <li>Masukkan kod 6 digit dan klik "Submit"</li>
                       </ul>
                     </div>
                   </div>
@@ -661,7 +671,7 @@ export default function Home() {
               <CardFooter>
                 <Link href="#help" className="w-full">
                   <Button variant="outline" className="w-full">
-                    Need Help? Contact Support
+                    Perlukan Bantuan? Hubungi sekarang!
                   </Button>
                 </Link>
               </CardFooter>
@@ -672,13 +682,13 @@ export default function Home() {
           <TabsContent value="materials" className="mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Access Your Onboarding Materials</CardTitle>
+                <CardTitle>Akses Bahan Pengajian Anda</CardTitle>
                 <CardDescription>
-                  Learn how to access your{" "}
+                  Ketahui cara mengakses anda{" "}
                   <span className="font-bold">
                     Student Resource Backpack (SRB)
                   </span>{" "}
-                  with all your onboarding materials.
+                  dengan semua bahan onboarding anda.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -687,16 +697,16 @@ export default function Home() {
                     <AlertCircle className="mt-1 h-5 w-5 text-amber-600 dark:text-amber-500" />
                     <div>
                       <h4 className="font-medium text-amber-800 dark:text-amber-400">
-                        Important Note
+                        Nota Penting
                       </h4>
                       <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-amber-700 dark:text-amber-300">
                         <li>
-                          You will be able to access your Student Resource
-                          Backpack (SRB) on Wednesday of your Onboarding Week.
+                          Anda akan dapat mengakses "Student Resource Backpack"
+                          (SRB) pada hari Rabu Minggu Onboarding anda.
                         </li>
                         <li>
-                          For late enrollment: the SRB will be available 12 noon
-                          the following day.
+                          Untuk pendaftaran lewat: SRB akan tersedia 12 tengah
+                          hari keesokan harinya.
                         </li>
                       </ul>
                     </div>
@@ -704,7 +714,7 @@ export default function Home() {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Follow these steps:</h3>
+                  <h3 className="text-lg font-medium">Ikuti langkah ini:</h3>
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
@@ -712,7 +722,7 @@ export default function Home() {
                           1
                         </div>
                         <p>
-                          Log-in to your{" "}
+                          Log masuk ke{" "}
                           <span className="font-bold">auth.unitar.my</span>{" "}
                           dashboard.
                         </p>
@@ -722,7 +732,7 @@ export default function Home() {
                           2
                         </div>
                         <p>
-                          Click{" "}
+                          Tekan{" "}
                           <span className="font-bold">CourseNetworking</span>
                         </p>
                         <Image
@@ -738,12 +748,12 @@ export default function Home() {
                           3
                         </div>
                         <p>
-                          Click <span className="font-bold">Courses</span> and
-                          then select{" "}
+                          Tekan <span className="font-bold">Courses</span> dan
+                          pilih{" "}
                           <span className="font-bold">
                             Student Resource Backpack
                           </span>{" "}
-                          to access your onboarding materials.
+                          untuk mengakses bahan onboarding anda.
                         </p>
                       </div>
                       <Image
@@ -776,11 +786,11 @@ export default function Home() {
               <CardFooter className="flex flex-col gap-4 pt-10">
                 <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
                   <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-                    Having Trouble?
+                    Mengalami Masalah?
                   </h2>
                   <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-balance">
-                    If you have any CN-related queries or issues, follow these
-                    steps to get help:
+                    Jika anda mempunyai sebarang pertanyaan atau isu berkaitan
+                    CN, ikuti langkah berikutnya untuk dapatkan bantuan:
                   </p>
                 </div>
                 <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
@@ -793,11 +803,11 @@ export default function Home() {
                           </span>
                         </div>
                         <div className="flex flex-col gap-2 items-start">
-                          <p>Access One Stop Centre</p>
+                          <p>Akses "One Stop Centre"</p>
                           <p className="text-sm text-muted-foreground text-left">
-                            On your AUTH Student Dashboard, click the{" "}
-                            <span className="font-bold">One Stop Centre</span>{" "}
-                            icon.
+                            Dalam "Student Dashboard" anda, tekan icon{" "}
+                            <span className="font-bold">"One Stop Centre"</span>
+                            .
                           </p>
                         </div>
                       </CardTitle>
@@ -821,10 +831,10 @@ export default function Home() {
                           </span>
                         </div>
                         <div className="flex flex-col gap-2 items-start">
-                          <p>Select Help Topic</p>
+                          <p>Pilih Topik Bantuan</p>
                           <p className="text-sm text-muted-foreground text-left">
-                            For Help Topic, select Portal/Course/Class/Email
-                            Access.
+                            Untuk Topik Bantuan, pilih
+                            "Portal/Course/Class/Email Access.""
                           </p>
                         </div>
                       </CardTitle>
@@ -848,9 +858,10 @@ export default function Home() {
                           </span>
                         </div>
                         <div className="flex flex-col gap-2 items-start">
-                          <p>Select Sub-Topic</p>
+                          <p>Pilih Sub-Topik</p>
                           <p className="text-sm text-muted-foreground text-left">
-                            Select the Sub-Topic related to your issue/query.
+                            Pilih Sub-Topik yang berkaitan dengan isu/pertanyaan
+                            anda.
                           </p>
                         </div>
                       </CardTitle>
@@ -874,10 +885,9 @@ export default function Home() {
           <TabsContent value="checklist" className="mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Your Starting-Out Checklist</CardTitle>
+                <CardTitle>Senarai Semak Permulaan Anda</CardTitle>
                 <CardDescription>
-                  Keep track of your onboarding progress with this comprehensive
-                  checklist.
+                  Jejaki kemajuan orientasi anda dengan senarai semak ini.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -885,45 +895,45 @@ export default function Home() {
                   {/* First Semester Prep */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">
-                      Prepping for your First Semester
+                      Persediaan untuk Semester Pertama anda
                     </h3>
                     <div className="space-y-2">
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check1" className="mt-1" />
                         <label htmlFor="check1" className="text-sm">
-                          Obtain Matric Number & default password (in welcome
-                          email from UNITAR)
+                          Dapatkan Nombor Matrik & kata laluan lalai (dalam emel
+                          "Welcome" daripada UNITAR)
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check2" className="mt-1" />
                         <label htmlFor="check2" className="text-sm">
-                          Log in to your Student Dashboard (use Chrome Browser)
+                          Log masuk ke Papan Pemuka Pelajar anda
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check3" className="mt-1" />
                         <label htmlFor="check3" className="text-sm">
-                          Activate your Student Email (Office365)
+                          Aktifkan Emel Pelajar anda (Office 365){" "}
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check4" className="mt-1" />
                         <label htmlFor="check4" className="text-sm">
-                          Access Student Resource Backpack (SRB) on CN
+                          Akses Student Resource Backpack (SRB) dalam CN
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check5" className="mt-1" />
                         <label htmlFor="check5" className="text-sm">
-                          Check course(s) registered and class schedule on UNIEC
-                          Campus V2
+                          Semak kursus yang didaftarkan dan jadual kelas dalam
+                          UNIEC Campus V2
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check6" className="mt-1" />
                         <label htmlFor="check6" className="text-sm">
-                          Access course(s) on CN
+                          Akses kursus anda dalam CN
                         </label>
                       </div>
                     </div>
@@ -932,50 +942,51 @@ export default function Home() {
                   {/* During the Semester */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">
-                      During the Semester
+                      Sepanjang Semester
                     </h3>
                     <div className="space-y-2">
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check7" className="mt-1" />
                         <label htmlFor="check7" className="text-sm">
-                          Go through course materials
+                          Kaji bahan kursus
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check8" className="mt-1" />
                         <label htmlFor="check8" className="text-sm">
-                          Attend scheduled classes
+                          Hadir dalam kelas yang dijadualkan
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check9" className="mt-1" />
                         <label htmlFor="check9" className="text-sm">
-                          Complete (and submit) tasks required
+                          Selesaikan (dan serahkan) tugasan yang diperlukan{" "}
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check10" className="mt-1" />
                         <label htmlFor="check10" className="text-sm">
-                          Settle (if any) outstanding fees
+                          Selesaikan yuran tertunggak (jika ada)
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check11" className="mt-1" />
                         <label htmlFor="check11" className="text-sm">
-                          Perform course registration (on UNIEC Campus
+                          Laksanakan pendaftaran kursus (dalam UNIEC Campus
                           V2/UNIECCOLLEGE)
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check12" className="mt-1" />
                         <label htmlFor="check12" className="text-sm">
-                          Download (or print) exam slip (if applicable)
+                          Muat turun (atau cetak) slip peperiksaan (jika
+                          berkenaan)
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check13" className="mt-1" />
                         <label htmlFor="check13" className="text-sm">
-                          Sit for final exam (if applicable)
+                          Duduki peperiksaan akhir (jika berkenaan)
                         </label>
                       </div>
                     </div>
@@ -984,26 +995,26 @@ export default function Home() {
                   {/* Subsequent Semesters */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">
-                      Prepping for Subsequent Semesters
+                      Persediaan untuk Semester Seterusnya
                     </h3>
                     <div className="space-y-2">
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check14" className="mt-1" />
                         <label htmlFor="check14" className="text-sm">
-                          Check course(s) registered and class schedule on UNIEC
-                          Campus V2
+                          Semak kursus yang didaftarkan dan jadual kelas dalam
+                          UNIEC Campus V2
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check15" className="mt-1" />
                         <label htmlFor="check15" className="text-sm">
-                          Access course(s) on CN
+                          Akses kursus anda dalam CN
                         </label>
                       </div>
                       <div className="flex items-start gap-2">
                         <input type="checkbox" id="check16" className="mt-1" />
                         <label htmlFor="check16" className="text-sm">
-                          Repeat items "During the Semester"
+                          Ulang senarai dalam "Sepanjang Semester"
                         </label>
                       </div>
                     </div>
@@ -1028,10 +1039,9 @@ export default function Home() {
           <TabsContent value="faqs" className="mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Get-Started FAQs</CardTitle>
+                <CardTitle>Soalan Lazim</CardTitle>
                 <CardDescription>
-                  Find answers to commonly asked questions about getting started
-                  at UNITAR.
+                  Cari jawapan kepada soalan lazim tentang permulaan di UNITAR.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1042,94 +1052,96 @@ export default function Home() {
                 >
                   <AccordionItem value="item-1">
                     <AccordionTrigger className="font-medium text-left">
-                      How do I find my student matric ID to access UNITAR
-                      systems?
+                      Bagaimana saya boleh dapatkan Nombor Matrik pelajar saya
+                      untuk mengakses sistem UNITAR?
                     </AccordionTrigger>
                     <AccordionContent>
                       <p>
-                        Check your personal email (inbox or spam) for the
-                        welcome email from UNITAR.
+                        Semak emel peribadi anda (peti masuk atau spam) untuk
+                        emel "Welcome" dari UNITAR.
                       </p>
                       <p className="mt-2 text-sm text-muted-foreground">
-                        NOTE: If you are unable to find the{" "}
-                        <span className="font-bold">welcome email</span>, email
-                        to admission@unitar.my.
+                        NOTA: Jika anda tidak dapat{" "}
+                        <span className="font-bold">emel "Welcome:</span>,
+                        hantar emel kepada admission@unitar.my.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-2">
                     <AccordionTrigger className="font-medium text-left">
-                      How to collect my physical matric card?
+                      Bagaimana untuk mengumpul kad matrik fizikal saya?
                     </AccordionTrigger>
                     <AccordionContent>
-                      <p className="font-medium">OPTION 1:</p>
-                      <p>Drop by your UNITAR Campus to collect.</p>
-                      <p className="mt-2 font-medium">OPTION 2:</p>
+                      <p className="font-medium">PILIHAN 1:</p>
+                      <p>Singgah ke Kampus UNITAR.</p>
+                      <p className="mt-2 font-medium">PILIHAN 2:</p>
                       <p>
-                        Create a ticket (via One Stop Centre icon on your
-                        Student Dashboard) to request for your matric card to be
-                        delivered. Make sure to include your full name,
-                        passport-sized photo and mailing address.
+                        Buat tiket (melalui ikon One Stop Center pada anda
+                        Student Dashboard) untuk meminta kad matrik dihantar ke
+                        rumah anda. Pastikan anda memasukkan nama penuh anda,
+                        gambar berukuran pasport dan alamat surat menyurat.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-3">
                     <AccordionTrigger className="font-medium text-left">
-                      How do I join my (online) scheduled classes?
+                      Bagaimanakah saya boleh menyertai kelas berjadual (dalam
+                      talian) saya?
                     </AccordionTrigger>
                     <AccordionContent>
                       <p className="mb-2">
-                        NOTE: Your (online) scheduled classes will be conducted
-                        on Ms Teams. The Teams meeting button is in your course.
-                        If you have a personal/work Microsoft account, make sure
-                        you are signed in to your UNITAR Student Microsoft
-                        account.
+                        NOTA: Kelas berjadual (dalam talian) anda akan
+                        dijalankan pada Ms Teams. Butang mesyuarat Teams berada
+                        dalam kursus anda. Jika anda mempunyai akaun Microsoft
+                        peribadi/kerja, pastikan anda telah log masuk ke UNITAR
+                        Student Microsoft anda akaun.
                       </p>
                       <ol className="ml-5 list-decimal space-y-1">
-                        <li>Login to your Student Dashboard: auth.unitar.my</li>
                         <li>
-                          Click CourseNetworking &gt; Courses &gt; Scheduled
-                          Classes &gt; Link to Join Your Classes (Click the
-                          Teams Meeting button at the bottom of the page)
+                          Log masuk ke Student Dashboard: auth.unitar.my anda
+                        </li>
+                        <li>
+                          Klik "CourseNetworking" &gt; Courses &gt; Scheduled
+                          Classes &gt; Link to Join Your Classes (Klik pada
+                          Butang "Teams Meeting" di bahagian bawah halaman)
                         </li>
                       </ol>
                       <p className="mt-3 text-sm text-muted-foreground">
-                        IF you try to join a Teams session WITHOUT signing in to
-                        your UNITAR Microsoft account (skipping Step 1), you
-                        will end up:
+                        JIKA anda cuba menyertai "Teams Meeting" TANPA melog
+                        masuk akaun Microsoft UNITAR anda (melangkau Langkah 1),
+                        anda akan:
                       </p>
                       <ul className="ml-5 list-disc space-y-1 text-sm text-muted-foreground">
                         <li>
-                          Stuck in the session Lobby, waiting for someone to let
-                          you enter the room.
+                          Terperangkap di Lobi sesi, menunggu seseorang untuk
+                          membenarkan awak masuk bilik.
                         </li>
-                        <li>Joining the session as a Guest.</li>
+                        <li>Menyertai kelas sebagai tetamu.</li>
                       </ul>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="item-4">
                     <AccordionTrigger className="font-medium text-left">
-                      Is it OK to join a Teams class session as a Guest?
+                      Adakah OK untuk menyertai kelas "Teams Meeting" sebagai
+                      tetamu?
                     </AccordionTrigger>
                     <AccordionContent>
                       <p className="font-medium">
-                        You are strongly advised NOT to do so. Please refer to
-                        FAQ3.
+                        Anda dinasihatkan untuk TIDAK berbuat demikian
                       </p>
                       <ul className="ml-5 mt-2 list-disc space-y-1">
                         <li>
-                          A {"guest"} in a Teams session is an {"outsider"}.
-                          This means you have not logged in to your student
-                          UNITAR Microsoft account.
+                          Tetamu dalam sesi Teams ialah orang luar. Ini bermakna
+                          anda belum log masuk ke pelajar anda akaun Microsoft
+                          UNITAR.
                         </li>
                         <li>
-                          As long as there is ONE Guest present in a Teams
-                          session, the guest will not have access to the full
-                          Teams functions.
+                          Selagi ada SATU tetamu hadir dalam sesi Teams, tetamu
+                          tidak akan mendapat akses sepenuhnya Fungsi Teams.
                         </li>
                         <li>
-                          EVERYONE in the session will not be able to share
-                          files.
+                          SEMUA ORANG dalam kelas tidak akan dapat berkongsi
+                          fail.
                         </li>
                       </ul>
                     </AccordionContent>
@@ -1146,18 +1158,17 @@ export default function Home() {
         <div className="container px-4 md:px-6 self-center mx-auto">
           <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
             <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-              Help & Support
+              Bantuan & Sokongan
             </h2>
             <p className="max-w-[85%] leading-normal text-muted-foreground text-balance sm:text-lg sm:leading-7">
-              If you have any issues or queries, please reach out to us via:
+              Jika anda mempunyai sebarang masalah atau pertanyaan, sila hubungi
+              kami melalui:
             </p>
           </div>
           <div className="mx-auto mt-8 max-w-md flex flex-row flex-wrap gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="text-center">
-                  Dedicated UNITAR Personnels
-                </CardTitle>
+                <CardTitle className="text-center">Kakitangan UNITAR</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-center gap-2">
@@ -1165,14 +1176,14 @@ export default function Home() {
                   <p className="font-medium">WhatsApp</p>
                 </div>
                 <p className="mt-4 text-center text-sm text-muted-foreground">
-                  Their WhatsApp contact details are available in the Welcome
-                  Email sent to your personal email.
+                  Butiran hubungan WhatsApp tersedia dalam Emel "Welcome" yang
+                  dihantar ke emel peribadi anda.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="text-center">Direct Contact</CardTitle>
+                <CardTitle className="text-center">Hubungan Langsung</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-center gap-2">
@@ -1180,13 +1191,13 @@ export default function Home() {
                   <p className="font-medium">admission@unitar.my</p>
                 </div>
                 <p className="mt-4 text-center text-sm text-muted-foreground">
-                  For urgent matters or if you cannot access the One Stop
-                  Centre, please email us directly.
+                  Untuk urusan segera atau jika anda tidak boleh mengakses One
+                  Stop Center, sila emel terus kepada kami.
                 </p>
               </CardContent>
               <CardFooter>
                 <Button className="w-full" asChild>
-                  <Link href="mailto:admission@unitar.my">Send Email</Link>
+                  <Link href="mailto:admission@unitar.my">Hantar Emel</Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -1198,8 +1209,8 @@ export default function Home() {
       <footer className="w-full border-t bg-background py-6 mx-auto">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row mx-auto">
           <p className="text-center text-sm text-muted-foreground md:text-left">
-            &copy; {new Date().getFullYear()} UNITAR International University.
-            All rights reserved.
+            &copy; {new Date().getFullYear()} Universiti Antarabangsa UNITAR.
+            Semua hak terpelihara.
           </p>
         </div>
       </footer>

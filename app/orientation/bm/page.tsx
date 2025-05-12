@@ -18,6 +18,7 @@ import Conventional from "@/components/oris/conventional";
 import Online from "@/components/oris/online";
 import { useState } from "react";
 import OnlineBM from "@/components/oris/online_bm";
+import ConventionalBM from "@/components/oris/bm_c";
 
 export default function OrientationDetails() {
   const [orient, serOrient] = useState("conventional");
@@ -42,7 +43,7 @@ export default function OrientationDetails() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/bm">Panduan Bermula</Link>
             </Button>
-            <Link href="/orientation">
+            <Link href="/orientation/eng">
               <Button size="sm" variant="ghost" className="p-0 font-bold">
                 <Image
                   src="/eng.png"
@@ -106,7 +107,7 @@ export default function OrientationDetails() {
       </section>
 
       {/* Conventional Orientation Section */}
-      {orient === "conventional" && <Conventional />}
+      {orient === "conventional" && <ConventionalBM />}
 
       {/* Online Orientation Section */}
       {orient === "online" && <OnlineBM />}
