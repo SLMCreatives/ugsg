@@ -8,7 +8,7 @@ export default function Orvideo() {
     <div className="space-y-4">
       <div className="flex items-center gap-3">
         <Video className="h-6 w-6 text-primary" />
-        <h3 className="text-xl font-semibold">Online Readiness Video</h3>
+        <h3 className="text-xl font-semibold">Video Kesediaan Atas Talian</h3>
       </div>
       <Card>
         <CardContent className="pt-6">
@@ -24,16 +24,16 @@ export default function Orvideo() {
 
             <div className="space-y-2">
               <h4 className="font-medium">
-                Prepare for Online Learning Success
+                Bersedia untuk Kejayaan Pembelajaran Dalam Talian{" "}
               </h4>
               <p className="text-sm text-muted-foreground">
-                Watch this comprehensive video guide to prepare for your online
-                learning journey at UNITAR.
+                Tonton panduan video komprehensif ini untuk menyediakan dalam
+                talian anda perjalanan pembelajaran di UNITAR.
               </p>
               <Button className="mt-2" asChild>
                 <Link href="#">
                   <Video className="mr-2 h-4 w-4" />
-                  Watch Video
+                  Tonton Video
                 </Link>
               </Button>
             </div>

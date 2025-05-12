@@ -81,7 +81,7 @@ export default function Online() {
                       </div>
                       <div className="flex flex-row gap-4">
                         <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
-                        <p className="text-primary">17 May 2025</p>
+                        <p className="text-primary">17 May 2025 (Saturday)</p>
                       </div>
                       <div className="flex flex-row gap-4">
                         <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
@@ -136,7 +136,7 @@ export default function Online() {
                       </div>
                       <div className="flex flex-row gap-4">
                         <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
-                        <p className="text-primary">17 May 2025</p>
+                        <p className="text-primary">17 May 2025 (Saturday)</p>
                       </div>
                       <div className="flex flex-row gap-4">
                         <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
@@ -313,7 +313,7 @@ export default function Online() {
               <MsteamsLink />
 
               {/* Online Readiness Video */}
-              <Orvideo />
+              {/* <Orvideo /> */}
             </TabsContent>
           </Tabs>
         </CardContent>

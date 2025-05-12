@@ -28,8 +28,8 @@ export default function Conventional() {
             Physical Orientation
           </CardTitle>
           <CardDescription>
-            Information for students attending in-person orientation at our Main
-            Campus (Kelana Jaya).
+            Information for students attending conventional (physical) course at
+            our main campus @Kelana Jaya.
           </CardDescription>
         </CardHeader>
         <CardContent>

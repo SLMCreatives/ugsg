@@ -18,9 +18,9 @@ import {
   CardDescription,
   CardContent
 } from "../ui/card";
-import Orvideo from "./orvideo";
+import Orvideo from "./bm_orvideo";
 import Osupport from "./osupport";
-import MsteamsLink from "./teamslink";
+import MsteamsLink from "./bm_teamslink";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -33,7 +33,7 @@ export default function OnlineBM() {
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">
-            Orientasi Atas Talian
+            Sesi Orientasi Atas Talian
           </CardTitle>
           <CardDescription>
             Maklumat untuk pelajar yang menghadiri sesi orientasi atas talian{" "}
@@ -327,7 +327,7 @@ export default function OnlineBM() {
               <MsteamsLink />
 
               {/* Online Readiness Video */}
-              <Orvideo />
+              {/*  <Orvideo /> */}
             </TabsContent>
           </Tabs>
         </CardContent>

@@ -60,17 +60,20 @@ export default function MsteamsLink() {
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-semibold">Technical Requirements:</h4>
+              <h4 className="font-semibold">Keperluan Teknikal:</h4>
               <ul className="ml-6 list-disc space-y-2">
                 <li>
-                  Stable internet connection (minimum 5 Mbps download/upload)
+                  Sambungan Internet yang stabil (muat turun/muat naik minimum
+                  10 Mbps)
                 </li>
-                <li>Computer with webcam and microphone</li>
+                <li>Komputer atau laptop dengan kamera web dan mikrofon</li>
                 <li>
-                  Microsoft Teams app installed (recommended) or access via web
-                  browser
+                  App Microsoft Teams dipasang atau akses melalui 'web browser'
                 </li>
-                <li>Headphones or earphones for better audio quality</li>
+                <li>
+                  'Headphones' atau 'earphones' untuk kualiti audio yang lebih
+                  baik
+                </li>
               </ul>
             </div>
           </div>

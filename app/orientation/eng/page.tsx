@@ -25,14 +25,16 @@ export default function OrientationDetails() {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full mx-auto border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center px-8 mx-auto">
-          <div className="mr-4 flex items-center">
-            <Image
-              src="/logo_unitar.png"
-              width={40}
-              height={40}
-              alt="UNITAR Logo"
-              className="mr-2 w-36 h-28 rounded-full object-cover"
-            />
+          <div className="flex items-center">
+            <Link href="/eng">
+              <Image
+                src="/logo_unitar.png"
+                width={40}
+                height={40}
+                alt="UNITAR Logo"
+                className="w-36 h-24 rounded-full object-cover -ml-4"
+              />
+            </Link>
             <span className="hidden font-bold sr-only sm:inline-block">
               UNITAR International University
             </span>
@@ -57,7 +59,7 @@ export default function OrientationDetails() {
       </header>
 
       {/* Hero Section */}
-      <section className="w-full py-12 min-h-[50vh] md:py-16 lg:py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950 items-center justify-center flex px-6 lg:px-0">
+      <section className="w-full py-12 min-h-[50vh] md:py-16 lg:py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950 items-center justify-center flex px-2 lg:px-0">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
             <div className="flex flex-col justify-center space-y-4">
@@ -71,24 +73,28 @@ export default function OrientationDetails() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Button
-                  size="sm"
-                  className="gap-1.5"
-                  variant={orient === "conventional" ? "default" : "outline"}
-                  onClick={() => serOrient("conventional")}
-                >
-                  Physical Orientation
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant={orient === "online" ? "default" : "outline"}
-                  className="gap-1.5"
-                  onClick={() => serOrient("online")}
-                >
-                  Online Orientation
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+                <Link href="#conventional">
+                  <Button
+                    size="sm"
+                    className="gap-1.5"
+                    variant={orient === "conventional" ? "default" : "outline"}
+                    onClick={() => serOrient("conventional")}
+                  >
+                    Physical Orientation
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="#online">
+                  <Button
+                    size="sm"
+                    variant={orient === "online" ? "default" : "outline"}
+                    className="gap-1.5"
+                    onClick={() => serOrient("online")}
+                  >
+                    Online Orientation
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
             <Image
@@ -105,10 +111,18 @@ export default function OrientationDetails() {
       </section>
 
       {/* Conventional Orientation Section */}
-      {orient === "conventional" && <ConventionalENG />}
+      {orient === "conventional" && (
+        <div id="conventional">
+          <ConventionalENG />
+        </div>
+      )}
 
       {/* Online Orientation Section */}
-      {orient === "online" && <Online />}
+      {orient === "online" && (
+        <div id="online">
+          <Online />
+        </div>
+      )}
 
       {/* Help & Support Section */}
       <section id="help" className="w-full py-12 md:py-16 lg:py-20 bg-muted/30">

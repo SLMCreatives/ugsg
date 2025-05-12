@@ -45,21 +45,23 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-50 w-full mx-auto border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center px-8 mx-auto">
-          <div className="mr-4 flex items-center">
-            <Image
-              src="/logo_unitar.png"
-              width={40}
-              height={40}
-              alt="UNITAR Logo"
-              className="mr-2 w-36 h-24 rounded-full object-cover"
-            />
+          <div className="flex items-center">
+            <Link href="/">
+              <Image
+                src="/logo_unitar.png"
+                width={40}
+                height={40}
+                alt="UNITAR Logo"
+                className="w-36 h-24 rounded-full object-cover -ml-4"
+              />
+            </Link>
             <span className="hidden font-bold sr-only sm:inline-block">
               UNITAR International University
             </span>
           </div>
           <nav className="flex flex-1 items-center justify-end space-x-4">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="#help">Bantuan</Link>
+              <Link href="/orientation/bm">Orientasi</Link>
             </Button>
             <Link href="/eng">
               <Button size="sm" variant="ghost" className="p-0 font-bold">
@@ -77,15 +79,23 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="w-full py-12 min-h-[80vh] md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950 items-center justify-center flex px-6 lg:px-0">
+      <section className="w-full py-12 min-h-[80vh] md:py-24 lg:py-32 bg-gradient-to-b from-blue-200 via-[#e5f5ff] to-white dark:from-gray-900 dark:to-gray-950 items-center justify-center flex px-2 lg:px-0">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                  Selamat Datang ke Universiti Antarabangsa UNITAR
-                </h1>
-                <h2 className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none">
+                <div className="py-0">
+                  <p className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none">
+                    Selamat Datang ke
+                  </p>
+                  <h1 className="text-3xl font-bold tracking-tighter xl:text-6xl/none">
+                    Universiti Antarabangsa{" "}
+                    <span className="font-black text-8xl text-nowrap">
+                      UNITAR
+                    </span>
+                  </h1>
+                </div>
+                <h2 className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none pt-10">
                   Mari Mulakan Orientasi Anda!
                 </h2>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
@@ -108,13 +118,16 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-              <div className="flex items-center gap-2 text-sm">
-                <AlertCircle className="h-8 w-8 text-amber-500" />
-                <p className="font-medium">
-                  Sebelum bermula, pastikan anda dapat{" "}
+              <div className="flex items-start gap-2 text-sm italic">
+                <AlertCircle className="min-h-4 min-w-4 text-amber-500" />
+                <p className="font-medium text-muted-foreground pt-1">
+                  Sebelum bermula, pastikan anda sudah terima{" "}
                   <span className="font-bold">Nombor Matrik</span> dan{" "}
-                  <span className="font-bold">Kata Laluan Lalai</span> daripada{" "}
-                  <span className="font-bold">emel peribadi</span> anda.
+                  <span className="font-bold">
+                    Kata Laluan lalai atau 'default password'
+                  </span>{" "}
+                  daripada <span className="font-bold">emel peribadi</span>{" "}
+                  anda.
                 </p>
               </div>
             </div>
@@ -123,7 +136,7 @@ export default function Home() {
               width={550}
               height={550}
               alt="Student Orientation"
-              className="mx-auto order-first md:order-last aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
+              className="mx-auto order-first md:order-last aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full drop-shadow-lg"
             />
           </div>
         </div>
@@ -144,18 +157,18 @@ export default function Home() {
               <Shield className="h-4 w-4" />
             </TabsTrigger>
             <TabsTrigger
-              value="materials"
-              className="flex items-center gap-2 justify-between py-2"
-            >
-              <span>Bahan Pengajian</span>
-              <BookOpen className="h-4 w-4" />
-            </TabsTrigger>
-            <TabsTrigger
               value="checklist"
               className="flex items-center gap-2 justify-between py-2"
             >
               <span>Senarai Semak</span>
               <CheckSquare className="h-4 w-4" />
+            </TabsTrigger>
+            <TabsTrigger
+              value="materials"
+              className="flex items-center gap-2 justify-between py-2"
+            >
+              <span>Bahan Pengajian</span>
+              <BookOpen className="h-4 w-4" />
             </TabsTrigger>
             <TabsTrigger
               value="faqs"
@@ -205,6 +218,19 @@ export default function Home() {
                               className=""
                               target="_blank"
                             >
+                              <Image
+                                src="/auth_unitar.png"
+                                width={500}
+                                height={500}
+                                alt="Login Screen"
+                                className="mx-auto rounded-md w-full h-auto flex lg:hidden"
+                              />
+                            </Link>
+                            <Link
+                              href="https://auth.unitar.my/"
+                              className=""
+                              target="_blank"
+                            >
                               <Button
                                 variant={"default"}
                                 size="default"
@@ -214,17 +240,46 @@ export default function Home() {
                                 auth.unitar.my
                               </Button>
                             </Link>
-                            <Image
-                              src="/auth_unitar.png"
-                              width={500}
-                              height={500}
-                              alt="Login Screen"
-                              className="mx-auto rounded-md w-full h-auto flex lg:hidden"
-                            />
                           </li>
                           <li className="space-y-2 pt-2">
                             <p>Masukkan Butiran Log Masuk Anda:</p>
-                            <div className="p-4 bg-black text-white text-sm rounded-lg space-y-2">
+
+                            <div className="flex flex-col gap-0">
+                              <Card className="bg-[#005b90] text-white rounded-none">
+                                <CardContent className="space-y-2 p-2">
+                                  <p className="font-medium text-md text-center">
+                                    Username
+                                  </p>
+                                  <p className="text-red-400 uppercase tracking-tighter font-bold bg-gray-100 text-center py-2 rounded-sm">
+                                    Nombor Matrik
+                                  </p>
+                                  <p className="italic text-xs text-center">
+                                    Contoh. MC2301XXXXX
+                                  </p>
+                                </CardContent>
+                              </Card>
+                              <Card className="bg-[#f39313] text-white rounded-none py-2">
+                                <CardContent className="space-y-2 p-2">
+                                  <p className="font-medium text-md text-center">
+                                    Default Password
+                                  </p>
+                                  <div className="grid grid-cols-[1fr,auto,1fr] gap-2 justify-center w-full items-center text-balance text-xs">
+                                    <p className="text-red-400 uppercase tracking-tighter font-black bg-gray-100 text-center p-2  w-full">
+                                      4 Digit Terakhir No Matrik
+                                    </p>
+                                    <p className="font-bold text-lg">+</p>
+                                    <p className="text-red-400 uppercase tracking-tighter font-black bg-gray-100 text-center p-2 w-full">
+                                      4 Digit Terakhir NRIC/Pasport
+                                    </p>
+                                  </div>
+                                  <p className="italic text-center text-xs">
+                                    Contoh. 77993883
+                                  </p>
+                                </CardContent>
+                              </Card>
+                            </div>
+
+                            {/* <div className="p-4 bg-black text-white text-sm rounded-lg space-y-2">
                               <p className="font-bold">Username:</p>
                               <p className="text-red-500 font-bold bg-gray-100 text-center py-2 rounded-sm">
                                 Nombor Matrik anda
@@ -235,19 +290,19 @@ export default function Home() {
                               <p className="font-bold pt-4">
                                 Default Password:
                               </p>
-                              <div className="flex flex-row gap-2 justify-center w-full items-center text-balance">
-                                <p className="text-red-500 font-bold bg-gray-100 text-center py-2 rounded-sm w-full">
-                                  4 digit terakhir Nombor Matrik
+                              <div className="grid grid-cols-[1fr,auto,1fr] gap-2 justify-center w-full items-center text-balance text-xs">
+                                <p className="text-red-500 font-bold bg-gray-100 text-center p-2 rounded-sm w-full">
+                                  4 Digit Terakhir No Matrik
                                 </p>{" "}
                                 +{" "}
-                                <p className="text-red-500 font-bold bg-gray-100 text-center py-2 rounded-sm w-full">
-                                  4 digit terakhir Nombor Kad Pengenalan/Pasport
+                                <p className="text-red-500 font-bold bg-gray-100 text-center p-2 rounded-sm w-full">
+                                  4 Digit Terakhir NRIC/Pasport
                                 </p>
                               </div>
                               <p className="italic text-gray-200 text-center text-xs">
                                 Contoh. [ 77993883 ]
                               </p>
-                            </div>
+                            </div> */}
                           </li>
                           <li className="pt-4">
                             Tekan <span className="font-bold">"Login"</span>

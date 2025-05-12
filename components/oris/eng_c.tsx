@@ -38,8 +38,8 @@ export default function ConventionalENG() {
             Physical Orientation
           </CardTitle>
           <CardDescription>
-            Information for students attending in-person orientation at our Main
-            Campus (Kelana Jaya).
+            Information for students attending conventional (physical) course at
+            our main campus @Kelana Jaya.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -64,7 +64,9 @@ export default function ConventionalENG() {
                   </div>
                   <div className="flex flex-row gap-4">
                     <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
-                    <p className="text-primary">15 & 16 May 2025</p>
+                    <p className="text-primary">
+                      15 & 16 May 2025 (Thursday & Friday)
+                    </p>
                   </div>
                   <div className="flex flex-row gap-4">
                     <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
@@ -132,7 +134,7 @@ export default function ConventionalENG() {
                   </div>
                   <div className="flex flex-row gap-4">
                     <CalendarCheck className="min-h-6 min-w-6 text-yellow-600" />
-                    <p className="text-primary">15 May 2025</p>
+                    <p className="text-primary">15 May 2025 (Thursday)</p>
                   </div>
                   <div className="flex flex-row gap-4">
                     <ClockIcon className="min-h-6 min-w-6 text-yellow-600" />
