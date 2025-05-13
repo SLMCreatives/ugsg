@@ -61,7 +61,7 @@ export default function Home() {
           </div>
           <nav className="flex flex-1 items-center justify-end space-x-4">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/orientation/bm">Orientasi</Link>
+              <Link href="#help">Bantuan</Link>
             </Button>
             <Link href="/eng">
               <Button size="sm" variant="ghost" className="p-0 font-bold">
@@ -111,12 +111,12 @@ export default function Home() {
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="/orientation/bm">
+                {/* <Link href="/orientation/bm">
                   <Button size="sm" className="gap-1.5" variant="outline">
                     Agenda Orientasi
                     <ArrowRight className="h-4 w-4" />
                   </Button>
-                </Link>
+                </Link> */}
               </div>
               <div className="flex items-start gap-2 text-sm italic">
                 <AlertCircle className="min-h-4 min-w-4 text-amber-500" />

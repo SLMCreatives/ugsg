@@ -59,7 +59,7 @@ export default function Home() {
           </div>
           <nav className="flex flex-1 items-center justify-end space-x-4">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/orientation/eng">Orientation</Link>
+              <Link href="#help">Help & Support</Link>
             </Button>
             <Link href="/">
               <Button size="sm" variant="ghost" className="p-0 font-bold">
@@ -109,12 +109,12 @@ export default function Home() {
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="/orientation/eng">
+                {/* <Link href="/orientation/eng">
                   <Button size="sm" className="gap-1.5" variant="outline">
                     Orientation Agenda
                     <ArrowRight className="h-4 w-4" />
                   </Button>
-                </Link>
+                </Link> */}
               </div>
               <div className="flex items-start gap-2 text-sm italic">
                 <AlertCircle className="min-h-4 min-w-4 text-amber-500" />
