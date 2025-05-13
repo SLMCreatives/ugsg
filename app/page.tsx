@@ -89,7 +89,6 @@ export default function Home() {
                     Selamat Datang ke
                   </p>
                   <h1 className="text-3xl font-bold tracking-tighter xl:text-6xl/none">
-                    Universiti Antarabangsa{" "}
                     <span className="font-black text-8xl text-nowrap">
                       UNITAR
                     </span>

@@ -89,8 +89,7 @@ export default function Home() {
                   <h1 className="text-3xl font-bold tracking-tighter xl:text-6xl/none">
                     <span className="font-black text-8xl text-nowrap">
                       UNITAR
-                    </span>{" "}
-                    International University
+                    </span>
                   </h1>
                 </div>
                 <h2 className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none pt-10">
