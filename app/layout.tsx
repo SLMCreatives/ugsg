@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "First Steps at UNITAR",
@@ -13,9 +13,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body>{children}</body>
-      <GoogleAnalytics gaId="G-2ZKP650KG1" />{" "}
+      <GoogleAnalytics gaId="G-2ZKP650KG1" />
     </html>
   );
 }
