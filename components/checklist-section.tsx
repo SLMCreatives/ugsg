@@ -1,7 +1,13 @@
 "use client";
 
 import { ExternalLink, Check, Lightbulb } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription
+} from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -23,53 +29,85 @@ const steps = [
   {
     key: "bankIslam",
     step: 1,
-    title: "Bank Islam Account",
-    task: "Open a Bank Islam account in your own name.",
-    note: "Shared accounts are not allowed.",
+    title: "Bank Islam Savings Account",
+    task: "Open a savings Bank Islam account in your own name. If you have an existing account, make sure it is active and has your current details.",
+    note: "Please login to your Bank Islam account online to verify your account details and ensure it is active.",
     actions: [
-      { label: "Open Bank Islam Account Online", url: "https://www.bankislam.com" },
-    ],
+      {
+        label: "Login to your Bank Islam Account Online",
+        url: "https://www.bankislam.com"
+      }
+    ]
   },
   {
     key: "myDigitalId",
     step: 2,
     title: "MyDigital ID App",
-    task: "Download and set up the MyDigital ID app for authentication.",
+    task: "Download and set up the MyDigital ID app. Please make sure that your MyDigital ID account set up and ready to use, as it is required for the application process.",
     actions: [
-      { label: "Download on App Store", url: "https://apps.apple.com/my/app/mydigital-id/id1516515412" },
-      { label: "Download on Google Play", url: "https://play.google.com/store/apps/details?id=my.gov.onegovappstore.mydigitalid" },
-    ],
+      {
+        label: "App Store",
+        url: "https://apps.apple.com/my/app/mydigital-id/id1435289143"
+      },
+      {
+        label: "Google Play Store",
+        url: "https://play.google.com/store/apps/details?id=my.mimos.signetclient"
+      }
+    ]
   },
   {
     key: "myPtptn",
     step: 3,
     title: "myPTPTN App",
-    task: "Download the official myPTPTN app.",
+    task: "Download the official myPTPTN app. This app is essential for managing your PTPTN loan application and viewing the results of your application.",
     actions: [
-      { label: "Download on App Store", url: "https://apps.apple.com/my/app/myptptn/id1451464498" },
-      { label: "Download on Google Play", url: "https://play.google.com/store/apps/details?id=my.com.ptptn.myptptn" },
-    ],
+      {
+        label: "App Store",
+        url: "https://apps.apple.com/my/app/myptptn/id1601433091"
+      },
+      {
+        label: "Google Play Store",
+        url: "https://play.google.com/store/apps/details?id=com.ptptnapp"
+      }
+    ]
   },
   {
     key: "sspnPrime",
     step: 4,
     title: "SSPN Prime Account",
     task: "Open an account with a minimum deposit of RM20.00.",
-    proTip: "If you already have an active account, the system will detect it automatically—no need to open a new one!",
+    proTip:
+      "If you already have an active account, the system will detect it automatically—no need to open a new one!",
+    actions: [
+      {
+        label: "Open SSPN Prime Account",
+        url: "https://www.ptptn.gov.my/simpan-sspn/simpan-sspn-prime/"
+      }
+    ]
   },
   {
     key: "ptptnPin",
     step: 5,
-    title: "PTPTN PIN",
-    task: "Purchase your application PIN.",
+    title: "PTPTN PIN (Valid for 6 months)",
+    task: "Purchase your application PIN for RM 5. Ensure that you have opened an SSPN-i or SSPN Prime account, as the PIN is linked to it.",
     options: [
-      "Visit any BSN Branch",
-      "Purchase online via the myPTPTN website (Recommended)",
+      "BSN ATM Machine",
+      "Online via the myPTPTN website (during application)"
     ],
-  },
+    actions: [
+      {
+        label: "Buy PTPTN PIN Online",
+        url: "https://myptptn.ptptn.gov.my/ptptn/app/"
+      }
+    ]
+  }
 ];
 
-export function ChecklistSection({ checklist, onChecklistChange, isEligible }: ChecklistSectionProps) {
+export function ChecklistSection({
+  checklist,
+  onChecklistChange,
+  isEligible
+}: ChecklistSectionProps) {
   const completedCount = Object.values(checklist).filter(Boolean).length;
   const progress = (completedCount / steps.length) * 100;
 
@@ -80,8 +118,13 @@ export function ChecklistSection({ checklist, onChecklistChange, isEligible }: C
           <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
             Phase 2: Application Checklist
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Complete these 5 steps to prepare your application.
+          <p className="text-muted-foreground text-md text-balance">
+            Complete these 5 steps to prepare your application. This is to make
+            sure that you have everything ready for a smooth application process
+            with us.
+          </p>
+          <p className="text-foreground text-md mt-4">
+            Don&apos;t worry, we will guide you through each step!
           </p>
         </div>
 
@@ -89,7 +132,9 @@ export function ChecklistSection({ checklist, onChecklistChange, isEligible }: C
         <div className="mb-8">
           <div className="flex justify-between text-sm mb-2">
             <span className="text-muted-foreground">Progress</span>
-            <span className="font-medium text-foreground">{completedCount} of {steps.length} completed</span>
+            <span className="font-medium text-foreground">
+              {completedCount} of {steps.length} completed
+            </span>
           </div>
           <Progress value={progress} className="h-3" />
         </div>
@@ -113,7 +158,9 @@ export function ChecklistSection({ checklist, onChecklistChange, isEligible }: C
                       <Checkbox
                         id={item.key}
                         checked={isChecked}
-                        onCheckedChange={(checked) => onChecklistChange(item.key, checked as boolean)}
+                        onCheckedChange={(checked) =>
+                          onChecklistChange(item.key, checked as boolean)
+                        }
                         disabled={isDisabled}
                         className="h-6 w-6"
                       />
@@ -129,9 +176,7 @@ export function ChecklistSection({ checklist, onChecklistChange, isEligible }: C
                         >
                           {item.title}
                         </Label>
-                        {isChecked && (
-                          <Check className="w-5 h-5 text-accent" />
-                        )}
+                        {isChecked && <Check className="w-5 h-5 text-accent" />}
                       </CardTitle>
                       <CardDescription className="mt-2">
                         {item.task}
@@ -157,10 +202,15 @@ export function ChecklistSection({ checklist, onChecklistChange, isEligible }: C
 
                   {item.options && (
                     <div className="space-y-2 mb-3">
-                      <p className="text-sm font-medium text-foreground">Options:</p>
+                      <p className="text-sm font-medium text-foreground">
+                        Methods to purchase PTPTN PIN:
+                      </p>
                       <ul className="space-y-1">
                         {item.options.map((option, idx) => (
-                          <li key={idx} className="text-sm text-muted-foreground flex items-center gap-2">
+                          <li
+                            key={idx}
+                            className="text-sm text-muted-foreground flex items-center gap-2"
+                          >
                             <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
                             {option}
                           </li>
@@ -179,7 +229,11 @@ export function ChecklistSection({ checklist, onChecklistChange, isEligible }: C
                           asChild
                           disabled={isDisabled}
                         >
-                          <a href={action.url} target="_blank" rel="noopener noreferrer">
+                          <a
+                            href={action.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             {action.label}
                             <ExternalLink className="w-3 h-3 ml-1" />
                           </a>
@@ -196,7 +250,8 @@ export function ChecklistSection({ checklist, onChecklistChange, isEligible }: C
         {!isEligible && (
           <div className="mt-6 p-4 rounded-lg bg-muted border border-border text-center">
             <p className="text-muted-foreground">
-              Please complete the eligibility check above to unlock the checklist.
+              Please complete the eligibility check above to unlock the
+              checklist.
             </p>
           </div>
         )}

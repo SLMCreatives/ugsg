@@ -5,26 +5,32 @@ import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   const scrollToChecklist = () => {
-    document.getElementById("eligibility")?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById("eligibility")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-16 text-center">
+    <section className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-16 text-center bg-gradient-to-b from-blue-200 via-[#e5f5ff] to-white dark:from-gray-900 dark:to-gray-950">
       <div className="max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent mb-8">
-          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-          <span className="text-sm font-medium">Trusted by thousands of students</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-accent mb-8">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-sm font-medium text-primary text-balance">
+            Now Open for Booking!
+          </span>
         </div>
-        
+
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight tracking-tight text-balance mb-6">
           Secure Your PTPTN Loan with Expert Guidance
         </h1>
-        
+
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-          {"We've helped thousands of students get their study loans approved. Complete the checklist below to book your free 1-to-1 Step-by-Step Application Session."}
+          {
+            "We've helped over 1000 students get their study loans approved. Complete the checklist below to book your free ONLINE 1-to-1 Step-by-Step Application Session."
+          }
         </p>
-        
-        <Button 
+
+        <Button
           onClick={scrollToChecklist}
           size="lg"
           className="rounded-full px-8 py-6 text-base gap-2 group"

@@ -175,14 +175,24 @@ export function BookingForm() {
           </span>{" "}
           has been confirmed.
         </p>
-        <p className="text-muted-foreground mb-1 text-balance text-sm">
-          Booked Time Slot:
-        </p>
-        <Input
-          className="text-sm text-muted-foreground mb-4 text-center w-full"
-          readOnly
-          value={`${date} — ${selectedTimeLabel}`}
-        />
+        <div className="grid grid-cols-[auto_1fr] gap-2 mb-6 items-center justify-end">
+          <p className="text-muted-foreground text-balance text-sm text-right">
+            Booked Date:
+          </p>
+          <Input
+            className="text-sm text-foreground text-center w-full"
+            readOnly
+            value={`${date}`}
+          />
+          <p className="text-muted-foreground text-balance text-sm text-right">
+            Booked Time Slot:
+          </p>
+          <Input
+            className="text-sm text-foreground text-center w-full"
+            readOnly
+            value={`${selectedTimeLabel}`}
+          />
+        </div>
         <p className="text-sm text-muted-foreground text-balance">
           We&apos;ll contact you at <span className="font-bold">({phone})</span>{" "}
           to confirm your appointment and share the meeting link.
@@ -200,7 +210,7 @@ export function BookingForm() {
           <div
             key={s}
             className={`h-2 flex-1 rounded-full transition-colors ${
-              s <= step ? "bg-accent" : "bg-muted"
+              s <= step ? "bg-primary" : "bg-muted"
             }`}
           />
         ))}
@@ -218,10 +228,10 @@ export function BookingForm() {
             <Input
               id="name"
               type="text"
-              placeholder="John Doe"
+              placeholder="Nur Farzana Binti Abdul Azizan"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full"
+              className="w-full "
               autoFocus
             />
           </div>
@@ -240,7 +250,7 @@ export function BookingForm() {
             <Input
               id="phone"
               type="tel"
-              placeholder="0123456789 or +60123456789"
+              placeholder="0123456789 or 60123456789"
               value={phone}
               onChange={(e) => validatePhone(e.target.value)}
               className="w-full"
@@ -261,6 +271,11 @@ export function BookingForm() {
           <h3 className="text-lg font-semibold text-foreground mb-4">
             Choose your slot
           </h3>
+          <p className="text-muted-foreground mb-2 text-sm">
+            Select your prefered date and time slot. Please note that we have a
+            limited number of slots available for each time period, so book
+            early to secure your spot!
+          </p>
 
           <div>
             <Label htmlFor="date" className="text-foreground mb-2 block">
