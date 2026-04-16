@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     const timeSlotLabel = TIME_SLOT_LABELS[timeSlot] || timeSlot;
 
     await appendToSheet([
-      new Date().toISOString(),
+      new Date().toLocaleString("en-MY", { timeZone: "Asia/Kuala_Lumpur" }),
       name,
       phone,
       date,

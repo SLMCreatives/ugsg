@@ -1,7 +1,13 @@
 "use client";
 
 import { Check, X } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription
+} from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
@@ -16,13 +22,32 @@ interface EligibilitySectionProps {
 }
 
 const criteria = [
-  { key: "citizen", label: "Malaysian Citizen", description: "You must be a Malaysian citizen" },
-  { key: "age", label: "Age 45 or below", description: "At the time of application" },
-  { key: "semester", label: "At least one semester remaining", description: "In your current studies" },
-  { key: "noSponsorship", label: "Not receiving other sponsorship", description: "e.g., MARA, JPA" },
+  {
+    key: "citizen",
+    label: "Malaysian Citizen",
+    description: "You must be a Malaysian citizen"
+  },
+  {
+    key: "age",
+    label: "Age 45 or below",
+    description: "At the time of application"
+  },
+  {
+    key: "semester",
+    label: "At least one semester remaining",
+    description: "In your current studies"
+  },
+  {
+    key: "noSponsorship",
+    label: "Not receiving other sponsorship",
+    description: "e.g., MARA, JPA"
+  }
 ];
 
-export function EligibilitySection({ eligibility, onEligibilityChange }: EligibilitySectionProps) {
+export function EligibilitySection({
+  eligibility,
+  onEligibilityChange
+}: EligibilitySectionProps) {
   const allEligible = Object.values(eligibility).every(Boolean);
   const eligibleCount = Object.values(eligibility).filter(Boolean).length;
 
@@ -75,16 +100,23 @@ export function EligibilitySection({ eligibility, onEligibilityChange }: Eligibi
                     )}
                   </div>
                   <div>
-                    <Label htmlFor={item.key} className="font-medium cursor-pointer">
+                    <Label
+                      htmlFor={item.key}
+                      className="font-medium cursor-pointer"
+                    >
                       {item.label}
                     </Label>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
                 <Switch
                   id={item.key}
                   checked={eligibility[item.key as keyof typeof eligibility]}
-                  onCheckedChange={(checked) => onEligibilityChange(item.key, checked)}
+                  onCheckedChange={(checked) =>
+                    onEligibilityChange(item.key, checked)
+                  }
                 />
               </div>
             ))}
@@ -93,8 +125,9 @@ export function EligibilitySection({ eligibility, onEligibilityChange }: Eligibi
 
         {allEligible && (
           <div className="mt-6 p-4 rounded-lg bg-accent/10 border border-accent/20 text-center">
-            <p className="text-accent font-medium">
-              Great! You meet all the eligibility criteria. Proceed to the checklist below.
+            <p className="text-foreground font-medium">
+              Great! You meet all the eligibility criteria. Proceed to the
+              checklist below.
             </p>
           </div>
         )}

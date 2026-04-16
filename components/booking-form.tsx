@@ -11,7 +11,7 @@ interface SlotCount {
   [key: string]: number;
 }
 
-const AVAILABLE_DATES = [
+/* const AVAILABLE_DATES = [
   "Tuesday, 5 May 2026",
   "Wednesday, 6 May 2026",
   "Thursday, 7 May 2026",
@@ -23,9 +23,24 @@ const AVAILABLE_DATES = [
 const TIME_SLOTS = [
   { label: "Morning (10am - 12pm)", value: "morning" },
   { label: "Evening (3pm - 5pm)", value: "evening" }
+]; */
+
+const SLOTS = [
+  { date: "Tuesday, 5 May 2026", time: "morning", slots: 25 },
+  { date: "Tuesday, 5 May 2026", time: "evening", slots: 25 },
+  { date: "Wednesday, 6 May 2026", time: "morning", slots: 25 },
+  { date: "Wednesday, 6 May 2026", time: "evening", slots: 25 },
+  { date: "Thursday, 7 May 2026", time: "morning", slots: 25 },
+  { date: "Thursday, 7 May 2026", time: "evening", slots: 25 },
+  { date: "Tuesday, 12 May 2026", time: "morning", slots: 25 },
+  { date: "Tuesday, 12 May 2026", time: "evening", slots: 25 },
+  { date: "Wednesday, 13 May 2026", time: "morning", slots: 25 },
+  { date: "Wednesday, 13 May 2026", time: "evening", slots: 25 },
+  { date: "Thursday, 14 May 2026", time: "morning", slots: 25 },
+  { date: "Thursday, 14 May 2026", time: "evening", slots: 25 }
 ];
 
-const MAX_SUBMISSIONS_PER_SLOT = 6;
+/* const MAX_SUBMISSIONS_PER_SLOT = 6; */
 
 export function BookingForm() {
   const [step, setStep] = useState(1);
@@ -55,18 +70,25 @@ export function BookingForm() {
 
   const isSlotFull = (selectedDate: string, selectedTime: string) => {
     const slotKey = `${selectedDate}__${selectedTime}`;
-    return (slotCounts[slotKey] || 0) >= MAX_SUBMISSIONS_PER_SLOT;
+    return (
+      (slotCounts[slotKey] || 0) >=
+      SLOTS.find((s) => s.date === selectedDate && s.time === selectedTime)
+        ?.slots!
+    );
   };
 
   const getAvailableDates = () => {
-    return AVAILABLE_DATES.filter((d) => {
-      const hasFullSlots = TIME_SLOTS.every((t) => isSlotFull(d, t.value));
-      return !hasFullSlots;
-    });
+    return SLOTS.map((s) => s.date).filter((v, i, a) => a.indexOf(v) === i);
   };
 
   const getAvailableTimeSlots = () => {
-    return TIME_SLOTS.filter((t) => !isSlotFull(date, t.value));
+    return SLOTS.filter(
+      (s) => s.date === date && !isSlotFull(date, s.time)
+    ).map((s) => ({
+      label:
+        s.time === "morning" ? "Morning (10am - 12pm)" : "Evening (3pm - 5pm)",
+      value: s.time
+    }));
   };
 
   const handleNext = async () => {
@@ -124,15 +146,6 @@ export function BookingForm() {
       }
 
       setSuccess(true);
-
-      setTimeout(() => {
-        setName("");
-        setPhone("");
-        setDate("");
-        setTimeSlot("");
-        setStep(1);
-        setSuccess(false);
-      }, 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -141,22 +154,41 @@ export function BookingForm() {
   };
 
   if (success) {
+    const selectedSlot = SLOTS.find(
+      (s) => s.date === date && s.time === timeSlot
+    );
     const selectedTimeLabel =
-      TIME_SLOTS.find((t) => t.value === timeSlot)?.label || timeSlot;
+      selectedSlot?.time === "morning"
+        ? "Morning (10am - 12pm)"
+        : "Evening (3pm - 5pm)";
 
     return (
       <Card className="w-full max-w-md mx-auto p-8 text-center bg-white">
-        <CheckCircle className="w-12 h-12 text-accent mx-auto mb-4" />
+        <CheckCircle className="w-12 h-12 text-foreground mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-foreground mb-2">
           Booking Confirmed!
         </h3>
-        <p className="text-muted-foreground mb-2">
-          Thank you, {name}. Your booking has been submitted.
+        <p className="text-muted-foreground mb-4 text-balance">
+          Thank you, {name}! <br></br> Your booking for{" "}
+          <span className="font-bold">
+            1-1 Step-by-Step PTPTN Application Session
+          </span>{" "}
+          has been confirmed.
         </p>
-        <p className="text-sm text-muted-foreground mb-4">
-          {date} — {selectedTimeLabel}
+        <p className="text-muted-foreground mb-1 text-balance text-sm">
+          Booked Time Slot:
         </p>
-        <p className="text-sm text-muted-foreground">Resetting form...</p>
+        <Input
+          className="text-sm text-muted-foreground mb-4 text-center w-full"
+          readOnly
+          value={`${date} — ${selectedTimeLabel}`}
+        />
+        <p className="text-sm text-muted-foreground text-balance">
+          We&apos;ll contact you at <span className="font-bold">({phone})</span>{" "}
+          to confirm your appointment and share the meeting link.
+          <br></br>Please arrive on time for your slot. If you need to
+          reschedule, contact us at least 24 hours in advance.
+        </p>
       </Card>
     );
   }
@@ -268,7 +300,9 @@ export function BookingForm() {
                 {getAvailableTimeSlots().map((t) => {
                   const slotKey = `${date}__${t.value}`;
                   const count = slotCounts[slotKey] || 0;
-                  const remaining = MAX_SUBMISSIONS_PER_SLOT - count;
+                  const remaining =
+                    SLOTS.find((s) => s.date === date && s.time === t.value)
+                      ?.slots! - count;
 
                   return (
                     <option key={t.value} value={t.value}>
