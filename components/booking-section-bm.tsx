@@ -67,7 +67,7 @@ export function BookingSectionBM({ isUnlocked }: BookingSectionProps) {
                         Apa yang Perlu Dijangka
                       </p>
                       <p className="text-sm text-muted-foreground text-balance">
-                        Sesi 20 minit, secara bersemuka di mana kami akan
+                        Sesi 20 minit, secara dalam talian di mana kami akan
                         membimbing anda melalui portal dalam talian langkah demi
                         langkah.
                       </p>

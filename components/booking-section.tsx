@@ -66,8 +66,8 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
                         What to expect
                       </p>
                       <p className="text-sm text-muted-foreground text-balance">
-                        A 20-minute, 1-to-1 session where we walk you through
-                        the online portal step-by-step.
+                        A 20-minute, online 1-to-1 session where we walk you
+                        through the online portal step-by-step.
                       </p>
                     </div>
                   </div>
