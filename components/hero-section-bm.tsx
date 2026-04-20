@@ -3,7 +3,7 @@
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function HeroSection() {
+export function HeroSectionBM() {
   const scrollToChecklist = () => {
     document
       .getElementById("eligibility")
@@ -16,17 +16,17 @@ export function HeroSection() {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-accent mb-8">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span className="text-sm font-medium text-primary text-balance">
-            Now Open for Booking!
+            Pendaftaran Dibuka Sekarang!
           </span>
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight tracking-tight text-balance mb-6">
-          Secure Your PTPTN Loan with Expert Guidance
+          Pastikan Aplikasi PTPTN Anda Berjaya dengan Bimbingan Pakar
         </h1>
 
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
           {
-            "We have helped over 1000 students get their study loans approved. Complete the checklist below to book your free ONLINE 1-to-1 Step-by-Step Application Session."
+            "Kami telah berjaya membantu ramai pelajar dapatkan kelulusan pinjaman pelajaran mereka. Lengkapkan senarai panduan di bawah untuk menempah sesi bimbingan untuk permohonan PTPTN secara percuma!"
           }
         </p>
 
@@ -35,7 +35,7 @@ export function HeroSection() {
           size="lg"
           className="rounded-full px-8 py-6 text-base gap-2 group"
         >
-          Scroll to Checklist
+          Skrol ke Senarai Semak
           <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
         </Button>
       </div>

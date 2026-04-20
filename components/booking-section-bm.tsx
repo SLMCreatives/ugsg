@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookingForm } from "./booking-form";
+import { BookingFormBM } from "./booking-form-bm";
 
 interface BookingSectionProps {
   isUnlocked: boolean;
 }
 
-export function BookingSection({ isUnlocked }: BookingSectionProps) {
+export function BookingSectionBM({ isUnlocked }: BookingSectionProps) {
   return (
     <section id="booking" className="py-16 px-4">
       <div className="max-w-2xl mx-auto">
@@ -33,11 +34,11 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
                   <PartyPopper className="w-8 h-8 text-primary" />
                 </div>
                 <CardTitle className="text-2xl md:text-3xl">
-                  {"All Set to Book Your Slot!"}
+                  {"Dah Sedia untuk Tempah Slot Anda!"}
                 </CardTitle>
                 <CardDescription className="text-base mt-2 text-balance">
-                  It looks like you have everything prepared.{" "}
-                  {"Let's make sure your application is 100% error-free."}
+                  Nampaknya semuanya telah disediakan.{" "}
+                  {"Mari pastikan aplikasi anda 100% betul!"}
                 </CardDescription>
               </>
             ) : (
@@ -46,10 +47,10 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
                   <Lock className="w-8 h-8 text-muted-foreground" />
                 </div>
                 <CardTitle className="text-2xl md:text-3xl text-muted-foreground">
-                  Phase 3: Book Your Session
+                  Bahagian 3: Tempah Sesi Anda
                 </CardTitle>
                 <CardDescription className="text-base mt-2">
-                  Complete all steps above to unlock booking.
+                  Lengkapkan semua langkah di atas untuk membuka tempahan.
                 </CardDescription>
               </>
             )}
@@ -63,30 +64,32 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
                     <Clock className="w-8 h-8 text-primary mt-0.5" />
                     <div className="text-left">
                       <p className="font-medium text-foreground">
-                        What to expect
+                        Apa yang Perlu Dijangka
                       </p>
                       <p className="text-sm text-muted-foreground text-balance">
-                        A 20-minute, 1-to-1 session where we walk you through
-                        the online portal step-by-step.
+                        Sesi 20 minit, secara bersemuka di mana kami akan
+                        membimbing anda melalui portal dalam talian langkah demi
+                        langkah.
                       </p>
                     </div>
                   </div>
                   <div className="grid grid-cols-[1fr_auto] items-center gap-3 p-4 rounded-lg bg-muted/50 justify-center">
                     <Target className="w-8 h-8 text-primary" />
                     <div className="pr-10">
-                      <p className="font-medium text-foreground">The Goal</p>
+                      <p className="font-medium text-foreground">Matlamat</p>
                       <p className="text-sm text-muted-foreground text-balance">
-                        Submit your application correctly the very first time.
+                        Menghantar aplikasi anda dengan betul pada masa pertama.
                       </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Booking Form */}
-                <BookingForm />
+                <BookingFormBM />
 
                 <p className="text-center text-xs text-muted-foreground">
-                  We look forward to helping you secure your PTPTN loan!
+                  Kami berharap dapat membantu anda mendapatkan pinjaman PTPTN
+                  anda!{" "}
                 </p>
               </div>
             ) : (
@@ -103,7 +106,8 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
                     ))}
                   </div>
                   <p className="text-muted-foreground">
-                    Complete all 5 checklist steps to unlock booking.
+                    Lengkapkan semua 5 langkah senarai semak untuk membuka
+                    tempahan.{" "}
                   </p>
                 </div>
               </div>

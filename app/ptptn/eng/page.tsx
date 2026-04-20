@@ -68,9 +68,9 @@ export default function Home() {
             <p>PTPTN Application Help</p>
           </div>
           <nav className="flex flex-1 items-center justify-end space-x-4">
-            <Button variant="ghost" size="sm" asChild>
+            {/* <Button variant="ghost" size="sm" asChild>
               <Link href="#help">Help</Link>
-            </Button>
+            </Button> */}
             <Link href="/ptptn">
               <Button size="sm" variant="ghost" className="p-0 font-bold">
                 <Image

@@ -29,12 +29,12 @@ const steps = [
   {
     key: "bankIslam",
     step: 1,
-    title: "Bank Islam Savings Account",
-    task: "Open a savings Bank Islam account in your own name. If you have an existing account, make sure it is active and has your current details.",
-    note: "Please login to your Bank Islam account online to verify your account details and ensure it is active.",
+    title: "Bank Islam Akaun Simpanan",
+    task: "Buka akaun simpanan Bank Islam atas nama anda sendiri. Jika anda mempunyai akaun sedia ada, pastikan ia aktif dan mempunyai butiran terkini anda.",
+    note: "Sila login ke akaun Bank Islam anda secara dalam talian untuk mengesahkan butiran akaun anda dan memastikan ia aktif.",
     actions: [
       {
-        label: "Login to your Bank Islam Account Online",
+        label: "Login ke Akaun Bank Islam Anda Secara Dalam Talian",
         url: "https://www.bankislam.com"
       }
     ]
@@ -42,8 +42,8 @@ const steps = [
   {
     key: "myDigitalId",
     step: 2,
-    title: "MyDigital ID App",
-    task: "Download and set up the MyDigital ID app. Please make sure that your MyDigital ID account set up and ready to use, as it is required for the application process.",
+    title: "Aplikasi MyDigital ID",
+    task: "Muat turun dan sediakan aplikasi MyDigital ID. Sila pastikan akaun MyDigital ID anda telah disetkan dan sedia untuk digunakan, kerana ia diperlukan untuk proses permohonan.",
     actions: [
       {
         label: "App Store",
@@ -58,8 +58,8 @@ const steps = [
   {
     key: "myPtptn",
     step: 3,
-    title: "myPTPTN App",
-    task: "Download the official myPTPTN app. This app is essential for managing your PTPTN loan application and viewing the results of your application.",
+    title: "Aplikasi myPTPTN",
+    task: "Muat turun aplikasi rasmi myPTPTN. Aplikasi ini penting untuk mengurus permohonan pinjaman PTPTN anda dan melihat keputusan permohonan anda.",
     actions: [
       {
         label: "App Store",
@@ -74,10 +74,10 @@ const steps = [
   {
     key: "sspnPrime",
     step: 4,
-    title: "SSPN Prime Account",
-    task: "Open an account with a minimum deposit of RM20.00.",
+    title: "Akaun SSPN Prime",
+    task: "Buka akaun dengan deposit minimum RM20.00.",
     proTip:
-      "If you already have an active account, the system will detect it automatically—no need to open a new one!",
+      "Jika anda sudah mempunyai akaun aktif, sistem akan mengesaninya secara automatik—tiada keperluan untuk membuka yang baru!",
     actions: [
       {
         label: "Open SSPN Prime Account",
@@ -89,21 +89,21 @@ const steps = [
     key: "ptptnPin",
     step: 5,
     title: "PTPTN PIN",
-    task: "Purchase your application PIN for RM 5. Make sure that you have opened an SSPN-i or SSPN Prime account, as the PIN is linked to it.",
+    task: "Beli PIN permohonan anda dengan harga RM 5. Pastikan anda telah membuka akaun SSPN-i atau SSPN Prime, kerana PIN tersebut dipautkan kepadanya.",
     options: [
-      "BSN ATM Machine",
-      "Online via the myPTPTN website (during application)"
+      "Mesin ATM BSN",
+      "Dalam talian melalui laman web myPTPTN (semasa permohonan)"
     ],
     actions: [
       {
-        label: "Buy PTPTN PIN Online",
+        label: "Beli PIN PTPTN Dalam Talian",
         url: "https://myptptn.ptptn.gov.my/ptptn/app/"
       }
     ]
   }
 ];
 
-export function ChecklistSection({
+export function ChecklistSectionBM({
   checklist,
   onChecklistChange,
   isEligible
@@ -115,25 +115,28 @@ export function ChecklistSection({
     <section id="checklist" className="py-16 px-4 bg-card">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4">
-            Phase 2: Application Checklist
+          <p className="text-sm font-medium text-muted-foreground mb-2">
+            Bahagian 2:
+          </p>
+          <h2 className="text-5xl md:text-4xl font-semibold text-foreground mb-4">
+            Senarai Semak Permohonan
           </h2>
           <p className="text-muted-foreground text-md text-balance">
-            Complete these 5 steps to prepare your application. This is to make
-            sure that you have everything ready for a smooth application process
-            with us.
+            Lengkapkan 5 langkah ini untuk menyediakan permohonan anda. Ini
+            adalah untuk memastikan anda mempunyai segala-galanya yang sedia
+            untuk proses permohonan yang lancar bersama kami.
           </p>
-          <p className="text-foreground text-md mt-4">
-            Don&apos;t worry, we will guide you through each step!
+          <p className="text-foreground text-md mt-4 text-balance">
+            Jangan risau, kami akan membantu anda melalui setiap langkah!
           </p>
         </div>
 
         {/* Progress Bar */}
         <div className="mb-8">
           <div className="flex justify-between text-sm mb-2">
-            <span className="text-muted-foreground">Progress</span>
+            <span className="text-muted-foreground">Kemajuan</span>
             <span className="font-medium text-foreground">
-              {completedCount} of {steps.length} completed
+              {completedCount} dari {steps.length} lengkap
             </span>
           </div>
           <Progress value={progress} className="h-3" />
@@ -168,7 +171,7 @@ export function ChecklistSection({
                     <div className="flex-1">
                       <CardTitle className="flex items-start gap-2">
                         <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary text-primary-foreground text-nowrap mt-1">
-                          Step {item.step}
+                          Langkah {item.step}
                         </span>
                         <Label
                           htmlFor={item.key}
@@ -187,7 +190,7 @@ export function ChecklistSection({
                 <CardContent className="pt-0 pl-14">
                   {item.note && (
                     <p className="text-sm text-muted-foreground mb-3 italic">
-                      Note: {item.note}
+                      Nota: {item.note}
                     </p>
                   )}
 
@@ -195,7 +198,7 @@ export function ChecklistSection({
                     <div className="flex items-start gap-2 p-3 rounded-lg bg-accent/10 mb-3">
                       <Lightbulb className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
                       <p className="text-sm text-foreground">
-                        <strong>Pro-Tip:</strong> {item.proTip}
+                        <strong>Pro tip:</strong> {item.proTip}
                       </p>
                     </div>
                   )}
@@ -203,7 +206,7 @@ export function ChecklistSection({
                   {item.options && (
                     <div className="space-y-2 mb-3">
                       <p className="text-sm font-medium text-foreground">
-                        Methods to purchase PTPTN PIN:
+                        Kaedah untuk membeli PIN PTPTN:
                       </p>
                       <ul className="space-y-1">
                         {item.options.map((option, idx) => (
@@ -250,8 +253,8 @@ export function ChecklistSection({
         {!isEligible && (
           <div className="mt-6 p-4 rounded-lg bg-muted border border-border text-center">
             <p className="text-muted-foreground">
-              Please complete the eligibility check above to unlock the
-              checklist.
+              Sila lengkapkan semakan kelayakan di atas untuk membuka kunci
+              senarai semak.
             </p>
           </div>
         )}

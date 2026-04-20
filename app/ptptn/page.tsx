@@ -8,6 +8,10 @@ import { BookingSection } from "@/components/booking-section";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { HeroSectionBM } from "@/components/hero-section-bm";
+import { EligibilitySectionBM } from "@/components/eligibility-section-bm";
+import { ChecklistSectionBM } from "@/components/checklist-section-bm";
+import { BookingSectionBM } from "@/components/booking-section-bm";
 
 export default function PTPTNPageBM() {
   const [eligibility, setEligibility] = useState({
@@ -63,9 +67,9 @@ export default function PTPTNPageBM() {
               />
             </Link>
             <span className="hidden font-bold sr-only sm:inline-block">
-              UNITAR International University
+              University Antarabangsa UNITAR
             </span>
-            <p>PTPTN Application Help</p>
+            <p>Bantuan Aplikasi PTPTN</p>
           </div>
           <nav className="flex flex-1 items-center justify-end space-x-4">
             {/* <Button variant="ghost" size="sm" asChild>
@@ -85,23 +89,23 @@ export default function PTPTNPageBM() {
           </nav>
         </div>
       </header>
-      <HeroSection />
-      <EligibilitySection
+      <HeroSectionBM />
+      <EligibilitySectionBM
         eligibility={eligibility}
         onEligibilityChange={handleEligibilityChange}
       />
-      <ChecklistSection
+      <ChecklistSectionBM
         checklist={checklist}
         onChecklistChange={handleChecklistChange}
         isEligible={isEligible}
       />
-      <BookingSection isUnlocked={isBookingUnlocked} />
+      <BookingSectionBM isUnlocked={isBookingUnlocked} />
 
       {/* Footer */}
       <footer className="py-8 px-4 text-center border-t border-border">
         <p className="text-sm text-muted-foreground">
-          A initiative by Student Success Team @ UNITAR International
-          University. For any inquiries, please contact us at{" "}
+          Satu inisiatif oleh Student Success Team @ UNITAR International
+          University. Untuk sebarang pertanyaan, sila hubungi kami di{" "}
           <Link href="mailto:sst@unitar.my" className="underline">
             sst@unitar.my
           </Link>
