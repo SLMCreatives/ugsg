@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckCircle } from "lucide-react";
+import { SLOTS } from "./booking-form";
 
 interface SlotCount {
   [key: string]: number;
@@ -24,21 +25,6 @@ const TIME_SLOTS = [
   { label: "Morning (10am - 12pm)", value: "morning" },
   { label: "Evening (3pm - 5pm)", value: "evening" }
 ]; */
-
-const SLOTS = [
-  { date: "Tuesday, 5 May 2026", time: "morning", slots: 25 },
-  { date: "Tuesday, 5 May 2026", time: "evening", slots: 25 },
-  { date: "Wednesday, 6 May 2026", time: "morning", slots: 25 },
-  { date: "Wednesday, 6 May 2026", time: "evening", slots: 25 },
-  { date: "Thursday, 7 May 2026", time: "morning", slots: 25 },
-  { date: "Thursday, 7 May 2026", time: "evening", slots: 25 },
-  { date: "Tuesday, 12 May 2026", time: "morning", slots: 25 },
-  { date: "Tuesday, 12 May 2026", time: "evening", slots: 25 },
-  { date: "Wednesday, 13 May 2026", time: "morning", slots: 25 },
-  { date: "Wednesday, 13 May 2026", time: "evening", slots: 25 },
-  { date: "Thursday, 14 May 2026", time: "morning", slots: 25 },
-  { date: "Thursday, 14 May 2026", time: "evening", slots: 25 }
-];
 
 /* const MAX_SUBMISSIONS_PER_SLOT = 6; */
 
