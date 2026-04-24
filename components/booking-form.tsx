@@ -26,18 +26,17 @@ const TIME_SLOTS = [
 ]; */
 
 export const SLOTS = [
-  { date: "Tuesday, 5 May 2026", time: "morning", slots: 16 },
-  { date: "Tuesday, 5 May 2026", time: "evening", slots: 17 },
-  { date: "Wednesday, 6 May 2026", time: "morning", slots: 25 },
-  { date: "Wednesday, 6 May 2026", time: "evening", slots: 23 },
-  { date: "Thursday, 7 May 2026", time: "morning", slots: 22 },
-  { date: "Thursday, 7 May 2026", time: "evening", slots: 24 },
-  { date: "Tuesday, 12 May 2026", time: "morning", slots: 25 },
-  { date: "Tuesday, 12 May 2026", time: "evening", slots: 24 },
-  { date: "Wednesday, 13 May 2026", time: "morning", slots: 25 },
-  { date: "Wednesday, 13 May 2026", time: "evening", slots: 25 },
-  { date: "Thursday, 14 May 2026", time: "morning", slots: 24 },
-  { date: "Thursday, 14 May 2026", time: "evening", slots: 24 }
+  { date: "Tuesday, 5 May 2026", time: "evening", slots: 3 },
+  { date: "Wednesday, 6 May 2026", time: "morning", slots: 15 },
+  { date: "Wednesday, 6 May 2026", time: "evening", slots: 11 },
+  { date: "Thursday, 7 May 2026", time: "morning", slots: 12 },
+  { date: "Thursday, 7 May 2026", time: "evening", slots: 13 },
+  { date: "Tuesday, 12 May 2026", time: "morning", slots: 14 },
+  { date: "Tuesday, 12 May 2026", time: "evening", slots: 13 },
+  { date: "Wednesday, 13 May 2026", time: "morning", slots: 15 },
+  { date: "Wednesday, 13 May 2026", time: "evening", slots: 15 },
+  { date: "Thursday, 14 May 2026", time: "morning", slots: 14 },
+  { date: "Thursday, 14 May 2026", time: "evening", slots: 14 }
 ];
 
 /* const MAX_SUBMISSIONS_PER_SLOT = 6; */
