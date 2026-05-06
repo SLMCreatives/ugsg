@@ -15,6 +15,21 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle } from "lucide-react";
 
+const locations = [
+  { value: "kelana_jaya", label: "Kelana Jaya" },
+  { value: "kuala_lumpur", label: "Kuala Lumpur" },
+  { value: "sungai_petani", label: "Sungai Petani" },
+  { value: "ipoh", label: "Ipoh" },
+  { value: "johor_bharu", label: "Johor Bharu" },
+  { value: "kota_bharu", label: "Kota Bharu" },
+  { value: "kota_kinabalu", label: "Kota Kinabalu" },
+  { value: "kuala_terengganu", label: "Kuala Terengganu" },
+  { value: "pulau_pinang", label: "Pulau Pinang" },
+  { value: "sungai_petani_2", label: "Sungai Petani" },
+  { value: "melaka", label: "Melaka" },
+  { value: "kuching", label: "Kuching" }
+];
+
 export default function FormSection() {
   const [formData, setFormData] = useState({
     name: "",
@@ -225,15 +240,11 @@ export default function FormSection() {
                     <SelectValue placeholder="Select a campus" />
                   </SelectTrigger>
                   <SelectContent className="dark bg-slate-700 border-slate-600">
-                    <SelectItem value="kuala-lumpur">
-                      Kuala Lumpur Campus
-                    </SelectItem>
-                    <SelectItem value="penang">Penang Campus</SelectItem>
-                    <SelectItem value="johor-bahru">
-                      Johor Bahru Campus
-                    </SelectItem>
-                    <SelectItem value="melaka">Melaka Campus</SelectItem>
-                    <SelectItem value="selangor">Selangor Campus</SelectItem>
+                    {locations.map((loc) => (
+                      <SelectItem key={loc.value} value={loc.value}>
+                        {loc.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 {errors.campus && (
@@ -254,7 +265,6 @@ export default function FormSection() {
                     <SelectValue placeholder="Select your size" />
                   </SelectTrigger>
                   <SelectContent className="dark bg-slate-700 border-slate-600">
-                    <SelectItem value="XS">Extra Small (XS)</SelectItem>
                     <SelectItem value="S">Small (S)</SelectItem>
                     <SelectItem value="M">Medium (M)</SelectItem>
                     <SelectItem value="L">Large (L)</SelectItem>
