@@ -16,17 +16,47 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle, AlertCircle } from "lucide-react";
 
 const locations = [
-  { value: "kelana_jaya", label: "Kelana Jaya" },
-  { value: "kuala_lumpur", label: "Kuala Lumpur" },
-  { value: "sungai_petani", label: "Sungai Petani" },
-  { value: "ipoh", label: "Ipoh" },
-  { value: "johor_bharu", label: "Johor Bharu" },
-  { value: "kota_bharu", label: "Kota Bharu" },
-  { value: "kota_kinabalu", label: "Kota Kinabalu" },
-  { value: "kuala_terengganu", label: "Kuala Terengganu" },
-  { value: "pulau_pinang", label: "Pulau Pinang" },
-  { value: "melaka", label: "Melaka" },
-  { value: "kuching", label: "Kuching" }
+  {
+    value: "kelana_jaya",
+    label: "UNITAR International University, (Main Campus) Petaling Jaya"
+  },
+  { value: "kuala_lumpur", label: "UNITAR University College Kuala Lumpur" },
+  {
+    value: "sungai_petani",
+    label: "UNITAR International University Resource CentreSungai Petani"
+  },
+  {
+    value: "ipoh",
+    label: "UNITAR International University Regional Centre Ipoh"
+  },
+  {
+    value: "johor_bharu",
+    label: "UNITAR International University Regional Centre Johor Bahru"
+  },
+  {
+    value: "kota_bharu",
+    label: "UNITAR International University Regional Centre Kota Bharu"
+  },
+  {
+    value: "kota_kinabalu",
+    label: "UNITAR International University Regional Centre Kota Kinabalu"
+  },
+  {
+    value: "kuala_terengganu",
+    label: "UNITAR International University Regional Centre Kuala Terengganu "
+  },
+  {
+    value: "pulau_pinang",
+    label: "UNITAR International University Regional Centre Pulau Pinang"
+  },
+  {
+    value: "melaka",
+    label: "UNITAR International University Regional Centre Melaka"
+  },
+  {
+    value: "kuching",
+    label: "UNITAR International University Regional Centre Kuching"
+  }
 ];
 
 const getLocationLabel = (value: string) => {
