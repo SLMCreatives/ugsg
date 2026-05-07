@@ -23,7 +23,7 @@ const locations = [
   { value: "kuala_lumpur", label: "UNITAR University College Kuala Lumpur" },
   {
     value: "sungai_petani",
-    label: "UNITAR International University Resource CentreSungai Petani"
+    label: "UNITAR International University Resource Centre Sungai Petani"
   },
   {
     value: "ipoh",
