@@ -3,8 +3,8 @@ import { HelpCircle, Mail, Ticket } from "lucide-react";
 
 export default function InfoSection() {
   return (
-    <section className="dark py-16 md:py-24 px-4">
-      <div className="max-w-4xl mx-auto space-y-12">
+    <section className="dark py-4 px-4">
+      <div className="max-w-4xl mx-auto space-y-6">
         {/* Key Information */}
         <div className="space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center">
@@ -13,11 +13,11 @@ export default function InfoSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Registration Deadline */}
-            <Card className="dark bg-slate-700 border-slate-600 p-6 space-y-3">
+            <Card className="dark bg-slate-800 border-slate-600 p-6 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="bg-cyan-500/20 p-3 rounded-lg">
+                <div className="bg-[#126595] p-3 rounded-lg">
                   <svg
-                    className="w-6 h-6 text-cyan-500"
+                    className="w-6 h-6 text-[#FF8000]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -32,7 +32,7 @@ export default function InfoSection() {
                 </div>
                 <h3 className="text-xl font-bold">Registration Deadline</h3>
               </div>
-              <p className="text-2xl font-semibold text-cyan-400">
+              <p className="text-2xl font-semibold text-[#FF8000]">
                 June 2, 2024
               </p>
               <p className="">
@@ -42,11 +42,11 @@ export default function InfoSection() {
             </Card>
 
             {/* Pick-Up Window */}
-            <Card className="dark bg-slate-700 border-slate-600 p-6 space-y-3">
+            <Card className="dark bg-slate-800 border-slate-600 p-6 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="bg-cyan-500/20 p-3 rounded-lg">
+                <div className="bg-[#126595] p-3 rounded-lg">
                   <svg
-                    className="w-6 h-6 text-cyan-500"
+                    className="w-6 h-6 text-[#FF8000]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -61,7 +61,7 @@ export default function InfoSection() {
                 </div>
                 <h3 className="text-xl font-bold">Pick-Up Window</h3>
               </div>
-              <p className="text-2xl font-semibold text-cyan-400">
+              <p className="text-2xl font-semibold text-[#FF8000]">
                 June 29 - July 30, 2024
               </p>
               <p className="">
@@ -75,7 +75,7 @@ export default function InfoSection() {
         {/* Support Section */}
 
         {/* What&apos;s Included */}
-        <div className="space-y-6 border-t border-slate-200 dark:border-slate-800  py-12">
+        {/*  <div className="space-y-6 border-t border-slate-200 dark:border-slate-800  py-12">
           <h2 className="text-3xl md:text-4xl font-bold text-center">
             What&apos;s in Your Starter Kit?
           </h2>
@@ -131,7 +131,8 @@ export default function InfoSection() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
+
         <div className="space-y-6 border-t border-slate-600 pt-12">
           <h2 className="text-3xl md:text-4xl font-bold text-center">
             Need Help?
@@ -139,28 +140,32 @@ export default function InfoSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* OSC Support */}
-            <Card className="dark bg-slate-700 border-slate-600 p-6 space-y-4">
+            <Card className="dark bg-slate-800 border-slate-600 p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <Ticket className="w-6 h-6 text-cyan-500" />
+                <Ticket className="w-6 h-6 text-[#FF8000]" />
                 <h3 className="text-lg font-bold">Raise a Support Ticket</h3>
               </div>
               <p className="">
-                Visit the Online Student Centre (OSC) to raise a support ticket
-                for any queries regarding your starter kit registration.
+                Visit the{" "}
+                <span className="font-bold text-[#FF8000]">
+                  Online Student Centre (OSC)
+                </span>{" "}
+                to raise a support ticket for any queries regarding your starter
+                kit registration.
               </p>
             </Card>
 
             {/* Email Support */}
-            <Card className="dark bg-slate-700 border-slate-600 p-6 space-y-4">
+            <Card className="dark bg-slate-800 border-slate-600 p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <Mail className="w-6 h-6 text-cyan-500" />
+                <Mail className="w-6 h-6 text-[#FF8000]" />
                 <h3 className="text-lg font-bold">Send an Email</h3>
               </div>
               <p className="">
                 Email us at{" "}
                 <a
                   href="mailto:enquires@unitar.my"
-                  className="text-cyan-400 hover:text-cyan-300 font-semibold"
+                  className="text-[#FF8000] hover:text-[#FF8000]/80 font-semibold"
                 >
                   enquires@unitar.my
                 </a>{" "}
