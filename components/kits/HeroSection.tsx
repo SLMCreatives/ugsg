@@ -9,8 +9,7 @@ import Autoplay from "embla-carousel-autoplay";
 const carouselImages = [
   "/starter-kit/pack/1.png",
   "/starter-kit/pack/2.png",
-  "/starter-kit/pack/3.png",
-  "/starter-kit/pack/4.png"
+  "/starter-kit/pack/3.png"
 ];
 
 export default function HeroSection() {

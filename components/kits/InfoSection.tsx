@@ -33,7 +33,7 @@ export default function InfoSection() {
                 <h3 className="text-xl font-bold">Registration Deadline</h3>
               </div>
               <p className="text-2xl font-semibold text-[#FF8000]">
-                June 2, 2024
+                June 2, 2026
               </p>
               <p className="">
                 Make sure to register before this date to secure your starter
@@ -62,7 +62,7 @@ export default function InfoSection() {
                 <h3 className="text-xl font-bold">Pick-Up Window</h3>
               </div>
               <p className="text-2xl font-semibold text-[#FF8000]">
-                June 29 - July 30, 2024
+                June 29 - July 30, 2026
               </p>
               <p className="">
                 Pick up your starter kit from your selected campus during this
@@ -148,7 +148,7 @@ export default function InfoSection() {
               <p className="">
                 Visit the{" "}
                 <span className="font-bold text-[#FF8000]">
-                  Online Student Centre (OSC)
+                  One Stop Center (OSC)
                 </span>{" "}
                 to raise a support ticket for any queries regarding your starter
                 kit registration.
@@ -167,7 +167,7 @@ export default function InfoSection() {
                   href="mailto:enquires@unitar.my"
                   className="text-[#FF8000] hover:text-[#FF8000]/80 font-semibold"
                 >
-                  enquires@unitar.my
+                  enquiries@unitar.my
                 </a>{" "}
                 with your questions and inquiries.
               </p>
