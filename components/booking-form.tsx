@@ -26,11 +26,11 @@ const TIME_SLOTS = [
 ]; */
 
 export const SLOTS = [
-  { date: "Tuesday, 12 May 2026", time: "morning", slots: 11 },
+  { date: "Tuesday, 12 May 2026", time: "morning", slots: 9 },
   { date: "Tuesday, 12 May 2026", time: "evening", slots: 7 },
   { date: "Wednesday, 13 May 2026", time: "morning", slots: 14 },
   { date: "Wednesday, 13 May 2026", time: "evening", slots: 13 },
-  { date: "Thursday, 14 May 2026", time: "morning", slots: 13 },
+  { date: "Thursday, 14 May 2026", time: "morning", slots: 12 },
   { date: "Thursday, 14 May 2026", time: "evening", slots: 13 }
 ];
 

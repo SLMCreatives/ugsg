@@ -13,9 +13,101 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle, AlertCircle } from "lucide-react";
+import {
+  CheckCircle,
+  AlertCircle,
+  MapPin,
+  Phone,
+  Building2
+} from "lucide-react";
 
-const locations = [
+const newlocations = [
+  {
+    value: "unitar-international-university-main-campus-petaling-jaya",
+    label: "UNITAR International University Main Campus Petaling Jaya",
+    address:
+      "Tierra Crest, Jalan SS6/3, Kelana Jaya, 47301 Petaling Jaya, Selangor Darul Ehsan",
+    phone: "+603-7627 7200"
+  },
+  {
+    value: "unitar-college-sungai-petani",
+    label: "UNITAR College Sungai Petani",
+    address:
+      "No. 77 & 78, Wisma Cosmopoint, Jalan Mawar 1, Taman Pekan Baru, 08000 Sungai Petani, Kedah. Additional Premises: Plot A-G, Jalan Kampung Baru, 08000 Sungai Petani, Kedah",
+    phone: "04-425 6061/63"
+  },
+  {
+    value: "unitar-college-penang",
+    label: "UNITAR College Penang",
+    address:
+      "Unit 72-1-46, 72-1-47, 72-2-43, 72-2-43a, 72-2-45, 72-2-46, 72-2-47, 72-2-48, 72-3-47 & 72-3-48, Arena Curve, Jalan Mahsuri, 11950 Bayan Lepas, Pulau Pinang",
+    phone: "04-611 0658"
+  },
+  {
+    value: "unitar-college-ipoh",
+    label: "UNITAR College Ipoh",
+    address:
+      "Unit 1-A, 1-B, 3-A, 3-B, 5-A, 5-B, 7-A, 7-B, 9, 9-A, 9-B, 11, 11-A, 11-B, 13, 13-A, 13-B, 15, 15-A, 15-B, Arena Niaga Pari 2, Arena Niaga Pari Off Jalan Silibin, 30100 Ipoh, Perak",
+    phone: "05-249 2626/21"
+  },
+  {
+    value: "unitar-college-melaka",
+    label: "UNITAR College Melaka",
+    address: "No. 112, 114 & 116, Jalan Kubu, 75200 Melaka, Melaka",
+    phone: "06-286 0686"
+  },
+  {
+    value: "unitar-college-johor-bahru",
+    label: "UNITAR College Johor Bahru",
+    address:
+      "No. 14, 14A, 14B, 14C, 16, 16A, 16B & 16C, Jalan Lembah 16, Bandar Seri Alam, 81750 Masai, Johor",
+    phone: "07-382 4705"
+  },
+  {
+    value: "unitar-college-kuantan",
+    label: "UNITAR College Kuantan",
+    address:
+      "No. 74/4, Jalan Teluk Sisek, 25000 Kuantan, Pahang. New Campus: B92-B98 Jalan Dato Lim Hoe Lek, 25300 Kuantan, Pahang",
+    phone: "09-516 2857/59/72"
+  },
+  {
+    value: "unitar-college-kuala-terengganu",
+    label: "UNITAR College Kuala Terengganu",
+    address:
+      "Tingkat 2 dan 3, Kompleks Maksak, Jalan Cerung Lanjut, 20300 Kuala Terengganu, Terengganu",
+    phone: "09-631 2223/4"
+  },
+  {
+    value: "unitar-college-kota-bharu",
+    label: "UNITAR College Kota Bharu",
+    address:
+      "No. 5, 6, 7 & 8, Vista Square, Jalan Sri Cemerlang, 15350 Kota Bharu, Kelantan",
+    phone: "09-743 7677"
+  },
+  {
+    value: "unitar-college-kuching",
+    label: "UNITAR College Kuching",
+    address:
+      "Lot 3127-3130, PL 1106, Block 10, Kuching Central Land District, Jalan Tun Ahmad Zaidi Adruce, 93250 Kuching, Sarawak",
+    phone: "082-240 340"
+  },
+  {
+    value: "unitar-college-kota-kinabalu",
+    label: "UNITAR College Kota Kinabalu",
+    address:
+      "Lot 102, 103, 104 & 105, Block P, Alamesra Plaza Utama, Phase 3, Alamesra, Along Sulaman Coastal, Kuala Menggatal, 88400 Kota Kinabalu, Sabah",
+    phone: "088-348 800"
+  },
+  {
+    value: "unitar-university-college-kuala-lumpur",
+    label: "UNITAR University College Kuala Lumpur",
+    address:
+      "01-03, 09-01, 09-02, 09-03, 09-04 & 09-05, Wisma Hong Leong, 18 Jalan Perak, 50450 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur",
+    phone: "03-2603 1500"
+  }
+];
+
+/* const locations = [
   {
     value: "kelana_jaya",
     label: "UNITAR International University, (Main Campus) Petaling Jaya"
@@ -23,44 +115,48 @@ const locations = [
   { value: "kuala_lumpur", label: "UNITAR University College Kuala Lumpur" },
   {
     value: "sungai_petani",
-    label: "UNITAR International University Resource Centre Sungai Petani"
+    label: "UNITAR College Sungai Petani"
   },
   {
     value: "ipoh",
-    label: "UNITAR International University Regional Centre Ipoh"
+    label: "UNITAR College Ipoh"
   },
   {
     value: "johor_bharu",
-    label: "UNITAR International University Regional Centre Johor Bahru"
+    label: "UNITAR College Johor Bahru"
   },
   {
     value: "kota_bharu",
-    label: "UNITAR International University Regional Centre Kota Bharu"
+    label: "UNITAR College Kota Bharu"
   },
   {
     value: "kota_kinabalu",
-    label: "UNITAR International University Regional Centre Kota Kinabalu"
+    label: "UNITAR College Kota Kinabalu"
   },
   {
     value: "kuala_terengganu",
-    label: "UNITAR International University Regional Centre Kuala Terengganu "
+    label: "UNITAR College Kuala Terengganu "
   },
   {
     value: "pulau_pinang",
-    label: "UNITAR International University Regional Centre Pulau Pinang"
+    label: "UNITAR College Penang"
   },
   {
     value: "melaka",
-    label: "UNITAR International University Regional Centre Melaka"
+    label: "UNITAR College Melaka"
   },
   {
     value: "kuching",
-    label: "UNITAR International University Regional Centre Kuching"
+    label: "UNITAR College Kuching"
+  },
+  {
+    value: "kuantan",
+    label: "UNITAR College Kuantan"
   }
-];
+]; */
 
-const getLocationLabel = (value: string) => {
-  return locations.find((loc) => loc.value === value)?.label || value;
+const getLocationDetails = (value: string) => {
+  return newlocations.find((loc) => loc.value === value) || null;
 };
 
 type FormData = {
@@ -164,6 +260,11 @@ export default function FormSection() {
     return newErrors;
   };
 
+  const selectedLocation = getLocationDetails(formData.campus);
+  const submittedLocation = submittedData
+    ? getLocationDetails(submittedData.campus)
+    : null;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -248,14 +349,38 @@ export default function FormSection() {
                     </p>
                   </div>
 
-                  <div className="rounded-lg border border-cyan-500/20 bg-slate-900/10 p-4">
-                    <p>
-                      <span className="font-semibold">
-                        Preferred pickup campus:
-                      </span>{" "}
-                      {getLocationLabel(submittedData.campus)}
-                    </p>
-                  </div>
+                  {submittedLocation && (
+                    <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-5 space-y-4">
+                      <div>
+                        <p className="text-sm uppercase tracking-wide text-cyan-600 font-semibold">
+                          Your Pickup Location
+                        </p>
+                        <h3 className="text-lg font-bold mt-1">
+                          {submittedLocation.label}
+                        </h3>
+                      </div>
+
+                      <div className="grid gap-4">
+                        <div className="flex items-start gap-3">
+                          <MapPin className="h-5 w-5 text-cyan-500 mt-0.5 shrink-0" />
+                          <div>
+                            <p className="font-semibold">Address</p>
+                            <p className="mt-1 leading-relaxed">
+                              {submittedLocation.address}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3">
+                          <Phone className="h-5 w-5 text-cyan-500 mt-0.5 shrink-0" />
+                          <div>
+                            <p className="font-semibold">Phone Number</p>
+                            <p className="mt-1">{submittedLocation.phone}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div className="rounded-lg border border-cyan-500/20 bg-slate-900/10 p-4">
                     <p>
                       <span className="font-semibold">Pickup Slot:</span> June
@@ -394,7 +519,7 @@ export default function FormSection() {
                     <SelectValue placeholder="Select a campus" />
                   </SelectTrigger>
                   <SelectContent className="dark bg-slate-700 border-slate-600">
-                    {locations.map((loc) => (
+                    {newlocations.map((loc) => (
                       <SelectItem key={loc.value} value={loc.value}>
                         {loc.label}
                       </SelectItem>
