@@ -2,10 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
-import { useMemo } from "react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../ui/carousel";
+import { useMemo, useState, useEffect } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { ArrowRight, Calendar, Package } from "lucide-react";
+import { ArrowRight, Calendar, Package, Clock } from "lucide-react";
+
+const DEADLINE = new Date("2026-06-02T00:00:00");
+
+function getDaysLeft() {
+  return Math.max(0, Math.ceil((DEADLINE.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
+}
 
 const carouselImages = [
   "/starter-kit/pack/1.png",
@@ -14,9 +20,24 @@ const carouselImages = [
   "/starter-kit/pack/4.png"
 ];
 
-const kitItems = ["UNITAR T-Shirt", "Notebook & Pen", "Student Lanyard"];
+const kitItems = ["UNITAR T-Shirt", "Notebook", "Sticker Pad", "Student Lanyard"];
 
 export default function HeroSection() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [daysLeft, setDaysLeft] = useState(getDaysLeft());
+
+  useEffect(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => setCurrent(api.selectedScrollSnap()));
+  }, [api]);
+
+  useEffect(() => {
+    const timer = setInterval(() => setDaysLeft(getDaysLeft()), 60_000);
+    return () => clearInterval(timer);
+  }, []);
+
   const handleScrollToForm = () => {
     const formSection = document.getElementById("form-section");
     if (formSection) {
@@ -39,6 +60,7 @@ export default function HeroSection() {
             <div className="absolute -inset-6 bg-gradient-to-br from-[#FF8000]/20 via-[#126595]/10 to-transparent rounded-3xl blur-2xl" />
             <div className="relative">
               <Carousel
+                setApi={setApi}
                 plugins={[autoplay]}
                 opts={{ loop: true, align: "center" }}
               >
@@ -57,6 +79,22 @@ export default function HeroSection() {
                   ))}
                 </CarouselContent>
               </Carousel>
+
+              {/* Dot indicators */}
+              <div className="flex justify-center gap-2 mt-4">
+                {carouselImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => api?.scrollTo(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      current === index
+                        ? "w-6 bg-[#FF8000]"
+                        : "w-2 bg-white/30 hover:bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -68,7 +106,9 @@ export default function HeroSection() {
             <span className="bg-[#FF8000] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
               100% Free
             </span>
-            <span className="text-slate-400 text-sm">For Registered Students Only</span>
+            <span className="text-slate-400 text-sm">
+              For Registered Students Only
+            </span>
           </div>
 
           {/* Headline */}
@@ -79,13 +119,19 @@ export default function HeroSection() {
               <span className="text-[#FF8000]">Starts Here.</span>
             </h1>
             <p className="text-slate-300 text-lg leading-relaxed max-w-md">
-              Grab your <span className="text-white font-semibold">FREE UNITAR Starter Pack</span> — loaded with merch to rep your uni from day one.
+              Grab your{" "}
+              <span className="text-white font-semibold">
+                FREE UNITAR Starter Pack
+              </span>{" "}
+              — loaded with merch to rep your uni from day one.
             </p>
           </div>
 
           {/* What's inside */}
           <div className="space-y-2">
-            <p className="text-xs text-slate-500 uppercase tracking-widest">What&apos;s inside</p>
+            <p className="text-xs text-slate-500 uppercase tracking-widest">
+              What&apos;s inside
+            </p>
             <div className="flex flex-wrap gap-2">
               {kitItems.map((item) => (
                 <span
@@ -116,14 +162,24 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* CTA */}
-          <Button
-            onClick={handleScrollToForm}
-            className="bg-[#FF8000] hover:bg-[#e07000] text-white font-bold py-6 text-lg rounded-xl w-full md:w-auto flex items-center gap-2 group transition-colors"
-          >
-            Claim My Starter Pack
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          {/* CTA + urgency */}
+          <div className="space-y-3">
+            <Button
+              onClick={handleScrollToForm}
+              className="bg-[#FF8000] hover:bg-[#e07000] text-white font-bold py-6 text-lg rounded-xl w-full md:w-auto flex items-center gap-2 group transition-colors"
+            >
+              Claim My Starter Pack
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            {daysLeft > 0 && (
+              <p className="flex items-center gap-1.5 text-sm text-amber-400">
+                <Clock className="w-4 h-4 shrink-0" />
+                <span>
+                  <span className="font-bold">{daysLeft} day{daysLeft !== 1 ? "s" : ""}</span> left to register
+                </span>
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </section>

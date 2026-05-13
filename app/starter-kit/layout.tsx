@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import Header from "@/components/kits/Header";
+import Footer from "@/components/kits/Footer";
 
 export const metadata: Metadata = {
   title: "Get your Starter Kit",
@@ -11,5 +13,11 @@ export default function PTPTNLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return (
+    <div className="min-h-screen flex flex-col bg-[#0b1628]">
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
+  );
 }

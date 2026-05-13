@@ -322,83 +322,93 @@ export default function FormSection() {
   };
 
   return (
-    <section id="form-section" className="py-16 md:py-24 px-4 scroll-mt-20">
+    <section
+      id="form-section"
+      className="bg-[#0d1e35] py-16 md:py-24 px-4 scroll-mt-20"
+    >
       <div className="max-w-2xl mx-auto">
         <div className="space-y-2 text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold">
-            Fill Out Your Information
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            Claim Your Free Pack
           </h2>
-          <p className="text-lg">
-            Complete this form to reserve your starter kit
+          <p className="text-slate-400 text-lg">
+            Fill in your details below to reserve your starter kit
           </p>
         </div>
 
         {success && submittedData ? (
-          <div className="space-y-4">
-            <Alert className="bg-cyan-500/10 border-cyan-500/30">
-              <CheckCircle className="h-4 w-4 text-cyan-500" />
-              <AlertDescription>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold text-base">
-                      Thank you for filling up the form!
-                    </p>
-                    <p className="mt-1">
-                      Your starter kit registration has been received
-                      successfully.
-                    </p>
-                  </div>
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
+            {/* Success banner */}
+            <div className="bg-green-600 px-6 py-5 flex items-center gap-4">
+              <div className="bg-white/20 rounded-full p-2 shrink-0">
+                <CheckCircle className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <p className="text-white font-bold text-lg leading-tight">
+                  Registration Successful!
+                </p>
+                <p className="text-green-100 text-sm mt-0.5">
+                  Your starter kit has been reserved.
+                </p>
+              </div>
+            </div>
 
-                  {submittedLocation && (
-                    <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-5 space-y-4">
-                      <div>
-                        <p className="text-sm uppercase tracking-wide text-cyan-600 font-semibold">
-                          Your Pickup Location
+            <div className="p-6 space-y-6">
+              {/* Pickup location */}
+              {submittedLocation && (
+                <div className="space-y-3">
+                  <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">
+                    Your Pickup Location
+                  </p>
+                  <div className="bg-slate-700/60 border border-slate-600 rounded-xl p-5 space-y-4">
+                    <h3 className="text-white font-bold text-base leading-snug">
+                      {submittedLocation.label}
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-3">
+                        <MapPin className="h-4 w-4 text-[#FF8000] mt-0.5 shrink-0" />
+                        <p className="text-slate-300 text-sm leading-relaxed">
+                          {submittedLocation.address}
                         </p>
-                        <h3 className="text-lg font-bold mt-1">
-                          {submittedLocation.label}
-                        </h3>
                       </div>
-
-                      <div className="grid gap-4">
-                        <div className="flex items-start gap-3">
-                          <MapPin className="h-5 w-5 text-cyan-500 mt-0.5 shrink-0" />
-                          <div>
-                            <p className="font-semibold">Address</p>
-                            <p className="mt-1 leading-relaxed">
-                              {submittedLocation.address}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3">
-                          <Phone className="h-5 w-5 text-cyan-500 mt-0.5 shrink-0" />
-                          <div>
-                            <p className="font-semibold">Phone Number</p>
-                            <p className="mt-1">{submittedLocation.phone}</p>
-                          </div>
-                        </div>
+                      <div className="flex items-center gap-3">
+                        <Phone className="h-4 w-4 text-[#FF8000] shrink-0" />
+                        <p className="text-slate-300 text-sm">
+                          {submittedLocation.phone}
+                        </p>
                       </div>
                     </div>
-                  )}
-                  <div className="rounded-lg border border-cyan-500/20 bg-slate-900/10 p-4">
-                    <p>
-                      <span className="font-semibold">Pickup Slot:</span> June
-                      29 - July 30, 2026 (Exact date and time will be
-                      communicated via email)
-                    </p>
                   </div>
+                </div>
+              )}
 
-                  <p>
-                    Please look out in your inbox for any updates regarding your
-                    starter kit pickup.
+              {/* Pickup slot */}
+              <div className="space-y-3">
+                <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">
+                  Pickup Window
+                </p>
+                <div className="bg-[#FF8000]/10 border border-[#FF8000]/30 rounded-xl px-5 py-4">
+                  <p className="text-[#FF8000] font-bold text-base">
+                    June 29 – July 30, 2026
+                  </p>
+                  <p className="text-slate-400 text-sm mt-1">
+                    Exact date and time will be communicated to you via email.
                   </p>
                 </div>
-              </AlertDescription>
-            </Alert>
+              </div>
+
+              {/* Footer note */}
+              <p className="text-slate-400 text-sm border-t border-slate-700 pt-4">
+                Please check your inbox regularly for updates on your starter kit pickup.
+              </p>
+            </div>
           </div>
         ) : (
           <Card className="dark bg-slate-800 border-slate-700 p-8 space-y-6">
+            <p className="text-slate-400 text-sm">
+              All fields marked with <span className="text-red-400">*</span> are
+              required
+            </p>
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               {/* Name */}
               <div className="space-y-2">
@@ -433,7 +443,7 @@ export default function FormSection() {
                   id="matricNumber"
                   name="matricNumber"
                   type="text"
-                  placeholder="Enter your matric number"
+                  placeholder="e.g. U00012345"
                   value={formData.matricNumber}
                   onChange={handleInputChange}
                   aria-invalid={!!errors.matricNumber}
@@ -443,9 +453,13 @@ export default function FormSection() {
                   disabled={loading}
                   className="dark bg-slate-700 border-slate-600 placeholder-slate-400"
                 />
-                {errors.matricNumber && (
+                {errors.matricNumber ? (
                   <p id="matricNumber-error" className="text-red-400 text-sm">
                     {errors.matricNumber}
+                  </p>
+                ) : (
+                  <p className="text-slate-500 text-xs">
+                    Found on your offer letter or student portal
                   </p>
                 )}
               </div>
@@ -459,7 +473,7 @@ export default function FormSection() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="Enter your phone number"
+                  placeholder="e.g. 0123456789"
                   value={formData.phone}
                   onChange={handleInputChange}
                   aria-invalid={!!errors.phone}
@@ -467,9 +481,14 @@ export default function FormSection() {
                   disabled={loading}
                   className="dark bg-slate-700 border-slate-600 placeholder-slate-400"
                 />
-                {errors.phone && (
+                {errors.phone ? (
                   <p id="phone-error" className="text-red-400 text-sm">
                     {errors.phone}
+                  </p>
+                ) : (
+                  <p className="text-slate-500 text-xs">
+                    Malaysian number — include country code if international
+                    (e.g. +6012...)
                   </p>
                 )}
               </div>
@@ -535,9 +554,11 @@ export default function FormSection() {
 
               {/* T-Shirt Size */}
               <div className="space-y-2">
-                <Label htmlFor="tshirtSize" className="text-base">
-                  T-Shirt Size *
-                </Label>
+                <div className="flex items-baseline justify-between">
+                  <Label htmlFor="tshirtSize" className="text-base">
+                    T-Shirt Size *
+                  </Label>
+                </div>
                 <Select
                   value={formData.tshirtSize}
                   onValueChange={(value) =>
@@ -590,10 +611,6 @@ export default function FormSection() {
                 {loading ? "Submitting..." : "Submit Registration"}
               </Button>
             </form>
-
-            <p className="text-center text-slate-400 text-sm">
-              All fields marked with * are required
-            </p>
           </Card>
         )}
       </div>
