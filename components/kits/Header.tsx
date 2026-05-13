@@ -7,11 +7,11 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex h-16 items-center px-8">
         <Link href="/">
           <Image
-            src="/logo_unitar.png"
-            width={40}
-            height={40}
+            src="/logo_br35.png"
+            width={100}
+            height={100}
             alt="UNITAR Logo"
-            className="w-36 h-24 rounded-full object-cover -ml-4"
+            className="w-52 h-24 rounded-full object-contain -ml-4"
             priority
           />
         </Link>
