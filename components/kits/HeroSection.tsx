@@ -107,7 +107,7 @@ export default function HeroSection() {
               100% Free
             </span>
             <span className="text-slate-400 text-sm">
-              For Registered Students Only
+              For Enrolled Online Students Only
             </span>
           </div>
 
