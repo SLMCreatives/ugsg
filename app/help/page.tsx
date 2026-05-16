@@ -1,6 +1,31 @@
 import { HelpForm } from "@/components/help-form";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "SST Help Request | UNITAR International University",
+  description:
+    "Need help from the Student Success Team at UNITAR? Submit a help request and an SST advisor will get back to you during operating hours — weekdays, 9am to 6pm.",
+  keywords: [
+    "UNITAR",
+    "Student Success Team",
+    "SST",
+    "help request",
+    "student support",
+    "PTPTN",
+    "academic help"
+  ],
+  openGraph: {
+    title: "SST Help Request | UNITAR International University",
+    description:
+      "Submit a help request to the UNITAR Student Success Team. We'll get back to you on weekdays between 9am and 6pm.",
+    url: "https://unitar.edu.my/help",
+    siteName: "UNITAR International University",
+    locale: "en_MY",
+    type: "website"
+  }
+};
 
 export default function HelpPage() {
   return (
