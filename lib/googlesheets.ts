@@ -17,13 +17,18 @@ function getAuth() {
   });
 }
 
-export async function appendToSheet(row: (string | number)[]) {
+export async function appendToSheet(
+  row: (string | number)[],
+  targetSheet?: string
+) {
   const auth = getAuth();
   const sheets = google.sheets({ version: "v4", auth });
 
+  const range = targetSheet ?? sheetName;
+
   const response = await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${sheetName}!A:D`,
+    range: `${range}!A:Z`,
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [row]
