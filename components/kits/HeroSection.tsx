@@ -7,7 +7,7 @@ import { useMemo, useState, useEffect } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { ArrowRight, Calendar, Package, Clock } from "lucide-react";
 
-const DEADLINE = new Date("2026-06-02T00:00:00");
+const DEADLINE = new Date("2026-06-07T00:00:00");
 
 function getDaysLeft() {
   return Math.max(0, Math.ceil((DEADLINE.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
@@ -151,7 +151,7 @@ export default function HeroSection() {
                 <Calendar className="w-3.5 h-3.5" />
                 Register By
               </p>
-              <p className="text-base font-bold text-white">June 2, 2026</p>
+              <p className="text-base font-bold text-white">June 7, 2026</p>
             </div>
             <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-1.5">
               <p className="text-xs text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
