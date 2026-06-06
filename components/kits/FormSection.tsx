@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,8 +19,11 @@ import {
   AlertCircle,
   MapPin,
   Phone,
-  Building2
+  Building2,
+  XCircle
 } from "lucide-react";
+
+const REGISTRATION_DEADLINE = new Date("2026-06-07T23:59:59");
 
 const newlocations = [
   {
@@ -336,7 +340,34 @@ export default function FormSection() {
           </p>
         </div>
 
-        {success && submittedData ? (
+        {Date.now() > REGISTRATION_DEADLINE.getTime() ? (
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
+            <div className="bg-red-700 px-6 py-5 flex items-center gap-4">
+              <div className="bg-white/20 rounded-full p-2 shrink-0">
+                <XCircle className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <p className="text-white font-bold text-lg leading-tight">
+                  Registration Closed
+                </p>
+                <p className="text-red-100 text-sm mt-0.5">
+                  The deadline to register was June 7, 2026.
+                </p>
+              </div>
+            </div>
+            <div className="p-8 text-center space-y-4">
+              <p className="text-slate-300 text-base">
+                Sorry, registration for the UNITAR Starter Pack has ended. Stay tuned for future opportunities.
+              </p>
+              <Link
+                href="/"
+                className="inline-block mt-2 bg-[#FF8000] hover:bg-[#e07000] text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+              >
+                Back to Homepage
+              </Link>
+            </div>
+          </div>
+        ) : success && submittedData ? (
           <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
             {/* Success banner */}
             <div className="bg-green-600 px-6 py-5 flex items-center gap-4">
