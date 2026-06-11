@@ -17,6 +17,19 @@ function getAuth() {
   });
 }
 
+export async function getSheetRows(targetSheet?: string): Promise<string[][]> {
+  const auth = getAuth();
+  const sheets = google.sheets({ version: "v4", auth });
+  const range = targetSheet ?? sheetName;
+
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range: `${range}!A:Z`
+  });
+
+  return (response.data.values as string[][]) || [];
+}
+
 export async function appendToSheet(
   row: (string | number)[],
   targetSheet?: string

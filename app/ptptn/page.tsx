@@ -1,12 +1,57 @@
 "use client";
 
-import { BookingSectionBM } from "@/components/booking-section-bm";
+import { useState, useEffect } from "react";
 import { HeroSectionBM } from "@/components/hero-section-bm";
+import { EligibilitySectionBM } from "@/components/eligibility-section-bm";
+import { ChecklistSectionBM } from "@/components/checklist-section-bm";
+import { BookingSectionBM } from "@/components/booking-section-bm";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function PTPTNPageBM() {
+  const [eligibility, setEligibility] = useState({
+    citizen: false,
+    age: false,
+    semester: false,
+    noSponsorship: false
+  });
+
+  const [checklist, setChecklist] = useState({
+    bankIslam: false,
+    myDigitalId: false,
+    myPtptn: false,
+    sspnPrime: false,
+    ptptnPin: false
+  });
+
+  const isEligible = Object.values(eligibility).every(Boolean);
+  const isChecklistComplete = Object.values(checklist).every(Boolean);
+  const isBookingUnlocked = isEligible && isChecklistComplete;
+
+  const handleEligibilityChange = (key: string, value: boolean) => {
+    setEligibility((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleChecklistChange = (key: string, value: boolean) => {
+    setChecklist((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSkip = () => {
+    setEligibility({ citizen: true, age: true, semester: true, noSponsorship: true });
+    setChecklist({ bankIslam: true, myDigitalId: true, myPtptn: true, sspnPrime: true, ptptnPin: true });
+  };
+
+  useEffect(() => {
+    if (isBookingUnlocked) {
+      setTimeout(() => {
+        document
+          .getElementById("booking")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }, [isBookingUnlocked]);
+
   return (
     <main className="min-h-screen">
       <header className="sticky top-0 z-50 w-full mx-auto border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -41,8 +86,17 @@ export default function PTPTNPageBM() {
           </nav>
         </div>
       </header>
-      <HeroSectionBM />
-      <BookingSectionBM isUnlocked={true} />
+      <HeroSectionBM onSkip={handleSkip} />
+      <EligibilitySectionBM
+        eligibility={eligibility}
+        onEligibilityChange={handleEligibilityChange}
+      />
+      <ChecklistSectionBM
+        checklist={checklist}
+        onChecklistChange={handleChecklistChange}
+        isEligible={isEligible}
+      />
+      <BookingSectionBM isUnlocked={isBookingUnlocked} />
 
       {/* Footer */}
       <footer className="py-8 px-4 text-center border-t border-border">

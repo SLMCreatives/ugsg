@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
-import { appendToSheet } from "@/lib/googlesheets";
-
-const TIME_SLOT_LABELS: Record<string, string> = {
-  morning: "Morning (10am - 12pm)",
-  evening: "Evening (3pm - 5pm)"
-};
+import { appendToSheet, getSheetRows } from "@/lib/googlesheets";
+import { SLOTS } from "@/lib/slots";
 
 function isValidMalaysianPhone(phone: string) {
   const cleaned = phone.replace(/\s/g, "");
@@ -36,14 +32,34 @@ export async function POST(request: Request) {
       );
     }
 
-    const timeSlotLabel = TIME_SLOT_LABELS[timeSlot] || timeSlot;
+    const slotDef = SLOTS.find((s) => s.date === date && s.time === timeSlot);
+    if (!slotDef) {
+      return NextResponse.json(
+        { error: "Invalid slot selected." },
+        { status: 400 }
+      );
+    }
+
+    // Check current booking count for this slot
+    const rows = await getSheetRows();
+    const key = `${date}__${timeSlot}`;
+    const currentCount = rows.filter(
+      (row) => row[3] === date && row[4] === timeSlot
+    ).length;
+
+    if (currentCount >= slotDef.slots) {
+      return NextResponse.json(
+        { error: "This slot is now fully booked. Please choose another." },
+        { status: 409 }
+      );
+    }
 
     await appendToSheet([
       new Date().toLocaleString("en-MY", { timeZone: "Asia/Kuala_Lumpur" }),
       name,
       phone,
       date,
-      timeSlotLabel
+      timeSlot
     ]);
 
     return NextResponse.json({ ok: true });

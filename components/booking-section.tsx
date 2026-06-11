@@ -1,6 +1,6 @@
 "use client";
 
-import { PartyPopper, Lock } from "lucide-react";
+import { PartyPopper, Clock, Target, Lock } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -28,7 +28,7 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
           <CardHeader className="text-center pb-4">
             {isUnlocked ? (
               <>
-                {/*  <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                   <PartyPopper className="w-8 h-8 text-primary" />
                 </div>
                 <CardTitle className="text-2xl md:text-3xl">
@@ -36,8 +36,8 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
                 </CardTitle>
                 <CardDescription className="text-base mt-2 text-balance">
                   It looks like you have everything prepared.{" "}
-                  {"Let's make sure your application is 100% error-free."}
-                </CardDescription> */}
+                  {"Let's make sure your application is 100% error-free!"}
+                </CardDescription>
               </>
             ) : (
               <>
@@ -56,7 +56,35 @@ export function BookingSection({ isUnlocked }: BookingSectionProps) {
           <CardContent>
             {isUnlocked ? (
               <div className="space-y-6">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-[1fr_auto] items-center gap-3 p-4 rounded-lg bg-muted/50">
+                    <Clock className="w-8 h-8 text-primary mt-0.5" />
+                    <div className="text-left">
+                      <p className="font-medium text-foreground">
+                        What to Expect
+                      </p>
+                      <p className="text-sm text-muted-foreground text-balance">
+                        A 20-minute, 1-to-1 session where we walk you through
+                        the online portal step-by-step.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-[1fr_auto] items-center gap-3 p-4 rounded-lg bg-muted/50 justify-center">
+                    <Target className="w-8 h-8 text-primary" />
+                    <div className="pr-10">
+                      <p className="font-medium text-foreground">The Goal</p>
+                      <p className="text-sm text-muted-foreground text-balance">
+                        Submit your application correctly the very first time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
                 <BookingForm />
+
+                <p className="text-center text-xs text-muted-foreground">
+                  We look forward to helping you secure your PTPTN loan!
+                </p>
               </div>
             ) : (
               <div className="text-center py-8">

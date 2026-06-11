@@ -1,12 +1,16 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, CalendarCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onSkip: () => void;
+}
+
+export function HeroSection({ onSkip }: HeroSectionProps) {
   const scrollToChecklist = () => {
     document
-      .getElementById("booking")
+      .getElementById("eligibility")
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -14,28 +18,41 @@ export function HeroSection() {
     <section className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-16 text-center bg-gradient-to-b from-blue-200 via-[#e5f5ff] to-white dark:from-gray-900 dark:to-gray-950">
       <div className="max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-accent mb-8">
-          <span className="w-2 h-2 rounded-full bg-red-500" />
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span className="text-sm font-medium text-primary text-balance">
-            Bookings Closed
+            Now Open for Booking!
           </span>
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight tracking-tight text-balance mb-6">
-          The Booking Period Has Ended
+          Secure Your PTPTN Loan with Expert Guidance
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-          We are no longer accepting new bookings at this time. If you need help with your PTPTN application, please contact your SST Advisor or email us.
+          {
+            "We have helped over 1000 students get their study loans approved. Complete the checklist below to book your free ONLINE 1-to-1 Step-by-Step Application Session."
+          }
         </p>
 
-        <Button
-          onClick={scrollToChecklist}
-          size="lg"
-          className="rounded-full px-8 py-6 text-base gap-2 group"
-        >
-          Contact Us
-          <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-        </Button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Button
+            onClick={scrollToChecklist}
+            size="lg"
+            className="rounded-full px-8 py-6 text-base gap-2 group"
+          >
+            Scroll to Checklist
+            <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+          </Button>
+          <Button
+            onClick={onSkip}
+            size="lg"
+            variant="outline"
+            className="rounded-full px-8 py-6 text-base gap-2"
+          >
+            <CalendarCheck className="w-4 h-4" />
+            Skip to Booking Form
+          </Button>
+        </div>
       </div>
     </section>
   );
