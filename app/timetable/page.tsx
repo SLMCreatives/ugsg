@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -45,6 +45,7 @@ import {
   X,
   ChevronRight,
   Info,
+  AlertTriangle,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -135,6 +136,33 @@ function buildColorMap(entries: TimetableEntry[]): Record<string, number> {
     if (key && !(key in map)) map[key] = idx++ % SUBJECT_COLORS.length;
   });
   return map;
+}
+
+// ── Clash detection ───────────────────────────────────────────────────────────
+
+function toMinutes(time: string): number {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + (m || 0);
+}
+
+function findClashingIds(entries: TimetableEntry[]): Set<string> {
+  const clashing = new Set<string>();
+  for (let i = 0; i < entries.length; i++) {
+    for (let j = i + 1; j < entries.length; j++) {
+      const a = entries[i];
+      const b = entries[j];
+      if (a.day !== b.day) continue;
+      const aStart = toMinutes(a.startTime);
+      const aEnd   = toMinutes(a.endTime);
+      const bStart = toMinutes(b.startTime);
+      const bEnd   = toMinutes(b.endTime);
+      if (aStart < bEnd && aEnd > bStart) {
+        clashing.add(a.id);
+        clashing.add(b.id);
+      }
+    }
+  }
+  return clashing;
 }
 
 // ── CSV parser ────────────────────────────────────────────────────────────────
@@ -250,6 +278,96 @@ function generateICS(
   ].join("\r\n");
 }
 
+// ── UNITAR PDF parser ─────────────────────────────────────────────────────────
+
+function parseTimetableText(text: string): TimetableEntry[] {
+  const results: TimetableEntry[] = [];
+  const DAYS_PAT = "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday";
+
+  // Locate all course-code positions (e.g. ESPB2033, MPUU3193)
+  const codeRe = /\b([A-Z]{2,6}\d{4}[A-Z]?\d*)\s+-\s+/g;
+  const starts: number[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = codeRe.exec(text)) !== null) starts.push(m.index);
+
+  for (let i = 0; i < starts.length; i++) {
+    const block = text.slice(starts[i], i + 1 < starts.length ? starts[i + 1] : text.length);
+
+    // Match: CODE - COURSE NAME SECTION DAY HH:MM[:SS] HH:MM[:SS]
+    const hRe = new RegExp(
+      `([A-Z]{2,6}\\d{4}[A-Z]?\\d*)\\s+-\\s+(.*?)\\s+([A-Z]{2,4}-[A-Z]\\d+)\\s+(${DAYS_PAT})\\s+(\\d{2}:\\d{2})(?::\\d{2})?\\s+(\\d{2}:\\d{2})(?::\\d{2})?`
+    );
+    const h = block.match(hRe);
+    if (!h) continue;
+
+    const [fullMatch, code, name, , day, startTime, endTime] = h;
+    const rest = block.slice(block.indexOf(fullMatch) + fullMatch.length);
+
+    // Find last date (DD/MM/YYYY) in the rest; everything after is lecturer + venue
+    const dateRe = /\d{2}\/\d{2}\/\d{4}/g;
+    let dm: RegExpExecArray | null;
+    let lastDateEnd = 0;
+    while ((dm = dateRe.exec(rest)) !== null) lastDateEnd = dm.index + dm[0].length;
+
+    const afterDates = rest.slice(lastDateEnd).replace(/\s+/g, " ").trim();
+
+    // Classroom identifiers start with L<digits><letter><digits> or ONLINE
+    const venueRe = /(L\d+[A-Z]\d+\b|ONLINE)/i;
+    const vm = afterDates.match(venueRe);
+    const lecturer = vm?.index != null ? afterDates.slice(0, vm.index).trim() : afterDates;
+    const venue = vm?.index != null ? afterDates.slice(vm.index).trim() : "";
+
+    const type = venue.toLowerCase().includes("online")
+      ? "Online"
+      : venue.toLowerCase().includes("lab")
+      ? "Lab"
+      : "Lecture";
+
+    results.push({
+      id: `pdf-${i}-${Date.now()}`,
+      subject: name.trim(),
+      code: code.trim(),
+      day: day as Day,
+      startTime,
+      endTime,
+      venue,
+      lecturer,
+      type,
+    });
+  }
+
+  return results;
+}
+
+async function extractAndParsePDF(file: File): Promise<TimetableEntry[]> {
+  const pdfjsLib = await import("pdfjs-dist");
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+
+  const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+
+  let fullText = "";
+  for (let p = 1; p <= pdf.numPages; p++) {
+    const page = await pdf.getPage(p);
+    const tc = await page.getTextContent();
+    let lastY: number | undefined;
+    for (const item of tc.items) {
+      if (!("str" in item) || !item.str) continue;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const y = Math.round((item as any).transform[5]);
+      if (lastY !== undefined && lastY !== y) fullText += "\n";
+      else if (fullText.length > 0 && !fullText.endsWith("\n") && !fullText.endsWith(" "))
+        fullText += " ";
+      fullText += item.str;
+      if (item.str.trim()) lastY = y;
+    }
+    fullText += "\n";
+  }
+
+  return parseTimetableText(fullText);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 function downloadICS(content: string, filename: string) {
   const blob = new Blob([content], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -269,11 +387,13 @@ const HOUR_PX = 64;
 function WeeklyGrid({
   entries,
   colorMap,
+  clashIds,
   onEdit,
   onDelete,
 }: {
   entries: TimetableEntry[];
   colorMap: Record<string, number>;
+  clashIds: Set<string>;
   onEdit: (e: TimetableEntry) => void;
   onDelete: (id: string) => void;
 }) {
@@ -335,16 +455,18 @@ function WeeklyGrid({
                   const colorIdx =
                     colorMap[entry.code || entry.subject] ?? 0;
                   const c = SUBJECT_COLORS[colorIdx % SUBJECT_COLORS.length];
+                  const isClash = clashIds.has(entry.id);
                   const top = toTop(entry.startTime);
                   const height = Math.max(toHeight(entry.startTime, entry.endTime), 28);
                   return (
                     <div
                       key={entry.id}
-                      className={`absolute left-1 right-1 rounded border-l-4 px-1.5 py-1 text-[11px] overflow-hidden cursor-pointer group transition-opacity hover:opacity-90 ${c.bg} ${c.border} ${c.text}`}
+                      className={`absolute left-1 right-1 rounded border-l-4 px-1.5 py-1 text-[11px] overflow-hidden cursor-pointer group transition-opacity hover:opacity-90 ${c.bg} ${c.border} ${c.text} ${isClash ? "ring-2 ring-red-500 ring-inset" : ""}`}
                       style={{ top, height }}
-                      title={`${entry.subject}\n${entry.startTime}–${entry.endTime}\n${entry.venue}`}
+                      title={`${entry.subject}\n${entry.startTime}–${entry.endTime}\n${entry.venue}${isClash ? "\n⚠ Time clash" : ""}`}
                     >
-                      <div className="font-bold truncate leading-tight">
+                      <div className="font-bold truncate leading-tight flex items-center gap-1">
+                        {isClash && <AlertTriangle size={9} className="text-red-600 flex-shrink-0" />}
                         {entry.code || entry.subject}
                       </div>
                       {height > 40 && (
@@ -583,44 +705,76 @@ export default function TimetablePage() {
     return d.toISOString().slice(0, 10);
   });
   const [semesterWeeks, setSemesterWeeks] = useState("14");
+  const [pdfBlobUrl, setPdfBlobUrl] = useState<string | null>(null);
+  const [extracting, setExtracting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const csvInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => () => { if (pdfBlobUrl) URL.revokeObjectURL(pdfBlobUrl); }, [pdfBlobUrl]);
+
   const colorMap = buildColorMap(entries);
+  const clashIds = findClashingIds(entries);
 
   // ── File handlers ──────────────────────────────────────────────────────────
+
+  const handlePDF = useCallback(async (file: File) => {
+    const blobUrl = URL.createObjectURL(file);
+    setPdfBlobUrl(blobUrl);
+    setUploadedImage(null);
+    setExtracting(true);
+    try {
+      const extracted = await extractAndParsePDF(file);
+      if (extracted.length > 0) {
+        setEntries(extracted);
+        toast.success(`Extracted ${extracted.length} classes from PDF.`);
+        setStep(2);
+      } else {
+        toast.error("No classes found in PDF — add them manually.");
+        setStep(2);
+      }
+    } catch {
+      toast.error("Could not read PDF. You can add classes manually.");
+      setStep(2);
+    } finally {
+      setExtracting(false);
+    }
+  }, []);
 
   const handleImageDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
       const file = e.dataTransfer.files[0];
       if (!file) return;
-      if (!file.type.startsWith("image/") && file.type !== "application/pdf") {
-        toast.error("Please upload an image file (JPG, PNG, etc.).");
+      if (file.type === "application/pdf") { handlePDF(file); return; }
+      if (!file.type.startsWith("image/")) {
+        toast.error("Please upload an image or PDF file.");
         return;
       }
       const reader = new FileReader();
       reader.onload = (ev) => {
         setUploadedImage(ev.target?.result as string);
+        setPdfBlobUrl(null);
         toast.success("Timetable image loaded. Add your classes below.");
       };
       reader.readAsDataURL(file);
     },
-    []
+    [handlePDF]
   );
 
   const handleImageFile = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
+      if (file.type === "application/pdf") { handlePDF(file); return; }
       const reader = new FileReader();
       reader.onload = (ev) => {
         setUploadedImage(ev.target?.result as string);
+        setPdfBlobUrl(null);
         toast.success("Timetable image loaded. Add your classes below.");
       };
       reader.readAsDataURL(file);
     },
-    []
+    [handlePDF]
   );
 
   const handleCSVFile = useCallback(
@@ -824,7 +978,34 @@ export default function TimetablePage() {
                       onChange={handleImageFile}
                     />
 
-                    {uploadedImage && (
+                    {extracting && (
+                      <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
+                        <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin flex-shrink-0" />
+                        <span className="text-sm text-blue-700 font-medium">
+                          Extracting classes from PDF…
+                        </span>
+                      </div>
+                    )}
+
+                    {!extracting && pdfBlobUrl && (
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 text-sm text-green-700">
+                          <CheckCircle size={14} />
+                          <span>PDF uploaded — classes extracted automatically</span>
+                        </div>
+                        <iframe
+                          src={pdfBlobUrl}
+                          className="w-full h-56 rounded-lg border"
+                          title="PDF Preview"
+                        />
+                        <Button className="w-full" onClick={() => setStep(2)}>
+                          Continue to Review Classes
+                          <ChevronRight size={14} className="ml-1" />
+                        </Button>
+                      </div>
+                    )}
+
+                    {!extracting && uploadedImage && (
                       <div className="space-y-3">
                         <div className="flex items-center gap-2 text-sm text-green-700">
                           <CheckCircle size={14} />
@@ -850,12 +1031,12 @@ export default function TimetablePage() {
                       </div>
                     )}
 
-                    {!uploadedImage && (
+                    {!extracting && !uploadedImage && !pdfBlobUrl && (
                       <div className="flex items-start gap-2 p-3 bg-amber-50 rounded-lg text-xs text-amber-800">
                         <Info size={13} className="mt-0.5 flex-shrink-0" />
                         <span>
-                          After uploading, you&apos;ll enter class details
-                          manually while viewing your timetable image on screen.
+                          Upload your UNITAR timetable PDF for automatic class
+                          extraction, or upload an image to add classes manually.
                         </span>
                       </div>
                     )}
@@ -987,8 +1168,8 @@ export default function TimetablePage() {
         {/* ── STEP 2: Preview & Edit ─────────────────────────────────────────── */}
         {step === 2 && (
           <div className="space-y-6">
-            {/* Image reference panel (if uploaded) */}
-            {uploadedImage && (
+            {/* Timetable reference panel */}
+            {(uploadedImage || pdfBlobUrl) && (
               <Card className="shadow-sm">
                 <CardHeader className="pb-2">
                   <div className="flex items-center justify-between">
@@ -996,7 +1177,7 @@ export default function TimetablePage() {
                       <Upload size={14} /> Your uploaded timetable (reference)
                     </CardTitle>
                     <button
-                      onClick={() => setUploadedImage(null)}
+                      onClick={() => { setUploadedImage(null); setPdfBlobUrl(null); }}
                       className="text-xs text-gray-400 hover:text-gray-600"
                     >
                       Hide
@@ -1004,18 +1185,41 @@ export default function TimetablePage() {
                   </div>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <ScrollArea className="max-h-56">
-                    <Image
-                      src={uploadedImage}
-                      alt="Uploaded timetable"
-                      className="w-full object-contain rounded"
-                      width={1000}
-                      height={600}
-                      unoptimized
+                  {uploadedImage ? (
+                    <ScrollArea className="max-h-56">
+                      <Image
+                        src={uploadedImage}
+                        alt="Uploaded timetable"
+                        className="w-full object-contain rounded"
+                        width={1000}
+                        height={600}
+                        unoptimized
+                      />
+                    </ScrollArea>
+                  ) : (
+                    <iframe
+                      src={pdfBlobUrl!}
+                      className="w-full h-56 rounded border-0"
+                      title="PDF Preview"
                     />
-                  </ScrollArea>
+                  )}
                 </CardContent>
               </Card>
+            )}
+
+            {/* Clash warning */}
+            {clashIds.size > 0 && (
+              <div className="flex items-start gap-3 p-3 bg-red-50 border border-red-200 rounded-lg text-sm">
+                <AlertTriangle size={15} className="text-red-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-red-800">
+                    {clashIds.size} class{clashIds.size > 1 ? "es have" : " has"} a time conflict
+                  </p>
+                  <p className="text-xs text-red-600 mt-0.5">
+                    Conflicting classes are highlighted with a red ring in the grid and marked below.
+                  </p>
+                </div>
+              </div>
             )}
 
             {/* Weekly grid */}
@@ -1050,6 +1254,7 @@ export default function TimetablePage() {
                 <WeeklyGrid
                   entries={entries}
                   colorMap={colorMap}
+                  clashIds={clashIds}
                   onEdit={(e) => {
                     setEditEntry(e);
                     setShowAddForm(false);
@@ -1101,13 +1306,13 @@ export default function TimetablePage() {
                     return (
                       <div
                         key={entry.id}
-                        className={`flex items-center gap-3 p-3 rounded-lg border-l-4 ${c.bg} ${c.border}`}
+                        className={`flex items-center gap-3 p-3 rounded-lg border-l-4 ${c.bg} ${c.border} ${clashIds.has(entry.id) ? "ring-1 ring-red-400" : ""}`}
                       >
                         <div
                           className={`w-2 h-2 rounded-full flex-shrink-0 ${c.dot}`}
                         />
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className={`font-semibold text-sm ${c.text}`}>
                               {entry.subject}
                             </span>
@@ -1119,6 +1324,11 @@ export default function TimetablePage() {
                             <Badge variant="secondary" className="text-xs">
                               {entry.type}
                             </Badge>
+                            {clashIds.has(entry.id) && (
+                              <Badge variant="destructive" className="text-xs gap-1">
+                                <AlertTriangle size={10} /> Time Clash
+                              </Badge>
+                            )}
                           </div>
                           <div className="flex items-center gap-4 mt-0.5 text-xs text-gray-500">
                             <span className="flex items-center gap-1">
@@ -1414,6 +1624,7 @@ export default function TimetablePage() {
                 setStep(1);
                 setEntries([]);
                 setUploadedImage(null);
+                setPdfBlobUrl(null);
                 toast.success("Cleared. Ready for a new timetable.");
               }}>
                 Start Over
