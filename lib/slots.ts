@@ -4,6 +4,32 @@ export interface Slot {
   slots: number;
 }
 
+const MONTHS: Record<string, number> = {
+  January: 0, February: 1, March: 2, April: 3, May: 4, June: 5,
+  July: 6, August: 7, September: 8, October: 9, November: 10, December: 11,
+};
+
+// Returns the wall-clock Date when this slot ends (e.g. "4:25 - 4:45 pm" → 16:45).
+function slotEndDate(date: string, time: string): Date {
+  // date: "Monday, 15 June 2026"
+  const [, day, month, year] = date.replace(",", "").split(" ");
+
+  // time end segment: last part after " - ", e.g. "10:20 am" or "12:05 pm"
+  const endPart = time.split(" - ").at(-1)!.trim();
+  const isPM = /pm$/i.test(endPart);
+  const [hStr, mStr] = endPart.replace(/\s*(am|pm)/i, "").trim().split(":");
+  let h = parseInt(hStr, 10);
+  const m = parseInt(mStr, 10);
+  if (isPM && h !== 12) h += 12;
+  if (!isPM && h === 12) h = 0;
+
+  return new Date(parseInt(year, 10), MONTHS[month], parseInt(day, 10), h, m, 0);
+}
+
+export function isSlotPast(date: string, time: string): boolean {
+  return slotEndDate(date, time) < new Date();
+}
+
 export const SLOTS: Slot[] = [
   { date: "Monday, 15 June 2026", time: "10:00 - 10:20 am", slots: 3 },
   { date: "Monday, 15 June 2026", time: "10:35 - 10:55 am", slots: 3 },

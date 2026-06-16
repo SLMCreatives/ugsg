@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckCircle } from "lucide-react";
-import { SLOTS } from "@/lib/slots";
+import { SLOTS, isSlotPast } from "@/lib/slots";
 export { SLOTS };
 
 export function BookingForm() {
@@ -51,11 +51,11 @@ export function BookingForm() {
   const getAvailableDates = () => {
     return SLOTS.map((s) => s.date)
       .filter((v, i, a) => a.indexOf(v) === i)
-      .filter((d) => SLOTS.some((s) => s.date === d && !isSlotFull(d, s.time)));
+      .filter((d) => SLOTS.some((s) => s.date === d && !isSlotFull(d, s.time) && !isSlotPast(d, s.time)));
   };
 
   const getAvailableTimeSlots = () => {
-    return SLOTS.filter((s) => s.date === date && !isSlotFull(date, s.time)).map(
+    return SLOTS.filter((s) => s.date === date && !isSlotFull(date, s.time) && !isSlotPast(date, s.time)).map(
       (s) => {
         const booked = bookingCounts[`${date}__${s.time}`] || 0;
         const remaining = s.slots - booked;
