@@ -1,2 +1,11 @@
 node_modules
 .next
+
+# local env files (contain secrets — do not commit)
+.env
+.env.local
+.env*.local
+
+# student data + generated links (PII + valid tokens — do not commit)
+scripts/*.csv
+!scripts/students.sample.csv
