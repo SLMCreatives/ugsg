@@ -47,18 +47,7 @@ const ratingScaleNote =
 const ugLevels = ["Certificate", "Foundation", "Diploma", "Bachelor"];
 const pgLevels = ["Master", "Doctor"];
 const employmentOptions = ["Full-Time", "Part time", "Self-employed", "Unemployed"];
-const laptopUG = [
-  "Yes - I have my own laptop",
-  "No, I do not have access to a laptop right now",
-  "I share a laptop with family/friends",
-  "I am planning to get one soon"
-];
-const laptopPG = [
-  "Yes, I have my own laptop",
-  "No, I don't have access to a laptop at the moment",
-  "I share a laptop with family/friends",
-  "I'm planning to get one soon"
-];
+const deviceOptions = ["Smartphone", "Tablet", "Laptop", "PC"];
 const teams = [
   "Sales Team",
   "Lecturers",
@@ -175,11 +164,11 @@ const branchQuestions: Record<"UG" | "PG", Question[]> = {
       id: "ug_laptop_access",
       num: "9",
       group: "Learning Platform and Support System",
-      title: "Do you currently have access to a laptop for your studies at UNITAR?",
+      title: "What device are you using to access your class and learning materials?",
       subtitle:
-        "Adakah anda mempunyai akses kepada komputer riba untuk pembelajaran anda di UNITAR?",
+        "Apakah peranti yang anda gunakan untuk mengakses kelas dan bahan pembelajaran anda?",
       type: "single",
-      options: laptopUG,
+      options: deviceOptions,
       required: true
     },
     {
@@ -190,6 +179,17 @@ const branchQuestions: Record<"UG" | "PG", Question[]> = {
         "Have you received sufficient guidance from your lecturers to understand your courses?",
       subtitle:
         "Adakah anda telah menerima panduan yang mencukupi daripada pensyarah untuk memahami kursus anda?",
+      type: "rating",
+      required: true
+    },
+    {
+      id: "ug_fees_understanding",
+      num: "15",
+      group: "Payment Process",
+      title:
+        "How would you rate your understanding of managing your UNITAR fees, including when to pay, how to pay, and how to check your Statement of Account?",
+      subtitle:
+        "Sila nyatakan tahap kefahaman anda dalam mengurus yuran UNITAR, termasuk bila perlu membayar, cara pembayaran, dan cara menyemak Statement of Account anda.",
       type: "rating",
       required: true
     },
@@ -239,17 +239,6 @@ const branchQuestions: Record<"UG" | "PG", Question[]> = {
       showIf: (answers) => answers.ug_most_supportive_department === "Others"
     },
     {
-      id: "ug_fees_understanding",
-      num: "15",
-      group: "Payment Process",
-      title:
-        "How would you rate your understanding of managing your UNITAR fees, including when to pay, how to pay, and how to check your Statement of Account?",
-      subtitle:
-        "Sila nyatakan tahap kefahaman anda dalam mengurus yuran UNITAR, termasuk bila perlu membayar, cara pembayaran, dan cara menyemak Statement of Account anda.",
-      type: "rating",
-      required: true
-    },
-    {
       id: "ug_recommendation_score",
       num: "16",
       group: "Recommendation",
@@ -266,11 +255,11 @@ const branchQuestions: Record<"UG" | "PG", Question[]> = {
       id: "pg_laptop_access",
       num: "5",
       group: "Learning Readiness",
-      title: "Do you currently have access to a laptop for your studies at UNITAR?",
+      title: "What device are you using to access your class and learning materials?",
       subtitle:
-        "Adakah anda mempunyai akses kepada komputer riba untuk pembelajaran anda di UNITAR?",
+        "Apakah peranti yang anda gunakan untuk mengakses kelas dan bahan pembelajaran anda?",
       type: "single",
-      options: laptopPG,
+      options: deviceOptions,
       required: true
     },
     {
@@ -409,6 +398,16 @@ function getTimeGreeting(): string {
   if (hour >= 5 && hour < 12) return "Good morning";
   if (hour >= 12 && hour < 18) return "Good afternoon";
   return "Good evening";
+}
+
+// Emoji for the recommendation slider; -1 means "not answered yet".
+function sliderEmoji(score: number): string {
+  if (score < 0) return "🤔";
+  if (score <= 2) return "😞";
+  if (score <= 4) return "😕";
+  if (score <= 6) return "😐";
+  if (score <= 8) return "🙂";
+  return "🤩";
 }
 
 /* ------------------------------------------------------------------ */
@@ -691,13 +690,6 @@ export default function SurveyPage() {
     setError("");
   }, [safeIndex, showIntro]);
 
-  const restartSurvey = useCallback(() => {
-    setAnswers({});
-    setCurrentIndex(-1);
-    setSubmitted(null);
-    setError("");
-  }, []);
-
   /* Focus the first control whenever the question changes */
   useEffect(() => {
     if (submitted) return;
@@ -897,18 +889,40 @@ export default function SurveyPage() {
     }
 
     if (q.type === "nps") {
+      const touched = value !== undefined && value !== null && String(value) !== "";
+      const sliderVal = touched ? Number(value) : 5;
       return (
-        <>
-          <div className="option-grid nps" role="radiogroup" aria-label={q.title}>
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num, index) =>
-              renderOptionButton(q, String(num), index, String(value) === String(num), "nps")
-            )}
+        <div className="slider-control">
+          <div className="slider-readout">
+            <span className="slider-emoji">{sliderEmoji(touched ? sliderVal : -1)}</span>
+            <span className="slider-score">{touched ? sliderVal : "–"}</span>
+            <span className="slider-outof">/ 10</span>
           </div>
+          <input
+            type="range"
+            min="0"
+            max="10"
+            step="1"
+            className="slider-input"
+            value={sliderVal}
+            aria-label={q.title}
+            onPointerDown={() => {
+              if (!touched) setTextAnswer(q.id, String(sliderVal));
+            }}
+            onInput={(e) => setTextAnswer(q.id, (e.target as HTMLInputElement).value)}
+            onChange={(e) => setTextAnswer(q.id, e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                nextQuestion();
+              }
+            }}
+          />
           <div className="nps-labels">
             <span>Not at all likely</span>
             <span>Extremely likely</span>
           </div>
-        </>
+        </div>
       );
     }
 
@@ -952,21 +966,21 @@ export default function SurveyPage() {
       return (
         <>
           <div>
-            <p className="intro-kicker">
-              Thank you{student.name ? `, ${student.name.split(" ")[0]}` : ""}!
-            </p>
-            <h1>Your response has been recorded.</h1>
+            <p className="greeting">🎉 All done{student.name ? `, ${student.name.split(" ")[0]}` : ""}!</p>
+            <h1>Thank you for sharing your thoughts.</h1>
             <p className="lead">
-              We appreciate you taking the time to share your experience. Your feedback will
-              help us improve the onboarding journey for every UNITAR student.
+              Your response has been recorded. Taking a few minutes to tell us about your first
+              semester genuinely helps — your feedback shapes how we support you and every future
+              UNITAR student through their onboarding journey.
+            </p>
+            <p className="lead" style={{ fontSize: "16px", marginTop: "14px" }}>
+              We&apos;re grateful you&apos;re part of the UNITAR family. Here&apos;s to a great rest
+              of the semester! 💜
             </p>
           </div>
-          <div className="completion-grid">
-            <button className="secondary-btn" type="button" onClick={restartSurvey}>
-              Submit another response
-            </button>
-          </div>
-          <p className="footer-note">You can close this tab now.</p>
+          <p className="footer-note">
+            You can safely close this tab now — there&apos;s nothing more you need to do.
+          </p>
         </>
       );
     }
@@ -985,13 +999,20 @@ export default function SurveyPage() {
         <>
           <div>
             {student.name ? (
-              <p className="greeting">
-                {getTimeGreeting()}, {firstName} 👋
-              </p>
+              <p className="greeting">{getTimeGreeting()} 👋</p>
             ) : (
               <p className="intro-kicker">5-minute survey</p>
             )}
-            <h1>How&apos;s your first semester going?</h1>
+            <h1>
+              {student.name ? (
+                <>
+                  Hi <span className="hero-name">{firstName}</span>, how&apos;s your first
+                  semester going?
+                </>
+              ) : (
+                <>How&apos;s your first semester going?</>
+              )}
+            </h1>
             <p className="lead">
               We&apos;re checking in at the halfway point of your first semester. Your honest
               feedback helps us improve the onboarding experience and support you better for the
@@ -1102,6 +1123,9 @@ export default function SurveyPage() {
           {q.subtitle ? <p className="subtitle">{q.subtitle}</p> : null}
           {q.helper ? <p className="footer-note">{q.helper}</p> : null}
           {q.type === "rating" ? <div className="scale-note">{ratingScaleNote}</div> : null}
+          {q.type === "multi" ? (
+            <div className="scale-note">✔️ You can select more than one answer.</div>
+          ) : null}
         </div>
         <div className="answer-area">{renderControl(q)}</div>
         <p className={`error ${error ? "is-visible" : ""}`}>{error}</p>
