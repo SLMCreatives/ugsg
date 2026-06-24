@@ -769,15 +769,6 @@ export default function SurveyPage() {
         ? "Postgraduate Survey"
         : "";
 
-  const baseSubtitle = branch === "UG"
-    ? "Undergraduate Mid-Semester Check-In"
-    : branch === "PG"
-      ? "Postgraduate Mid-Semester Check-In"
-      : "Mid-Semester Check-In";
-  const headerSubtitle = student.programme
-    ? `${student.programme} · ${baseSubtitle}`
-    : `March / May 26 — ${baseSubtitle}`;
-
   const progress = submitted || alreadySubmitted
     ? 100
     : loading || safeIndex < 0
@@ -1172,7 +1163,7 @@ export default function SurveyPage() {
             </div>
             <div>
               <p className="brand-title">UNITAR Student Onboarding Survey</p>
-              <p className="brand-subtitle">{headerSubtitle}</p>
+              <p className="brand-subtitle">by Student Success Team</p>
             </div>
           </div>
           {routeLabel ? (
