@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { titleCaseName } from "@/lib/name-case";
 import "./survey.css";
 
 /* ------------------------------------------------------------------ */
@@ -492,7 +493,7 @@ export default function SurveyPage() {
 
       if (cancelled) return;
 
-      setStudent(info);
+      setStudent({ ...info, name: titleCaseName(info.name) });
       setVerified(isVerified);
       setToken(activeToken);
       setTokenError(failed);
@@ -986,7 +987,6 @@ export default function SurveyPage() {
     }
 
     if (safeIndex < 0) {
-      const firstName = student.name.split(" ")[0];
       const hasDetails = !!(
         student.name ||
         student.matric ||
@@ -1006,7 +1006,7 @@ export default function SurveyPage() {
             <h1>
               {student.name ? (
                 <>
-                  Hi <span className="hero-name">{firstName}</span>, how&apos;s your first
+                  Hi <span className="hero-name">{student.name}</span>, how&apos;s your first
                   semester going?
                 </>
               ) : (
@@ -1014,9 +1014,10 @@ export default function SurveyPage() {
               )}
             </h1>
             <p className="lead">
-              We&apos;re checking in at the halfway point of your first semester. Your honest
-              feedback helps us improve the onboarding experience and support you better for the
-              rest of the semester.
+              You&apos;re halfway through your very first semester — that already deserves a
+              high-five! ✋ Now we&apos;d love the inside scoop on how it&apos;s <em>really</em>{" "}
+              going. It takes about 5 minutes, every answer counts, and your honest feedback helps
+              us make UNITAR even better for you. 💜
             </p>
 
             {tokenError ? (
@@ -1165,8 +1166,9 @@ export default function SurveyPage() {
       <div className="app">
         <header className="topbar">
           <div className="brand-block">
-            <div className="logo-mark" aria-hidden="true">
-              U
+            <div className="logo-mark">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/UIU_logo.png" alt="UNITAR International University" />
             </div>
             <div>
               <p className="brand-title">UNITAR Student Onboarding Survey</p>

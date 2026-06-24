@@ -4,10 +4,10 @@
   --ink: #1f2937;
   --muted: #64748b;
   --line: #dbe4ee;
-  --brand: #6923d0;
-  --brand-dark: #4c169d;
-  --brand-soft: #f1e9ff;
-  --accent: #13a38b;
+  --brand: #1c5e8c;
+  --brand-dark: #16486b;
+  --brand-soft: #e4eef5;
+  --accent: #f2911e;
   --danger: #d92d20;
   --card: rgba(255, 255, 255, 0.88);
   --shadow: 0 30px 80px rgba(15, 23, 42, 0.12);
@@ -18,8 +18,8 @@
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
   color: var(--ink);
-  background: radial-gradient(circle at 12% 15%, rgba(105, 35, 208, 0.13), transparent 28%),
-    radial-gradient(circle at 86% 15%, rgba(19, 163, 139, 0.15), transparent 30%),
+  background: radial-gradient(circle at 12% 15%, rgba(242, 145, 30, 0.13), transparent 28%),
+    radial-gradient(circle at 86% 15%, rgba(28, 94, 140, 0.15), transparent 30%),
     linear-gradient(135deg, var(--bg-1), var(--bg-2));
   display: flex;
   align-items: center;
@@ -61,17 +61,17 @@
 }
 
 .survey-page .logo-mark {
-  width: 44px;
-  height: 44px;
-  border-radius: 16px;
+  width: 46px;
+  height: 46px;
   display: grid;
   place-items: center;
-  color: white;
-  font-weight: 900;
-  letter-spacing: -0.05em;
-  background: linear-gradient(135deg, var(--brand), var(--accent));
-  box-shadow: 0 14px 35px rgba(105, 35, 208, 0.22);
   flex: 0 0 auto;
+}
+
+.survey-page .logo-mark img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .survey-page .brand-title {
@@ -157,7 +157,7 @@
   width: 260px;
   height: 260px;
   border-radius: 999px;
-  background: rgba(105, 35, 208, 0.06);
+  background: rgba(28, 94, 140, 0.06);
   pointer-events: none;
 }
 
@@ -305,14 +305,14 @@
 
 .survey-page .option-btn:hover {
   transform: translateY(-1px);
-  border-color: rgba(105, 35, 208, 0.45);
+  border-color: rgba(28, 94, 140, 0.45);
   box-shadow: 0 12px 25px rgba(15, 23, 42, 0.08);
 }
 
 .survey-page .option-btn.is-selected {
   border-color: var(--brand);
   background: var(--brand-soft);
-  box-shadow: 0 14px 30px rgba(105, 35, 208, 0.14);
+  box-shadow: 0 14px 30px rgba(28, 94, 140, 0.14);
 }
 
 .survey-page .option-key {
@@ -325,7 +325,7 @@
   border-radius: 9px;
   color: var(--brand-dark);
   background: white;
-  border: 1px solid #decfff;
+  border: 1px solid #cadff0;
   font-size: 12px;
   font-weight: 900;
   flex: 0 0 auto;
@@ -398,7 +398,7 @@
   border-radius: 50%;
   background: #fff;
   border: 4px solid var(--brand);
-  box-shadow: 0 6px 16px rgba(105, 35, 208, 0.3);
+  box-shadow: 0 6px 16px rgba(28, 94, 140, 0.3);
   cursor: grab;
 }
 
@@ -408,12 +408,12 @@
   border-radius: 50%;
   background: #fff;
   border: 4px solid var(--brand);
-  box-shadow: 0 6px 16px rgba(105, 35, 208, 0.3);
+  box-shadow: 0 6px 16px rgba(28, 94, 140, 0.3);
   cursor: grab;
 }
 
 .survey-page .slider-input:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 6px rgba(105, 35, 208, 0.18);
+  box-shadow: 0 0 0 6px rgba(28, 94, 140, 0.18);
 }
 
 .survey-page .actions {
@@ -439,12 +439,12 @@
   padding: 15px 24px;
   color: white;
   background: linear-gradient(135deg, var(--brand), var(--brand-dark));
-  box-shadow: 0 16px 34px rgba(105, 35, 208, 0.22);
+  box-shadow: 0 16px 34px rgba(28, 94, 140, 0.22);
 }
 
 .survey-page .primary-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 20px 40px rgba(105, 35, 208, 0.28);
+  box-shadow: 0 20px 40px rgba(28, 94, 140, 0.28);
 }
 
 .survey-page .primary-btn:disabled {
@@ -534,17 +534,17 @@
   letter-spacing: 0.1em;
 }
 
-/* Student's name inside the hero heading — kept bold + brand-coloured so it
-   reads as the most prominent element, and never breaks awkwardly on mobile. */
+/* Student's full name inside the hero heading — bold + brand-coloured so it
+   reads as the most prominent element. Full names can be long, so allow it to
+   wrap naturally rather than overflow. */
 .survey-page .hero-name {
   color: var(--brand);
-  white-space: nowrap;
 }
 
 .survey-page .detail-card {
   margin-top: 22px;
-  background: rgba(241, 233, 255, 0.45);
-  border: 1px solid #e4d7ff;
+  background: rgba(228, 238, 245, 0.55);
+  border: 1px solid #cfe0ee;
   border-radius: 18px;
   padding: 4px 18px;
   max-width: 520px;
@@ -556,7 +556,7 @@
   align-items: center;
   gap: 16px;
   padding: 13px 0;
-  border-bottom: 1px solid rgba(105, 35, 208, 0.12);
+  border-bottom: 1px solid rgba(28, 94, 140, 0.12);
 }
 
 .survey-page .detail-row:last-child {
@@ -585,9 +585,9 @@
   margin: 14px 0 2px;
   padding: 5px 11px;
   border-radius: 999px;
-  background: rgba(19, 163, 139, 0.12);
-  color: #0c7a68;
-  border: 1px solid rgba(19, 163, 139, 0.3);
+  background: rgba(28, 94, 140, 0.1);
+  color: var(--brand);
+  border: 1px solid rgba(28, 94, 140, 0.28);
   font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;

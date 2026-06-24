@@ -5,6 +5,7 @@ import {
   normaliseMatric
 } from "@/lib/googlesheets-survey";
 import { verifyToken } from "@/lib/survey-token";
+import { titleCaseName } from "@/lib/name-case";
 
 // Duplicate-submission check used by the survey page on load: GET ?matric=...
 export async function GET(request: Request) {
@@ -101,7 +102,7 @@ export async function POST(request: Request) {
     const row: (string | number)[] = [
       new Date().toLocaleString("en-MY", { timeZone: "Asia/Kuala_Lumpur" }),
       form_type,
-      identity.name,
+      titleCaseName(identity.name),
       identity.matric,
       identity.email,
       identity.programme,
