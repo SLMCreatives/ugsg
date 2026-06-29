@@ -23,6 +23,7 @@ interface Question {
   options?: string[];
   required?: boolean;
   route?: boolean;
+  uppercase?: boolean;
   showIf?: (answers: Answers) => boolean;
 }
 
@@ -80,7 +81,8 @@ const commonQuestions: Question[] = [
     subtitle: "Nombor Matrik Pelajar",
     type: "text",
     placeholder: "Type your matric number here",
-    required: true
+    required: true,
+    uppercase: true
   },
   {
     id: "student_email",
@@ -434,8 +436,22 @@ export default function SurveyPage() {
   const [verified, setVerified] = useState(false);
   const [tokenError, setTokenError] = useState(false);
   const [alreadySubmitted, setAlreadySubmitted] = useState(false);
+  const [checkingMatric, setCheckingMatric] = useState(false);
   const [loading, setLoading] = useState(true);
   const cardRef = useRef<HTMLElement>(null);
+
+  // Has this matric already responded? Best-effort — fail open so a lookup
+  // hiccup never blocks a genuine student.
+  const checkMatricSubmitted = useCallback(async (matric: string): Promise<boolean> => {
+    if (!matric.trim()) return false;
+    try {
+      const res = await fetch(`/api/survey-submit?matric=${encodeURIComponent(matric)}`);
+      const data = await res.json();
+      return !!data.submitted;
+    } catch {
+      return false;
+    }
+  }, []);
 
   // On mount: resolve identity (signed token > plain params), pre-fill, and
   // check whether this matric has already responded.
@@ -657,7 +673,9 @@ export default function SurveyPage() {
     setSubmitted(payload);
   }, [answers, student, token]);
 
-  const nextQuestion = useCallback(() => {
+  const nextQuestion = useCallback(async () => {
+    if (checkingMatric) return;
+
     if (currentIndex < 0) {
       startSurvey();
       return;
@@ -673,6 +691,18 @@ export default function SurveyPage() {
       return;
     }
 
+    // Block duplicates the moment a matric is entered, before the student
+    // invests time in the rest of the survey.
+    if (q.id === "student_matric") {
+      setCheckingMatric(true);
+      const taken = await checkMatricSubmitted(String(answers.student_matric || ""));
+      setCheckingMatric(false);
+      if (taken) {
+        setAlreadySubmitted(true);
+        return;
+      }
+    }
+
     if (safeIndex >= flow.length - 1) {
       submitSurvey();
       return;
@@ -680,7 +710,17 @@ export default function SurveyPage() {
 
     setCurrentIndex(safeIndex + 1);
     setError("");
-  }, [answers, currentIndex, flow, safeIndex, startSurvey, submitSurvey, validate]);
+  }, [
+    answers,
+    checkingMatric,
+    checkMatricSubmitted,
+    currentIndex,
+    flow,
+    safeIndex,
+    startSurvey,
+    submitSurvey,
+    validate
+  ]);
 
   const previousQuestion = useCallback(() => {
     if (safeIndex <= 0) {
@@ -812,9 +852,12 @@ export default function SurveyPage() {
             id={q.id}
             type={q.type}
             autoComplete={q.type === "email" ? "email" : "off"}
-            value={(value as string) || ""}
+            style={q.uppercase ? { textTransform: "uppercase" } : undefined}
+            value={q.uppercase ? ((value as string) || "").toUpperCase() : (value as string) || ""}
             placeholder={q.placeholder || "Type your answer here"}
-            onChange={(e) => setTextAnswer(q.id, e.target.value)}
+            onChange={(e) =>
+              setTextAnswer(q.id, q.uppercase ? e.target.value.toUpperCase() : e.target.value)
+            }
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -1048,12 +1091,7 @@ export default function SurveyPage() {
                   </div>
                 ) : null}
               </div>
-            ) : (
-              <p className="lead" style={{ fontSize: "15px", marginTop: "10px" }}>
-                Certificate, Foundation, Diploma and Bachelor students will follow the
-                Undergraduate form. Master and Doctor students will follow the Postgraduate form.
-              </p>
-            )}
+            ) : null}
           </div>
 
           <div className="actions">
@@ -1126,12 +1164,17 @@ export default function SurveyPage() {
             className="primary-btn"
             type="button"
             onClick={nextQuestion}
-            disabled={isSubmitting}
+            disabled={isSubmitting || checkingMatric}
           >
             {isSubmitting ? (
               <>
                 <span className="submitting-spinner" />
                 Submitting…
+              </>
+            ) : checkingMatric ? (
+              <>
+                <span className="submitting-spinner" />
+                Checking…
               </>
             ) : isLast ? (
               "Submit"
