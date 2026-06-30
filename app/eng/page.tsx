@@ -1076,17 +1076,12 @@ export default function Home() {
                   </AccordionItem>
                   <AccordionItem value="item-2">
                     <AccordionTrigger className="font-medium text-left">
-                      How to collect my physical matric card?
+                      How to request for your Digital Matric Card
                     </AccordionTrigger>
                     <AccordionContent>
-                      <p className="font-medium">OPTION 1:</p>
-                      <p>Drop by your UNITAR Campus to collect.</p>
-                      <p className="mt-2 font-medium">OPTION 2:</p>
                       <p>
-                        Create a ticket (via One Stop Centre icon on your
-                        Student Dashboard) to request for your matric card to be
-                        delivered. Make sure to include your full name,
-                        passport-sized photo and mailing address.
+                        Head over to One-Stop-Center, request for E-Matric Card
+                        and follow instructions that follows.
                       </p>
                     </AccordionContent>
                   </AccordionItem>

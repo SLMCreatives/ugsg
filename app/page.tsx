@@ -1117,17 +1117,12 @@ export default function Home() {
                   </AccordionItem>
                   <AccordionItem value="item-2">
                     <AccordionTrigger className="font-medium text-left">
-                      Bagaimana untuk mengumpul kad matrik fizikal saya?
+                      Bagaimana untuk memohon Kad Matrik Digital anda
                     </AccordionTrigger>
                     <AccordionContent>
-                      <p className="font-medium">PILIHAN 1:</p>
-                      <p>Singgah ke Kampus UNITAR.</p>
-                      <p className="mt-2 font-medium">PILIHAN 2:</p>
                       <p>
-                        Buat tiket (melalui ikon One Stop Center pada anda
-                        Student Dashboard) untuk meminta kad matrik dihantar ke
-                        rumah anda. Pastikan anda memasukkan nama penuh anda,
-                        gambar berukuran pasport dan alamat surat menyurat.
+                        Pergi ke One-Stop-Center, mohon untuk E-Matric Card dan
+                        ikuti arahan yang seterusnya.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
