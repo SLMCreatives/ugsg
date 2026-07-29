@@ -14,22 +14,33 @@ const DATE_BM: Record<string, string> = {
   Wednesday: "Rabu",
   Thursday: "Khamis",
   Friday: "Jumaat",
-  June: "Jun"
+  Saturday: "Sabtu",
+  Sunday: "Ahad",
+  January: "Januari",
+  February: "Februari",
+  March: "Mac",
+  April: "April",
+  May: "Mei",
+  June: "Jun",
+  July: "Julai",
+  August: "Ogos",
+  September: "September",
+  October: "Oktober",
+  November: "November",
+  December: "Disember"
 };
 
 const TIME_BM: Record<string, string> = {
-  "10:00 - 10:20 am": "10:00 - 10:20 pagi",
-  "10:35 - 10:55 am": "10:35 - 10:55 pagi",
-  "11:10 - 11:30 am": "11:10 - 11:30 pagi",
-  "11:45 am - 12:05 pm": "11:45 pagi - 12:05 tengahari",
-  "12:20 - 12:40 pm": "12:20 - 12:40 tengahari",
-  "12:55 - 1:15 pm": "12:55 - 1:15 petang",
-  "1:30 - 1:50 pm": "1:30 - 1:50 petang",
-  "2:05 - 2:25 pm": "2:05 - 2:25 petang",
-  "2:40 - 3:00 pm": "2:40 - 3:00 petang",
-  "3:15 - 3:35 pm": "3:15 - 3:35 petang",
-  "3:50 - 4:10 pm": "3:50 - 4:10 petang",
-  "4:25 - 4:45 pm": "4:25 - 4:45 petang"
+  "11:00 - 11:30 am": "11:00 - 11:30 pagi",
+  "11:30 am - 12:00 pm": "11:30 pagi - 12:00 tengahari",
+  "12:00 - 12:30 pm": "12:00 - 12:30 tengahari",
+  "12:30 - 1:00 pm": "12:30 tengahari - 1:00 petang",
+  "1:00 - 1:30 pm": "1:00 - 1:30 petang",
+  "1:30 - 2:00 pm": "1:30 - 2:00 petang",
+  "2:00 - 2:30 pm": "2:00 - 2:30 petang",
+  "2:30 - 3:00 pm": "2:30 - 3:00 petang",
+  "3:00 - 3:30 pm": "3:00 - 3:30 petang",
+  "3:30 - 4:00 pm": "3:30 - 4:00 petang"
 };
 
 function translateDate(date: string) {

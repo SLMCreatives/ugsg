@@ -3,7 +3,7 @@ import { google } from "googleapis";
 const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
 const privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
 const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-const sheetName = process.env.GOOGLE_SHEETS_SHEET_NAME || "RSVP List";
+const sheetName = process.env.GOOGLE_SHEETS_SHEET_NAME || "RSVP_Sept26";
 
 if (!clientEmail || !privateKey || !spreadsheetId) {
   throw new Error("Missing Google Sheets environment variables.");
