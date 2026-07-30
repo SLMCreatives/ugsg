@@ -37,7 +37,7 @@ export function HeroSectionBM() {
         </div>
 
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight tracking-tight text-balance mb-6">
-          Pastikan Aplikasi PTPTN Anda Berjaya dengan Bimbingan Pakar
+          Pastikan Permohonan PTPTN Anda Berjaya dengan Bimbingan Pakar
         </h1>
 
         <p className="text-base md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed text-balance">

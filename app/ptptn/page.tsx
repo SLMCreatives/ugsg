@@ -23,7 +23,7 @@ export default function PTPTNPageBM() {
             <span className="hidden font-bold sr-only sm:inline-block">
               University Antarabangsa UNITAR
             </span>
-            <p>Bantuan Aplikasi PTPTN</p>
+            <p>Bantuan Permohonan PTPTN</p>
           </div>
           <nav className="flex flex-1 items-center justify-end space-x-4">
             <Link href="/ptptn/eng">

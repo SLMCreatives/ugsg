@@ -24,7 +24,7 @@ const stages = [
     label: "Semasa sesi anda",
     title: "Kami lalui bersama-sama",
     description:
-      "Sertai panggilan Microsoft Teams dan kongsi skrin anda dengan pegawai SST. Kami akan membimbing anda melalui keseluruhan permohonan, langkah demi langkah, sambil anda mengisinya."
+      "Sertai panggilan melalui Microsoft Teams dan kongsi skrin anda dengan pegawai SST. Kami akan membimbing anda melalui keseluruhan permohonan, langkah demi langkah, sambil anda mengisinya."
   },
   {
     icon: BadgeCheck,
@@ -37,9 +37,9 @@ const stages = [
 
 const mistakes = [
   {
-    title: "Tarikh pengambilan yang salah",
+    title: "Tarikh mula pengajian yang salah",
     detail:
-      "Bulan dan tahun pengambilan anda mesti sama dengan surat tawaran anda."
+      "Bulan dan tahun mula pengajian anda mesti sama dengan surat tawaran anda."
   },
   {
     title: "Nama institusi yang salah",
@@ -65,12 +65,12 @@ export function SessionInfoBM() {
             Tentang sesi ini
           </p>
           <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4 text-balance">
-            Satu sesi, supaya permohonan anda betul dari kali pertama
+            Satu sesi, supaya permohonan anda betul pada kali pertama
           </h2>
           <p className="text-muted-foreground text-base md:text-lg text-balance max-w-2xl mx-auto">
             Kebanyakan permohonan PTPTN ditolak kerana kesilapan kecil dalam
             borang. Sesi 1-ke-1 percuma bersama Student Success Team (SST) ini
-            memastikan permohonan anda tidak menjadi salah satu daripadanya.
+            memastikan permohonan anda bukan salah satu daripadanya.
           </p>
         </div>
 
@@ -90,8 +90,8 @@ export function SessionInfoBM() {
               Kongsi skrin anda. Kami bimbing anda secara langsung.
             </p>
             <p className="text-sm md:text-base text-white/80 mt-2 text-balance">
-              Panggilan Microsoft Teams selama 30 minit, satu-ke-satu bersama
-              Student Success Team.
+              Panggilan melalui Microsoft Teams selama 30 minit, satu-ke-satu
+              bersama Student Success Team.
             </p>
           </div>
         </div>
@@ -169,7 +169,7 @@ export function SessionInfoBM() {
         {/* Closing CTA */}
         <div className="p-8 rounded-2xl bg-accent/10 border border-accent/20 text-center">
           <p className="text-lg font-medium text-foreground text-balance mb-2">
-            Tempahan adalah percuma dan mengambil masa kurang daripada satu
+            Tempahan slot adalah percuma dan mengambil masa kurang daripada satu
             minit.
           </p>
           <p className="text-muted-foreground text-balance mb-6">

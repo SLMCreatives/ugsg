@@ -24,7 +24,7 @@ export function BookingSectionBM() {
             </CardTitle>
             <CardDescription className="text-base mt-2 text-balance">
               Pilih masa yang sesuai untuk anda dan{" "}
-              {"mari pastikan aplikasi anda 100% betul!"}
+              {"mari pastikan permohonan anda 100% betul!"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -48,7 +48,7 @@ export function BookingSectionBM() {
                   <div className="pr-10">
                     <p className="font-medium text-foreground">Matlamat</p>
                     <p className="text-sm text-muted-foreground text-balance">
-                      Menghantar aplikasi anda dengan betul pada masa pertama.
+                      Menghantar permohonan anda dengan betul pada masa pertama.
                     </p>
                   </div>
                 </div>
