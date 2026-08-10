@@ -317,7 +317,7 @@ export default function RsvpPage() {
           UNITAR International University
         </strong>
         <br />
-        Student Experience Department &nbsp;•&nbsp; September 2026 Intake
+        Student Success Team (SST) &nbsp;•&nbsp; September 2026 Intake
         <br />
         Terms and conditions apply to discounts, credit transfer, fast-track
         applications and the MacBook Neo campaign.
