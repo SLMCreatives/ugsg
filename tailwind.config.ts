@@ -44,6 +44,13 @@ const config: Config = {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
+  			unitar: {
+  				blue: '#0E4A73',
+  				'blue-light': '#1B5E8C',
+  				'blue-dark': '#123E63',
+  				orange: '#F08A1D',
+  				'orange-light': '#F5B041'
+  			},
   			chart: {
   				'1': 'hsl(var(--chart-1))',
   				'2': 'hsl(var(--chart-2))',
