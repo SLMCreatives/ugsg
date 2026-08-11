@@ -337,7 +337,7 @@ export const uiu: CampusNewsletter = {
   closing: {
     eyebrow: "Keep talking to us",
     heading: "The next edition starts with your next survey.",
-    body: "Everything in this issue began as a survey response. When the Student Satisfaction Survey comes round again, the same thing happens: your answers tell us what matters to students and where we are falling short, on campus and within the online learning environment. If something here is not yet what you hoped for, say so — that is how it gets onto next year's pages.",
+    body: "Everything in this issue began as a survey response. If you like what you’re seeing, we’d love to hear that too. When the Student Satisfaction Survey comes around, take a moment to share what you’re enjoying, what’s working well, or leave us a little encouragement. Your positive feedback helps our teams know what to keep doing and build on.",
     signature: "Student Experience Department"
   }
 };
