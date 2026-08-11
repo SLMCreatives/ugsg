@@ -1,0 +1,1228 @@
+/* ------------------------------------------------------------------ */
+/* Student Experience Department newsletter — scoped styles            */
+/*                                                                      */
+/* Mobile-first: the base rules describe the phone layout, and every    */
+/* media query is min-width, adding to it. Everything is scoped under   */
+/* .newsletter-page so it cannot leak into the rest of the site (which  */
+/* uses Tailwind + Arial).                                              */
+/* ------------------------------------------------------------------ */
+
+.newsletter-page {
+  --unitar-blue: #064b76;
+  --unitar-mid-blue: #156595;
+  --unitar-orange: #f39228;
+  --unitar-grey: #b7b9bb;
+  --unitar-dark: #062f49;
+  --unitar-ink: #173445;
+  --muted: #65727a;
+  --paper: #ffffff;
+  --page: #eef3f6;
+  --pale-blue: #edf5f9;
+  --pale-orange: #fff4e7;
+  --line: #dbe4e9;
+  --shadow: 0 22px 55px rgba(6, 75, 118, 0.14);
+  --max-width: 1060px;
+
+  /* Horizontal page padding — grows with the viewport. */
+  --pad: 20px;
+  /* Vertical rhythm between major blocks. */
+  --gap: 40px;
+
+  --sans: Arial, Helvetica, sans-serif;
+
+  min-height: 100vh;
+  color: var(--unitar-ink);
+  background: radial-gradient(
+      circle at 12% 10%,
+      rgba(243, 146, 40, 0.1),
+      transparent 24rem
+    ),
+    radial-gradient(circle at 88% 28%, rgba(21, 101, 149, 0.11), transparent 28rem),
+    var(--page);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.newsletter-page * {
+  box-sizing: border-box;
+}
+
+.newsletter-page img {
+  display: block;
+  max-width: 100%;
+}
+
+.newsletter-page a {
+  color: inherit;
+}
+
+.newsletter-page :focus-visible {
+  outline: 3px solid var(--unitar-orange);
+  outline-offset: 2px;
+}
+
+/* ----------------------------- shell ------------------------------ */
+
+.page-shell {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.top-bar {
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--unitar-blue) 0 70%,
+    var(--unitar-orange) 70% 84%,
+    var(--unitar-grey) 84% 100%
+  );
+}
+
+/* ---------------------------- masthead ---------------------------- */
+
+.masthead {
+  padding: 20px var(--pad) 18px;
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.brand-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.unitar-logo {
+  width: min(260px, 70vw);
+  height: auto;
+}
+
+.department-mark {
+  padding-left: 14px;
+  border-left: 3px solid var(--unitar-orange);
+  font-family: var(--sans);
+}
+
+.department-mark strong {
+  display: block;
+  color: var(--unitar-blue);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.department-mark span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.department-mark .issue-date {
+  color: var(--unitar-orange);
+  font-weight: 800;
+}
+
+.issue-line {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--unitar-orange);
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.issue-line::before,
+.issue-line::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--line);
+}
+
+/* ------------------------- campus switcher ------------------------ */
+
+.campus-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 10px var(--pad);
+  border-bottom: 1px solid var(--line);
+  background: var(--pale-blue);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  scrollbar-width: none;
+}
+
+.campus-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.campus-bar-label {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.campus-bar a {
+  flex: 0 0 auto;
+  color: var(--unitar-blue);
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.campus-bar a:hover {
+  border-bottom-color: var(--unitar-orange);
+}
+
+/* --------------------- sticky contents bar ------------------------ */
+
+.jump-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 8px var(--pad);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 4px 16px rgba(6, 75, 118, 0.06);
+  backdrop-filter: blur(10px);
+  scrollbar-width: none;
+}
+
+.jump-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.jump-nav-label {
+  flex: 0 0 auto;
+  padding-right: 6px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.jump-nav a {
+  flex: 0 0 auto;
+  padding: 6px 11px;
+  border-radius: 999px;
+  color: var(--unitar-blue);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.jump-nav a:hover,
+.jump-nav a:focus-visible {
+  color: #ffffff;
+  background: var(--unitar-blue);
+}
+
+/* ------------------------------ hero ------------------------------ */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 44px var(--pad);
+  text-align: center;
+  background: linear-gradient(
+    145deg,
+    #ffffff 0%,
+    var(--pale-blue) 66%,
+    #e3f0f6 100%
+  );
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 55% 45% 60% 40%;
+  transform: rotate(-18deg);
+}
+
+.hero::before {
+  width: 150px;
+  height: 74px;
+  top: -34px;
+  right: -40px;
+  background: rgba(243, 146, 40, 0.92);
+}
+
+.hero::after {
+  width: 130px;
+  height: 92px;
+  bottom: -62px;
+  left: -44px;
+  background: rgba(6, 75, 118, 0.14);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--unitar-orange);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.newsletter-page h1 {
+  max-width: 790px;
+  margin: 0 auto;
+  color: var(--unitar-blue);
+  font-size: clamp(2.1rem, 8.5vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.hero h1 span {
+  color: var(--unitar-orange);
+  font-style: italic;
+}
+
+.subtitle {
+  max-width: 660px;
+  margin: 18px auto 0;
+  color: #435f6f;
+  font-size: clamp(1rem, 3.4vw, 1.22rem);
+}
+
+/* ------------------------ editor's letter ------------------------- */
+
+.intro {
+  padding: 34px var(--pad);
+  border-top: 1px solid var(--line);
+}
+
+.intro p {
+  max-width: 66ch;
+  margin: 0 auto 16px;
+  font-size: 1.04rem;
+}
+
+.intro p:last-child {
+  margin-bottom: 0;
+}
+
+.intro .drop-cap::first-letter {
+  float: left;
+  margin: 8px 10px 0 0;
+  color: var(--unitar-orange);
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 0.74;
+}
+
+/* --------------------------- by the numbers ----------------------- */
+
+.numbers {
+  padding: 0 0 var(--gap);
+  background: #ffffff;
+}
+
+/* Scoped with .newsletter-page so these labels beat the generic h2 rule. */
+.newsletter-page .numbers-title {
+  margin: 0 0 14px;
+  color: var(--unitar-blue);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--line);
+}
+
+.highlight-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 14px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.highlight-card:nth-child(even) {
+  background: var(--pale-blue);
+}
+
+.highlight-number {
+  display: block;
+  color: var(--unitar-blue);
+  font-family: var(--sans);
+  font-size: clamp(1.7rem, 6vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.highlight-card:nth-child(2) .highlight-number,
+.highlight-card:nth-child(4) .highlight-number {
+  color: var(--unitar-orange);
+}
+
+.highlight-label {
+  display: block;
+  margin-top: 10px;
+  color: #304c5c;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------- contents ---------------------------- */
+
+/* NOTE: not `.contents` — that is a Tailwind utility for `display: contents`,
+   and Tailwind is loaded globally, which would erase this section's box. */
+.issue-contents {
+  padding: 0 var(--pad) var(--gap);
+}
+
+.newsletter-page .contents-title {
+  margin: 0 0 14px;
+  color: var(--unitar-blue);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.contents-list {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+/* The <li> stretches to the grid row height; the <a> must fill it, otherwise
+   the list's rule-line background shows through under the shorter cards. */
+.contents-list li {
+  display: flex;
+}
+
+.contents-list a {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #ffffff;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.contents-list a:hover,
+.contents-list a:focus-visible {
+  background: var(--pale-blue);
+}
+
+.contents-number {
+  flex: 0 0 auto;
+  color: var(--unitar-orange);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.contents-text {
+  display: block;
+}
+
+.contents-kicker {
+  display: block;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contents-heading {
+  display: block;
+  margin-top: 3px;
+  color: var(--unitar-blue);
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+
+/* ---------------------------- articles ---------------------------- */
+
+.newsletter-section {
+  padding: var(--gap) var(--pad);
+  border-top: 1px solid var(--line);
+}
+
+.newsletter-section.alt {
+  background: #f7fafb;
+}
+
+.article-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-areas:
+    "header"
+    "visual"
+    "body";
+}
+
+.article-header {
+  grid-area: header;
+}
+
+.article-visual {
+  grid-area: visual;
+  min-width: 0;
+}
+
+.article-body {
+  grid-area: body;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 10px;
+}
+
+.section-number {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 2px solid var(--unitar-orange);
+  border-radius: 50%;
+  color: var(--unitar-blue);
+  background: #ffffff;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  font-weight: 900;
+}
+
+.section-kicker {
+  color: var(--unitar-orange);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.newsletter-page h2 {
+  margin: 0 0 12px;
+  color: var(--unitar-blue);
+  font-size: clamp(1.55rem, 5.6vw, 2.45rem);
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+/* Dek under an article headline — sets up the story before the body copy. */
+.standfirst {
+  margin: 0;
+  padding-left: 14px;
+  border-left: 3px solid var(--unitar-orange);
+  color: var(--unitar-mid-blue);
+  font-size: 1.08rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.article-body p {
+  margin: 0 0 14px;
+}
+
+/* Tailwind's Preflight strips list markers globally, so restore them here. */
+.article-body ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+.article-body li {
+  padding-left: 4px;
+}
+
+.article-body li::marker {
+  color: var(--unitar-orange);
+}
+
+.article-body li + li {
+  margin-top: 8px;
+}
+
+/* ----------------------------- gallery ---------------------------- */
+
+.visual {
+  margin: 0;
+}
+
+.gallery {
+  position: relative;
+}
+
+.gallery-frame {
+  display: flex;
+  aspect-ratio: 16 / 10;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border: 6px solid #ffffff;
+  outline: 1px solid #cbd8df;
+  background: linear-gradient(
+      135deg,
+      rgba(6, 75, 118, 0.13),
+      rgba(243, 146, 40, 0.18)
+    ),
+    #e6edf1;
+  box-shadow: 0 14px 28px rgba(6, 75, 118, 0.13);
+  overscroll-behavior-x: contain;
+}
+
+.gallery-frame::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-slide img.contain {
+  background: #ffffff;
+  object-fit: contain;
+}
+
+/* Arrows sit inside the frame; hidden until there is room to use them. */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0 0 4px;
+  border: 1px solid rgba(6, 75, 118, 0.12);
+  border-radius: 50%;
+  color: var(--unitar-blue);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 4px 14px rgba(6, 47, 73, 0.22);
+  font-family: var(--sans);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: 0.2s ease;
+}
+
+.gallery-arrow.prev {
+  left: 12px;
+}
+
+.gallery-arrow.next {
+  right: 12px;
+}
+
+.gallery-arrow:hover:not(:disabled) {
+  color: #ffffff;
+  background: var(--unitar-blue);
+}
+
+.gallery-arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gallery-counter {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(6, 47, 73, 0.72);
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.gallery-dots .dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #c2d2db;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.gallery-dots .dot.active {
+  width: 22px;
+  border-radius: 999px;
+  background: var(--unitar-orange);
+}
+
+.photo-placeholder {
+  display: grid;
+  place-items: center;
+  flex: 0 0 100%;
+  padding: 24px;
+  color: var(--unitar-blue);
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.photo-placeholder small {
+  display: block;
+  max-width: 260px;
+  margin: 10px auto 0;
+  color: #5f727d;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.caption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ---------------------------- callouts ---------------------------- */
+
+.callout {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-left: 5px solid var(--unitar-orange);
+  background: var(--pale-blue);
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.callout.result {
+  border-left-color: var(--unitar-blue);
+  background: var(--pale-orange);
+}
+
+.callout-label {
+  margin: 0 0 4px;
+  color: var(--unitar-blue);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.callout-text {
+  margin: 0;
+  color: #314e5e;
+}
+
+.callout-meta {
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(6, 75, 118, 0.14);
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+.callout-meta strong {
+  color: var(--unitar-blue);
+}
+
+/* -------------------------- coming soon --------------------------- */
+
+.coming-soon {
+  color: #ffffff;
+  background: linear-gradient(
+    145deg,
+    rgba(6, 47, 73, 0.98),
+    rgba(6, 75, 118, 0.97)
+  );
+}
+
+.coming-soon h2,
+.coming-soon .section-kicker {
+  color: #ffffff;
+}
+
+.coming-soon .section-number {
+  color: var(--unitar-blue);
+  border-color: var(--unitar-orange);
+}
+
+.coming-soon .standfirst {
+  color: #cfe0ea;
+}
+
+.coming-soon .callout,
+.coming-soon .callout.result {
+  color: #ffffff;
+  border-left-color: var(--unitar-orange);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.coming-soon .callout-label,
+.coming-soon .callout-text,
+.coming-soon .callout-meta strong {
+  color: #ffffff;
+}
+
+.coming-soon .callout-meta {
+  border-top-color: rgba(255, 255, 255, 0.24);
+  color: #cfe0ea;
+}
+
+.coming-soon .caption {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ---------------------------- closing ----------------------------- */
+
+.closing {
+  position: relative;
+  overflow: hidden;
+  padding: var(--gap) var(--pad);
+  color: #ffffff;
+  text-align: center;
+  background: var(--unitar-dark);
+}
+
+.closing::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 76px;
+  top: -42px;
+  left: -40px;
+  border-radius: 55% 45% 60% 40%;
+  background: var(--unitar-orange);
+  transform: rotate(14deg);
+  opacity: 0.93;
+}
+
+.closing h2 {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto 18px;
+  color: #ffffff;
+}
+
+.closing p {
+  position: relative;
+  max-width: 68ch;
+  margin: 0 auto;
+  color: #d9e5eb;
+  font-size: 1.02rem;
+}
+
+.signature {
+  position: relative;
+  margin-top: 26px;
+  color: #ffffff;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ----------------------------- footer ----------------------------- */
+
+.newsletter-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px var(--pad);
+  color: #d0dbe0;
+  background: #031f30;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  text-align: center;
+}
+
+.newsletter-footer a {
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.newsletter-footer a:hover {
+  border-bottom-color: var(--unitar-orange);
+}
+
+/* ------------------------- campus hub page ------------------------ */
+
+.hub-intro {
+  padding: 40px var(--pad);
+  text-align: center;
+}
+
+.hub-intro p {
+  max-width: 60ch;
+  margin: 16px auto 0;
+  color: #435f6f;
+  font-size: 1.02rem;
+}
+
+.campus-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  border-top: 1px solid var(--line);
+  background: var(--line);
+}
+
+.campus-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px var(--pad);
+  background: #ffffff;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+a.campus-card:hover,
+a.campus-card:focus-visible {
+  background: var(--pale-blue);
+}
+
+.campus-card-name {
+  color: var(--unitar-blue);
+  font-family: var(--sans);
+  font-size: 1.08rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.campus-card-full {
+  color: var(--unitar-ink);
+  font-size: 0.92rem;
+}
+
+.campus-card-location {
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+}
+
+.campus-card-status {
+  margin-top: 8px;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.campus-card-status.live {
+  color: var(--unitar-orange);
+}
+
+.campus-card.pending {
+  background: #f7fafb;
+}
+
+.campus-card.pending .campus-card-name,
+.campus-card.pending .campus-card-full {
+  color: #7d8f99;
+}
+
+.campus-card.pending .campus-card-status {
+  color: #9aa8b0;
+}
+
+/* ================================================================== */
+/* Small tablet and up                                                */
+/* ================================================================== */
+
+@media (min-width: 640px) {
+  .newsletter-page {
+    --pad: 34px;
+    --gap: 52px;
+  }
+
+  .top-bar {
+    height: 11px;
+  }
+
+  .brand-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+  }
+
+  .unitar-logo {
+    width: min(290px, 45vw);
+  }
+
+  .department-mark {
+    max-width: 300px;
+    padding-left: 20px;
+    text-align: right;
+  }
+
+  .issue-line {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+  }
+
+  .jump-nav {
+    justify-content: center;
+  }
+
+  .highlights {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .highlight-card {
+    padding: 26px 18px;
+  }
+
+  .contents-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .campus-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .newsletter-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .gallery-arrow {
+    display: grid;
+  }
+}
+
+/* ================================================================== */
+/* Desktop — two-column articles                                      */
+/* ================================================================== */
+
+@media (min-width: 960px) {
+  .newsletter-page {
+    --pad: 56px;
+    --gap: 60px;
+  }
+
+  .page-shell {
+    width: min(calc(100% - 28px), var(--max-width));
+    margin: 28px auto;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+
+  .hero {
+    padding-top: 62px;
+    padding-bottom: 56px;
+  }
+
+  .hero::before {
+    width: 230px;
+    height: 110px;
+    top: -52px;
+    right: -55px;
+  }
+
+  .hero::after {
+    width: 190px;
+    height: 135px;
+    bottom: -92px;
+    left: -60px;
+  }
+
+  .intro {
+    padding-top: 44px;
+    padding-bottom: 40px;
+  }
+
+  .intro p {
+    font-size: 1.07rem;
+  }
+
+  .intro .drop-cap::first-letter {
+    font-size: 4.25rem;
+  }
+
+  /* Photo column beside the copy; alternating sides down the page. */
+  .article-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "header visual"
+      "body   visual";
+    align-items: start;
+    column-gap: 40px;
+    row-gap: 16px;
+  }
+
+  .newsletter-section.flip .article-grid {
+    grid-template-areas:
+      "visual header"
+      "visual body";
+  }
+
+  .section-number {
+    width: 44px;
+    height: 44px;
+    font-size: 0.92rem;
+  }
+
+  .contents-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .campus-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .closing::before {
+    width: 270px;
+    height: 110px;
+    top: -62px;
+    left: -55px;
+  }
+}
+
+/* ================================================================== */
+/* Accessibility and print                                            */
+/* ================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .newsletter-page *,
+  .newsletter-page *::before,
+  .newsletter-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .newsletter-page {
+    background: #ffffff;
+  }
+
+  .page-shell {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .jump-nav,
+  .campus-bar,
+  .gallery-arrow,
+  .gallery-dots,
+  .gallery-counter {
+    display: none;
+  }
+
+  /* Print every photo rather than only the visible slide. */
+  .gallery-frame {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    aspect-ratio: auto;
+    overflow: visible;
+    box-shadow: none;
+  }
+
+  .gallery-slide {
+    flex: none;
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .newsletter-section,
+  .hero,
+  .intro,
+  .issue-contents,
+  .closing {
+    break-inside: avoid;
+  }
+}

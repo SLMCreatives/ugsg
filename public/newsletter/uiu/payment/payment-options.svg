@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-labelledby="payTitle">
+  <title id="payTitle">Illustration of three payment routes — card, bank transfer, and e-wallet — feeding one gateway</title>
+
+  <defs>
+    <linearGradient id="payBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f9fb"/>
+      <stop offset="0.55" stop-color="#e6f0f6"/>
+      <stop offset="1" stop-color="#dcebf2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#payBg)"/>
+
+  <!-- Three routes into the new gateway. -->
+  <g>
+    <rect x="150" y="130" width="380" height="260" rx="26" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+    <rect x="610" y="130" width="380" height="260" rx="26" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+    <rect x="1070" y="130" width="380" height="260" rx="26" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+  </g>
+
+  <!-- Credit card -->
+  <g transform="translate(230 196)">
+    <rect x="0" y="16" width="220" height="140" rx="18" fill="#064b76"/>
+    <rect x="0" y="52" width="220" height="30" fill="#0a3a5c"/>
+    <rect x="22" y="100" width="52" height="34" rx="7" fill="#f39228"/>
+    <rect x="90" y="112" width="106" height="12" rx="6" fill="#ffffff" opacity="0.7"/>
+  </g>
+
+  <!-- Bank transfer -->
+  <g transform="translate(690 196)">
+    <path d="M110 12 L216 68 L4 68 Z" fill="#064b76"/>
+    <rect x="4" y="80" width="212" height="16" rx="6" fill="#064b76"/>
+    <rect x="30" y="104" width="26" height="52" rx="5" fill="#156595"/>
+    <rect x="97" y="104" width="26" height="52" rx="5" fill="#156595"/>
+    <rect x="164" y="104" width="26" height="52" rx="5" fill="#156595"/>
+    <rect x="4" y="160" width="212" height="16" rx="6" fill="#f39228"/>
+  </g>
+
+  <!-- E-wallet on a phone -->
+  <g transform="translate(1180 180)">
+    <rect x="46" y="14" width="128" height="192" rx="22" fill="#064b76"/>
+    <rect x="62" y="34" width="96" height="140" rx="10" fill="#ffffff"/>
+    <rect x="76" y="58" width="68" height="46" rx="9" fill="#f39228"/>
+    <rect x="76" y="118" width="68" height="12" rx="6" fill="#cddde6"/>
+    <rect x="76" y="140" width="44" height="12" rx="6" fill="#cddde6"/>
+  </g>
+
+  <!-- Flow lines converging on the gateway. -->
+  <g fill="none" stroke="#156595" stroke-width="7" stroke-linecap="round" opacity="0.55">
+    <path d="M340 410 C 340 530 800 500 800 620"/>
+    <path d="M800 410 L 800 620"/>
+    <path d="M1260 410 C 1260 530 800 500 800 620"/>
+  </g>
+
+  <!-- The gateway: one place where every route lands. -->
+  <circle cx="800" cy="742" r="122" fill="#064b76"/>
+  <circle cx="800" cy="742" r="122" fill="none" stroke="#f39228" stroke-width="10"/>
+  <path d="M742 744 L 784 786 L 862 702" fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
