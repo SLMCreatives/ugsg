@@ -27,12 +27,12 @@ export const uiu: CampusNewsletter = {
     headlineAccent: "We acted.",
     headlineTail: "Here's what has improved.",
     subtitle:
-      "Inside this issue: a new café operator, six new labs and studios, double the Wi-Fi, and the payment upgrade arriving next."
+      "Inside this issue: a new café operator, six new labs and studios, faster Wi-Fi speed, and the payment upgrade arriving soon."
   },
 
   intro: [
-    "Welcome to the first edition of this newsletter. In September 2025, UNITARians told us through the Student Satisfaction Survey what was working at UIU and what was not — the food, the Wi-Fi, the classrooms, the queues at the counter.",
-    "This issue is our reply. Every story on these pages began as something a student wrote down. Some of that work is now finished and you can see it on campus today. Some is still underway, and where that is the case we have said so, along with when you can expect it."
+    "Welcome to the first edition of this newsletter. In September 2025, UNITARians told us through the Student Satisfaction Survey what was working at UIU and what was not — the food, the Wi-Fi, the classrooms, the café.",
+    "This newsletter is our reply. Every story on these pages began as something a student wrote down. Some of that work is now finished and you can see it on campus today."
   ],
 
   highlightsTitle: "By the numbers",
@@ -49,7 +49,7 @@ export const uiu: CampusNewsletter = {
       id: "dining",
       navLabel: "Dining",
       kicker: "Campus dining",
-      heading: "The café has a new operator — and a bigger menu",
+      heading: "The café has a new operator!",
       standfirst: "Wider choice at lower prices, served on campus since June.",
       body: [
         "A new café operator took over campus dining on **15 June 2026**, bringing a wider menu at more affordable prices. Both were points students raised in the survey.",
@@ -118,7 +118,7 @@ export const uiu: CampusNewsletter = {
         "A new ticketing system at the One Stop Centre — and a WhatsApp channel that tells us how it went.",
       body: [
         "Two changes have been made to how student support works. The One Stop Centre's ticketing platform has been upgraded, so enquiries are logged and tracked reliably from the moment you raise them.",
-        "Alongside it, a new instant WhatsApp feedback channel lets you tell us about the service you received while it is still fresh. That gives the team a live picture of where support is working well and where it needs attention, rather than waiting a year to find out."
+        "Alongside it, a new instant WhatsApp feedback channel lets you tell us about the service you received while it is still fresh. That gives the team a live picture of where support is working well and where it needs attention."
       ],
       notes: [
         {
@@ -244,11 +244,11 @@ export const uiu: CampusNewsletter = {
       standfirst:
         "On-campus and Fully Online Students competing in the same tournament.",
       body: [
-        "UNITAR Games 2026 brought together nearly 500 students, including Fully Online Students. It was the largest single gathering of the student community this year — and it turned up talent the university did not know it had."
+        "UNITAR Games 2026 brought together nearly 500 students, including fully online students. It was the largest single gathering of the student community this year — and it turned up talent that we did not know we had."
       ],
       bullets: [
         "New student talent was identified for MASISWA and SUKIPT.",
-        "The Clubs and Societies Open Day was refreshed to create a more engaging experience."
+        "The Clubs and Societies Open Day was enhanced to provide a more engaging experience."
       ],
       notes: [
         {
