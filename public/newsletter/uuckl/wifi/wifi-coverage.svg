@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-labelledby="wifiTitle">
+  <title id="wifiTitle">Before and now: campus bandwidth up from 1 Gbps to 2 Gbps, and Wi-Fi access points up from 10 units to 23 units</title>
+
+  <defs>
+    <linearGradient id="wifiBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f9fb"/>
+      <stop offset="0.55" stop-color="#e4eff5"/>
+      <stop offset="1" stop-color="#d8e9f1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#wifiBg)"/>
+
+  <!-- ── Before ─────────────────────────────────────────────── -->
+  <g>
+    <rect x="90" y="70" width="670" height="830" rx="26" fill="#ffffff" fill-opacity="0.55" stroke="#064b76" stroke-opacity="0.12" stroke-width="2"/>
+    <text x="425" y="146" text-anchor="middle" font-family="Georgia, serif" font-size="42" font-weight="700" fill="#064b76">Before</text>
+
+    <text x="425" y="252" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="600" letter-spacing="1.5" fill="#064b76" fill-opacity="0.62">CAMPUS BANDWIDTH</text>
+    <text x="425" y="368" text-anchor="middle" font-family="Georgia, serif" font-size="92" font-weight="700" fill="#156595" fill-opacity="0.72">1 Gbps</text>
+
+    <line x1="195" y1="460" x2="655" y2="460" stroke="#064b76" stroke-opacity="0.14" stroke-width="2"/>
+
+    <text x="425" y="522" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="600" letter-spacing="1.5" fill="#064b76" fill-opacity="0.62">WI-FI ACCESS POINTS</text>
+
+    <g fill="#156595" fill-opacity="0.55">
+      <circle cx="321" cy="600" r="13"/><circle cx="373" cy="600" r="13"/><circle cx="425" cy="600" r="13"/>
+      <circle cx="477" cy="600" r="13"/><circle cx="529" cy="600" r="13"/>
+      <circle cx="321" cy="652" r="13"/><circle cx="373" cy="652" r="13"/><circle cx="425" cy="652" r="13"/>
+      <circle cx="477" cy="652" r="13"/><circle cx="529" cy="652" r="13"/>
+    </g>
+
+    <text x="425" y="830" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="700" fill="#064b76">10 units</text>
+  </g>
+
+  <!-- ── Arrow ──────────────────────────────────────────────── -->
+  <path d="M778 450 L 814 485 L 778 520" fill="none" stroke="#f39228" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ── Now ────────────────────────────────────────────────── -->
+  <g>
+    <rect x="840" y="70" width="670" height="830" rx="26" fill="#ffffff" fill-opacity="0.72" stroke="#f39228" stroke-opacity="0.45" stroke-width="3"/>
+    <text x="1175" y="146" text-anchor="middle" font-family="Georgia, serif" font-size="42" font-weight="700" fill="#064b76">Now</text>
+
+    <text x="1175" y="252" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="600" letter-spacing="1.5" fill="#064b76" fill-opacity="0.62">CAMPUS BANDWIDTH</text>
+    <text x="1175" y="368" text-anchor="middle" font-family="Georgia, serif" font-size="92" font-weight="700" fill="#f39228">2 Gbps</text>
+
+    <line x1="945" y1="460" x2="1405" y2="460" stroke="#064b76" stroke-opacity="0.14" stroke-width="2"/>
+
+    <text x="1175" y="522" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="600" letter-spacing="1.5" fill="#064b76" fill-opacity="0.62">WI-FI ACCESS POINTS</text>
+
+    <!-- The original 10 in blue, the 13 added in orange. -->
+    <g fill="#156595" fill-opacity="0.55">
+      <circle cx="1045" cy="548" r="13"/><circle cx="1097" cy="548" r="13"/><circle cx="1149" cy="548" r="13"/>
+      <circle cx="1201" cy="548" r="13"/><circle cx="1253" cy="548" r="13"/><circle cx="1305" cy="548" r="13"/>
+      <circle cx="1045" cy="600" r="13"/><circle cx="1097" cy="600" r="13"/><circle cx="1149" cy="600" r="13"/>
+      <circle cx="1201" cy="600" r="13"/>
+    </g>
+    <g fill="#f39228">
+      <circle cx="1253" cy="600" r="13"/><circle cx="1305" cy="600" r="13"/>
+      <circle cx="1045" cy="652" r="13"/><circle cx="1097" cy="652" r="13"/><circle cx="1149" cy="652" r="13"/>
+      <circle cx="1201" cy="652" r="13"/><circle cx="1253" cy="652" r="13"/><circle cx="1305" cy="652" r="13"/>
+      <circle cx="1071" cy="704" r="13"/><circle cx="1123" cy="704" r="13"/><circle cx="1175" cy="704" r="13"/>
+      <circle cx="1227" cy="704" r="13"/><circle cx="1279" cy="704" r="13"/>
+    </g>
+
+    <text x="1175" y="830" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="700" fill="#064b76">23 units</text>
+  </g>
+
+  <text x="800" y="963" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="600" fill="#064b76" fill-opacity="0.78">Stable Wi-Fi access across campus from Levels 1 and 9</text>
+</svg>

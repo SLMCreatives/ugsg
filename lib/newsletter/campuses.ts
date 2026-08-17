@@ -1,5 +1,8 @@
 ﻿import type { CampusEntry, CampusNewsletter } from "./types";
 import { uiu } from "./content/uiu";
+import { uuckl } from "./content/uuckl";
+import { ucPenang } from "./content/uc-penang";
+import { ucIpoh } from "./content/uc-ipoh";
 
 /**
  * Every UNITAR campus that receives an edition of the student newsletter.
@@ -21,14 +24,14 @@ export const campuses: CampusEntry[] = [
     name: "UUCKL",
     fullName: "UNITAR University College Kuala Lumpur",
     location: "Kuala Lumpur",
-    newsletter: null
+    newsletter: uuckl
   },
   {
     slug: "uc-ipoh",
     name: "UC Ipoh",
     fullName: "UNITAR College Ipoh",
     location: "Ipoh, Perak",
-    newsletter: null
+    newsletter: ucIpoh
   },
   {
     slug: "uc-johor-bahru",
@@ -84,7 +87,7 @@ export const campuses: CampusEntry[] = [
     name: "UC Penang",
     fullName: "UNITAR College Penang",
     location: "Penang",
-    newsletter: null
+    newsletter: ucPenang
   },
   {
     slug: "uc-sungai-petani",
