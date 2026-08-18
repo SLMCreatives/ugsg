@@ -389,7 +389,14 @@ export const ucKualaTerengganu: CampusNewsletter = {
       notes: [
         { kind: "result", text: "Convenient and flexible ways to pay." }
       ],
-      images: [],
+      images: [
+        {
+          src: "/newsletter/uiu/payment/payment-options.svg",
+          alt: "Illustration of three payment routes — a credit card, a bank, and an e-wallet on a phone — all feeding into a single payment gateway",
+          caption:
+            "Illustration: card, bank transfer, and e-wallet, all through one gateway."
+        }
+      ],
       placeholder: {
         label: "Artwork needed",
         brief:
