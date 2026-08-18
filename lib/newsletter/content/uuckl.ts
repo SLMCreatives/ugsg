@@ -224,7 +224,7 @@ export const uuckl: CampusNewsletter = {
       kicker: "Campus amenities",
       heading: "Food and Beverage on Campus",
       standfirst:
-        "SF Coffee within the building, and two vending machines in the lobby.",
+        "SF Coffee within the building, and vending machines in the lobby.",
       body: [
         "Whether you need a quick pick-me-up between classes or during your study break, we have included available food and beverages on campus.",
         "**SF Coffee on campus** — grab your favourite coffee or beverages, or snacks from SF Coffee. It is conveniently located in the building and an ideal hang out for students who dine in.",
