@@ -3,6 +3,7 @@ import { uiu } from "./content/uiu";
 import { uuckl } from "./content/uuckl";
 import { ucPenang } from "./content/uc-penang";
 import { ucIpoh } from "./content/uc-ipoh";
+import { ucSungaiPetani } from "./content/uc-sungai-petani";
 
 /**
  * Every UNITAR campus that receives an edition of the student newsletter.
@@ -94,7 +95,7 @@ export const campuses: CampusEntry[] = [
     name: "UC Sungai Petani",
     fullName: "UNITAR College Sungai Petani",
     location: "Sungai Petani, Kedah",
-    newsletter: null
+    newsletter: ucSungaiPetani
   }
 ];
 
