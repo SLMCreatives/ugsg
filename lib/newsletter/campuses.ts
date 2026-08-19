@@ -10,6 +10,7 @@ import { ucKuantan } from "./content/uc-kuantan";
 import { ucMelaka } from "./content/uc-melaka";
 import { ucJohorBahru } from "./content/uc-johor-bahru";
 import { ucKuching } from "./content/uc-kuching";
+import { ucKotaKinabalu } from "./content/uc-kota-kinabalu";
 
 /**
  * Every UNITAR campus that receives an edition of the student newsletter.
@@ -59,7 +60,7 @@ export const campuses: CampusEntry[] = [
     name: "UC Kota Kinabalu",
     fullName: "UNITAR College Kota Kinabalu",
     location: "Kota Kinabalu, Sabah",
-    newsletter: null
+    newsletter: ucKotaKinabalu
   },
   {
     slug: "uc-kuala-terengganu",

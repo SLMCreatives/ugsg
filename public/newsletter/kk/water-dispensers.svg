@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-labelledby="waterTitle">
+  <title id="waterTitle">Illustration of a water dispenser, with the same convenience now available at every wing of the building</title>
+
+  <defs>
+    <linearGradient id="waterBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f9fb"/>
+      <stop offset="0.55" stop-color="#e6f0f6"/>
+      <stop offset="1" stop-color="#dcebf2"/>
+    </linearGradient>
+    <linearGradient id="bottleWater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fd0ea"/>
+      <stop offset="1" stop-color="#3fa9d1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#waterBg)"/>
+
+  <!-- Four wings, each with the same convenience. -->
+  <g>
+    <rect x="150" y="120" width="300" height="140" rx="20" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+    <rect x="1150" y="120" width="300" height="140" rx="20" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+    <rect x="150" y="740" width="300" height="140" rx="20" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+    <rect x="1150" y="740" width="300" height="140" rx="20" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+  </g>
+
+  <!-- Wing icon + label, repeated. -->
+  <g font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="700" fill="#064b76">
+    <g transform="translate(190 150)">
+      <rect x="0" y="10" width="56" height="66" rx="8" fill="#e6f0f6"/>
+      <rect x="12" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="12" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <text x="80" y="52">Wing A</text>
+    </g>
+    <g transform="translate(1190 150)">
+      <rect x="0" y="10" width="56" height="66" rx="8" fill="#e6f0f6"/>
+      <rect x="12" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="12" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <text x="80" y="52">Wing B</text>
+    </g>
+    <g transform="translate(190 770)">
+      <rect x="0" y="10" width="56" height="66" rx="8" fill="#e6f0f6"/>
+      <rect x="12" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="12" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <text x="80" y="52">Wing C</text>
+    </g>
+    <g transform="translate(1190 770)">
+      <rect x="0" y="10" width="56" height="66" rx="8" fill="#e6f0f6"/>
+      <rect x="12" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="24" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="12" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <rect x="32" y="46" width="12" height="12" rx="2" fill="#156595"/>
+      <text x="80" y="52">Wing D</text>
+    </g>
+  </g>
+
+  <!-- A water drop badge above each wing card, all matching the dispenser at centre. -->
+  <g fill="#3fa9d1">
+    <path d="M226 60 C 226 76 216 86 206 86 C 196 86 186 76 186 60 C 186 44 206 20 206 20 C 206 20 226 44 226 60 Z"/>
+    <path d="M1226 60 C 1226 76 1216 86 1206 86 C 1196 86 1186 76 1186 60 C 1186 44 1206 20 1206 20 C 1206 20 1226 44 1226 60 Z"/>
+    <path d="M226 700 C 226 716 216 726 206 726 C 196 726 186 716 186 700 C 186 684 206 660 206 660 C 206 660 226 684 226 700 Z"/>
+    <path d="M1226 700 C 1226 716 1216 726 1206 726 C 1196 726 1186 716 1186 700 C 1186 684 1206 660 1206 660 C 1206 660 1226 684 1226 700 Z"/>
+  </g>
+
+  <!-- Connecting lines from the centre out to each wing. -->
+  <g fill="none" stroke="#156595" stroke-width="5" stroke-linecap="round" opacity="0.45">
+    <path d="M620 420 C 520 340 480 270 450 200"/>
+    <path d="M980 420 C 1080 340 1120 270 1150 200"/>
+    <path d="M620 580 C 520 660 480 730 450 800"/>
+    <path d="M980 580 C 1080 660 1120 730 1150 800"/>
+  </g>
+
+  <!-- The dispenser: bottle on top, unit body, tap, and a filling cup. -->
+  <g transform="translate(700 260)">
+    <!-- Inverted bottle. -->
+    <path d="M40 0 L160 0 L160 40 C 160 60 200 70 200 110 L200 230 L0 230 L0 110 C 0 70 40 60 40 40 Z" fill="url(#bottleWater)"/>
+    <rect x="40" y="0" width="120" height="26" rx="8" fill="#0a3a5c"/>
+
+    <!-- Dispenser body. -->
+    <rect x="-40" y="230" width="280" height="360" rx="24" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+    <rect x="-40" y="230" width="280" height="70" rx="24" fill="#064b76"/>
+    <rect x="-40" y="278" width="280" height="22" fill="#064b76"/>
+
+    <!-- Tap. -->
+    <rect x="80" y="420" width="40" height="26" rx="8" fill="#f39228"/>
+    <rect x="112" y="428" width="34" height="12" rx="6" fill="#f39228"/>
+
+    <!-- Drip. -->
+    <circle cx="100" cy="470" r="9" fill="#3fa9d1"/>
+    <circle cx="100" cy="500" r="6" fill="#3fa9d1" opacity="0.6"/>
+
+    <!-- Cup catching the water. -->
+    <path d="M60 520 L140 520 L128 590 L72 590 Z" fill="#ffffff" stroke="#156595" stroke-width="4"/>
+    <path d="M70 528 L130 528 L124 552 L76 552 Z" fill="#8fd0ea"/>
+  </g>
+</svg>
