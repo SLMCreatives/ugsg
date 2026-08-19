@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-labelledby="soaTitle">
+  <title id="soaTitle">Illustration of a sample Statement of Account, with callouts explaining the tuition fee, other charges, payments received, and balance due lines</title>
+
+  <defs>
+    <linearGradient id="soaBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f9fb"/>
+      <stop offset="0.55" stop-color="#e6f0f6"/>
+      <stop offset="1" stop-color="#dcebf2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#soaBg)"/>
+
+  <!-- The statement itself. -->
+  <g>
+    <rect x="130" y="90" width="760" height="830" rx="20" fill="#ffffff" stroke="#cddde6" stroke-width="3"/>
+
+    <!-- Header band. -->
+    <rect x="130" y="90" width="760" height="104" rx="20" fill="#064b76"/>
+    <rect x="130" y="150" width="760" height="44" fill="#064b76"/>
+    <text x="168" y="140" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#ffffff">Statement of Account</text>
+    <text x="168" y="172" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#ffffff" opacity="0.8">UNITAR College Kuching · Sample for illustration only</text>
+
+    <!-- Student info row. -->
+    <text x="168" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#65727a">Student</text>
+    <text x="168" y="266" font-family="Helvetica, Arial, sans-serif" font-size="23" font-weight="700" fill="#173445">Sample Student</text>
+    <text x="560" y="238" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#65727a">Semester</text>
+    <text x="560" y="266" font-family="Helvetica, Arial, sans-serif" font-size="23" font-weight="700" fill="#173445">May 2026</text>
+    <line x1="168" y1="292" x2="852" y2="292" stroke="#dbe4e9" stroke-width="2"/>
+
+    <!-- Line items. -->
+    <g font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#173445">
+      <text x="168" y="344">Tuition Fee</text>
+      <text x="852" y="344" text-anchor="end">RM 3,500.00</text>
+
+      <text x="168" y="392">Registration Fee</text>
+      <text x="852" y="392" text-anchor="end">RM 150.00</text>
+
+      <text x="168" y="440">Library Fee</text>
+      <text x="852" y="440" text-anchor="end">RM 80.00</text>
+
+      <text x="168" y="488">Hostel Fee</text>
+      <text x="852" y="488" text-anchor="end">RM 900.00</text>
+    </g>
+
+    <line x1="168" y1="516" x2="852" y2="516" stroke="#dbe4e9" stroke-width="2"/>
+
+    <g font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#173445">
+      <text x="168" y="562">Less: Payment Received</text>
+      <text x="852" y="562" text-anchor="end">(RM 2,000.00)</text>
+    </g>
+
+    <line x1="168" y1="590" x2="852" y2="590" stroke="#dbe4e9" stroke-width="2"/>
+
+    <!-- Balance due, highlighted. -->
+    <rect x="150" y="618" width="682" height="76" rx="12" fill="#fff4e7"/>
+    <text x="178" y="666" font-family="Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="#173445">Balance Due</text>
+    <text x="832" y="666" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-size="27" font-weight="700" fill="#c2670a">RM 2,630.00</text>
+
+    <text x="168" y="740" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#65727a">Questions about any item above? Raise a ticket with the One Stop Centre.</text>
+
+    <!-- Sample watermark, so this is unmistakably illustrative. -->
+    <text x="510" y="560" font-family="Helvetica, Arial, sans-serif" font-size="90" font-weight="700" fill="#064b76" opacity="0.06" text-anchor="middle" transform="rotate(-24 510 560)">SAMPLE</text>
+  </g>
+
+  <!-- Callouts explaining three of the lines. -->
+  <g font-family="Helvetica, Arial, sans-serif">
+    <!-- Tuition fee. -->
+    <path d="M890 344 C 970 344 970 300 1030 280" fill="none" stroke="#156595" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="890" cy="344" r="7" fill="#156595"/>
+    <rect x="1030" y="210" width="420" height="96" rx="16" fill="#ffffff" stroke="#cddde6" stroke-width="2"/>
+    <text x="1054" y="242" font-size="19" font-weight="700" fill="#064b76">Tuition &amp; other fees</text>
+    <text x="1054" y="270" font-size="17" fill="#65727a">Course, registration, library and</text>
+    <text x="1054" y="291" font-size="17" fill="#65727a">hostel charges for the semester.</text>
+
+    <!-- Payment received. -->
+    <path d="M890 562 C 970 562 970 520 1030 500" fill="none" stroke="#156595" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="890" cy="562" r="7" fill="#156595"/>
+    <rect x="1030" y="430" width="420" height="96" rx="16" fill="#ffffff" stroke="#cddde6" stroke-width="2"/>
+    <text x="1054" y="462" font-size="19" font-weight="700" fill="#064b76">Payments received</text>
+    <text x="1054" y="490" font-size="17" fill="#65727a">Anything already paid is deducted</text>
+    <text x="1054" y="511" font-size="17" fill="#65727a">here before the balance is shown.</text>
+
+    <!-- Balance due. -->
+    <path d="M890 656 C 970 656 970 690 1030 710" fill="none" stroke="#f39228" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="890" cy="656" r="7" fill="#f39228"/>
+    <rect x="1030" y="650" width="420" height="96" rx="16" fill="#fff4e7" stroke="#f6c68a" stroke-width="2"/>
+    <text x="1054" y="682" font-size="19" font-weight="700" fill="#c2670a">Balance due</text>
+    <text x="1054" y="710" font-size="17" fill="#8a5417">What's left to pay. Unsure about an</text>
+    <text x="1054" y="731" font-size="17" fill="#8a5417">item? Ask at onboarding or the OSC.</text>
+  </g>
+</svg>

@@ -7,6 +7,9 @@ import { ucSungaiPetani } from "./content/uc-sungai-petani";
 import { ucKotaBharu } from "./content/uc-kota-bharu";
 import { ucKualaTerengganu } from "./content/uc-kuala-terengganu";
 import { ucKuantan } from "./content/uc-kuantan";
+import { ucMelaka } from "./content/uc-melaka";
+import { ucJohorBahru } from "./content/uc-johor-bahru";
+import { ucKuching } from "./content/uc-kuching";
 
 /**
  * Every UNITAR campus that receives an edition of the student newsletter.
@@ -42,7 +45,7 @@ export const campuses: CampusEntry[] = [
     name: "UC Johor Bahru",
     fullName: "UNITAR College Johor Bahru",
     location: "Johor Bahru, Johor",
-    newsletter: null
+    newsletter: ucJohorBahru
   },
   {
     slug: "uc-kota-bharu",
@@ -77,14 +80,14 @@ export const campuses: CampusEntry[] = [
     name: "UC Kuching",
     fullName: "UNITAR College Kuching",
     location: "Kuching, Sarawak",
-    newsletter: null
+    newsletter: ucKuching
   },
   {
     slug: "uc-melaka",
     name: "UC Melaka",
     fullName: "UNITAR College Melaka",
     location: "Melaka",
-    newsletter: null
+    newsletter: ucMelaka
   },
   {
     slug: "uc-penang",
