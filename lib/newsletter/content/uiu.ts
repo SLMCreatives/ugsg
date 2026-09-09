@@ -27,7 +27,7 @@ export const uiu: CampusNewsletter = {
     headlineAccent: "We acted.",
     headlineTail: "Here's what has improved.",
     subtitle:
-      "Inside this issue: a new café operator, six new labs and studios, faster Wi-Fi speed, and the payment upgrade arriving soon."
+      "Inside this issue: a new café operator, six new labs and studios, faster Wi-Fi speed, and the new payment gateway now live."
   },
 
   intro: [
@@ -302,19 +302,19 @@ export const uiu: CampusNewsletter = {
     {
       id: "payment",
       navLabel: "Payment",
-      kicker: "Coming soon",
-      heading: "More ways to pay, arriving soon",
+      kicker: "Now live",
+      heading: "More ways to pay, available since 3 Sept 2026!",
       standfirst:
-        "A new payment gateway, with card, transfer, and e-wallet options.",
+        "Our new payment gateway is now live, giving you more convenient ways to settle your fees.",
       variant: "coming-soon",
       body: [
-        "Paying fees should not be the hardest part of the semester. A new payment gateway is being introduced, adding several ways to settle what you owe:"
+        "Giving you greater flexibility with several convenient payment options:"
       ],
-      bullets: ["Credit card", "Bank transfer", "E-wallets"],
+      bullets: ["Credit / Debit Card", "Bank Transfer", "E-Wallets"],
       notes: [
         {
           kind: "result",
-          text: "Faster, safer, and more flexible ways to make payments."
+          text: "Faster, safer, and more flexible ways to make your payments, all in one convenient gateway."
         }
       ],
       frame: "portrait",
@@ -332,7 +332,7 @@ export const uiu: CampusNewsletter = {
         brief:
           "Add a payment portal, mobile payment, or finance services image to public/newsletter/shared/."
       },
-      caption: "More convenient payment options are on the way."
+      caption: "More convenient ways to pay, now live."
     }
   ],
 

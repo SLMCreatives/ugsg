@@ -32,7 +32,7 @@ export const ucKualaTerengganu: CampusNewsletter = {
     headlineAccent: "We acted.",
     headlineTail: "Here's what has improved!",
     subtitle:
-      "Inside this issue: self-service food at Level 3, a faster One Stop Centre, refurbished computer labs and student lounge, double the Wi-Fi speed, a full calendar of student development — and a new payment gateway coming soon."
+      "Inside this issue: self-service food at Level 3, a faster One Stop Centre, refurbished computer labs and student lounge, double the Wi-Fi speed, a full calendar of student development — and the new payment gateway now live."
   },
 
   intro: [
@@ -378,16 +378,20 @@ export const ucKualaTerengganu: CampusNewsletter = {
     {
       id: "payment",
       navLabel: "Payment",
-      kicker: "Coming soon",
-      heading: "Enhanced Payment Services",
-      standfirst: "A new payment gateway, with more ways to pay.",
+      kicker: "Now live",
+      heading: "More ways to pay, available since 3 Sept 2026!",
+      standfirst:
+        "Our new payment gateway is now live, giving you more convenient ways to settle your fees.",
       variant: "coming-soon",
       body: [
-        "A new payment gateway is coming, for students' convenience, with multiple payment options:"
+        "Giving you greater flexibility with several convenient payment options:"
       ],
-      bullets: ["Credit card", "Bank transfer", "E-wallets"],
+      bullets: ["Credit / Debit Card", "Bank Transfer", "E-Wallets"],
       notes: [
-        { kind: "result", text: "Convenient and flexible ways to pay." }
+        {
+          kind: "result",
+          text: "Faster, safer, and more flexible ways to make your payments, all in one convenient gateway."
+        }
       ],
       frame: "portrait",
       images: [
@@ -404,7 +408,7 @@ export const ucKualaTerengganu: CampusNewsletter = {
         brief:
           "Add payment gateway artwork to public/newsletter/shared/."
       },
-      caption: "More convenient payment options are on the way."
+      caption: "More convenient ways to pay, now live."
     }
   ],
 
