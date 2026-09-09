@@ -2,7 +2,6 @@
 
 import { ChevronDown, CalendarCheck } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 
 const stats = [
   { value: "1000+", label: "Students helped" },
@@ -12,78 +11,90 @@ const stats = [
 
 export function HeroSection() {
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById(id);
+    if (!target) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   };
 
   return (
-    <section className="relative min-h-[88vh] flex flex-col items-center justify-center px-4 py-20 text-center overflow-hidden">
-      <Image
-        src="/ptptn/hero-students.jpg"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      {/* Scrim to keep the headline readable over the photo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/70 to-slate-950/90" />
+    <section className="px-5 pt-3 lg:px-10 lg:pt-4">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid overflow-hidden rounded-[22px] bg-sand-100 sm:rounded-[30px] lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="flex flex-col gap-5 p-6 sm:gap-6 sm:p-12">
+            <span className="flex items-center gap-2 self-start rounded-full bg-done-tint px-3.5 py-1.5">
+              <span className="h-2 w-2 rounded-full bg-done" aria-hidden="true" />
+              <span className="text-[13px] font-bold text-[#1F5A31]">
+                Now open for booking!
+              </span>
+            </span>
 
-      <div className="relative z-10 max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur mb-8">
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-sm font-medium text-white text-balance">
-            Now Open for Booking!
-          </span>
-        </div>
+            <h1 className="m-0 font-display text-[31px] font-bold leading-[1.08] tracking-tight text-sand-900 sm:text-[46px]">
+              Secure your PTPTN loan with{" "}
+              <span className="text-unitar-orange-ink">expert guidance</span>
+            </h1>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight tracking-tight text-balance mb-6">
-          Secure Your PTPTN Loan with Expert Guidance
-        </h1>
+            <p className="m-0 max-w-md text-[15px] leading-relaxed text-sand-800 sm:text-[17.5px]">
+              We have helped over 1000 students get their study loans approved.
+              Book your free online 1-to-1 step-by-step application session and
+              submit your application without mistakes.
+            </p>
 
-        <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed text-balance">
-          {
-            "We have helped over 1000 students get their study loans approved. Book your free ONLINE 1-to-1 Step-by-Step Application Session and submit your application without mistakes."
-          }
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Button
-            onClick={() => scrollTo("booking")}
-            size="lg"
-            className="rounded-full px-8 py-6 text-base gap-2 w-full sm:w-auto"
-          >
-            <CalendarCheck className="w-4 h-4" />
-            Book Your Slot
-          </Button>
-          <Button
-            onClick={() => scrollTo("session")}
-            size="lg"
-            variant="outline"
-            className="rounded-full px-8 py-6 text-base gap-2 group w-full sm:w-auto bg-white/10 border-white/30 text-white backdrop-blur hover:bg-white/20 hover:text-white"
-          >
-            What Happens in the Session
-            <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-          </Button>
-        </div>
-
-        <dl className="mt-14 grid grid-cols-3 gap-4 max-w-lg mx-auto">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="px-3 py-4 rounded-xl bg-white/10 border border-white/15 backdrop-blur"
-            >
-              <dt className="sr-only">{stat.label}</dt>
-              <dd>
-                <span className="block text-xl md:text-2xl font-semibold text-white">
-                  {stat.value}
-                </span>
-                <span className="block text-xs md:text-sm text-white/70 mt-1 text-balance">
-                  {stat.label}
-                </span>
-              </dd>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => scrollTo("booking")}
+                className="flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-unitar-orange px-7 text-base font-bold text-white transition-colors hover:bg-unitar-orange-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-unitar-orange-ink"
+              >
+                <CalendarCheck className="h-[18px] w-[18px]" aria-hidden="true" />
+                Book your slot
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollTo("session")}
+                className="group flex min-h-[52px] items-center justify-center gap-2 rounded-full border border-sand-400 bg-white px-6 text-[15px] font-semibold text-sand-900 transition-colors hover:bg-sand-50"
+              >
+                What happens in the session
+                <ChevronDown
+                  className="h-4 w-4 transition-transform group-hover:translate-y-0.5"
+                  aria-hidden="true"
+                />
+              </button>
             </div>
-          ))}
-        </dl>
+
+            <dl className="m-0 grid max-w-md grid-cols-3 gap-3">
+              {stats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="flex flex-col gap-1 rounded-2xl bg-white p-4"
+                >
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd className="m-0">
+                    <span className="block font-display text-lg font-bold text-sand-900 sm:text-xl">
+                      {stat.value}
+                    </span>
+                    <span className="mt-0.5 block text-xs leading-snug text-sand-700">
+                      {stat.label}
+                    </span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* Contained rather than cropped — it is an illustration, so losing
+              the cards around the edges loses the point of it. */}
+          <div className="order-first flex items-center justify-center bg-sand-200 p-5 sm:p-8 lg:order-last lg:p-10">
+            <Image
+              src="/ptptn/hero-application.svg"
+              width={1000}
+              height={1000}
+              alt="Illustration of a PTPTN application form being filled in step by step during a guidance session, with a checklist and an approved status"
+              priority
+              className="h-auto w-full max-w-[240px] sm:max-w-xs lg:max-w-sm"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

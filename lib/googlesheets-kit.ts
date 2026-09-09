@@ -3,8 +3,9 @@ import { google } from "googleapis";
 const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
 const privateKey = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
 const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID_2;
-const sheetName =
-  process.env.GOOGLE_SHEETS_SHEET_NAME_2 || "Starter Kit Responses";
+// Fallback matches the current campaign tab, so a missing env var writes
+// somewhere real instead of a tab that does not exist.
+const sheetName = process.env.GOOGLE_SHEETS_SHEET_NAME_2 || "C3_2026";
 
 if (!clientEmail || !privateKey || !spreadsheetId) {
   throw new Error("Missing Google Sheets environment variables.");
@@ -24,7 +25,8 @@ export async function appendToSheet(row: (string | number)[]) {
 
   const response = await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${sheetName}!A:D`,
+    // A:G — the row is timestamp, name, matric, phone, email, campus, size.
+    range: `${sheetName}!A:G`,
     valueInputOption: "USER_ENTERED",
     requestBody: {
       values: [row]

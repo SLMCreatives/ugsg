@@ -8,8 +8,6 @@ import {
   CalendarCheck
 } from "lucide-react";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const stages = [
   {
@@ -54,42 +52,43 @@ const mistakes = [
 
 export function SessionInfoBM() {
   const scrollToBooking = () => {
-    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById("booking");
+    if (!target) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   };
 
   return (
-    <section id="session" className="py-20 px-4 bg-card scroll-mt-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-10">
-          <p className="text-sm font-medium text-primary mb-3">
-            Tentang sesi ini
-          </p>
-          <h2 className="text-3xl md:text-4xl font-semibold text-foreground mb-4 text-balance">
-            Satu sesi, supaya permohonan anda betul pada kali pertama
-          </h2>
-          <p className="text-muted-foreground text-base md:text-lg text-balance max-w-2xl mx-auto">
-            Kebanyakan permohonan PTPTN ditolak kerana kesilapan kecil dalam
-            borang. Sesi 1-ke-1 percuma bersama Student Success Team (SST) ini
-            memastikan permohonan anda bukan salah satu daripadanya.
-          </p>
-        </div>
+    <section id="session" className="scroll-mt-20 px-5 pt-9 lg:px-10 lg:pt-14">
+      <div className="mx-auto max-w-6xl">
+        <p className="m-0 text-xs font-bold uppercase tracking-[0.08em] text-unitar-orange-ink">
+          Tentang sesi ini
+        </p>
+        <h2 className="m-0 mt-1.5 max-w-2xl font-display text-[22px] font-bold tracking-tight text-sand-900 sm:text-[32px]">
+          Satu sesi, supaya permohonan anda betul pada kali pertama
+        </h2>
+        <p className="m-0 mt-2 max-w-2xl text-[14.5px] leading-relaxed text-sand-800 sm:text-base">
+          Kebanyakan permohonan PTPTN ditolak kerana kesilapan kecil dalam borang.
+          Sesi 1-ke-1 percuma bersama Student Success Team (SST) ini memastikan
+          permohonan anda bukan salah satu daripadanya.
+        </p>
 
         {/* Feature image */}
-        <div className="relative rounded-2xl overflow-hidden border border-border shadow-sm mb-12">
+        <div className="relative mt-5 overflow-hidden rounded-[22px] border border-sand-300 sm:mt-6 sm:rounded-[30px]">
           <Image
             src="/ptptn/session-online.jpg"
             alt="Seorang pelajar menyertai sesi bimbingan dalam talian menggunakan komputer riba"
             width={1400}
             height={933}
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="w-full h-56 md:h-80 object-cover"
+            sizes="(max-width: 1152px) 100vw, 1152px"
+            className="h-56 w-full object-cover md:h-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-sand-900/90 via-sand-900/35 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-            <p className="text-lg md:text-2xl font-semibold text-white text-balance">
+            <p className="m-0 font-display text-lg font-bold text-white md:text-2xl">
               Kongsi skrin anda. Kami bimbing anda secara langsung.
             </p>
-            <p className="text-sm md:text-base text-white/80 mt-2 text-balance">
+            <p className="m-0 mt-1.5 text-[13.5px] text-white/85 md:text-[15px]">
               Panggilan melalui Microsoft Teams selama 30 minit, satu-ke-satu
               bersama Student Success Team.
             </p>
@@ -97,93 +96,89 @@ export function SessionInfoBM() {
         </div>
 
         {/* How it works */}
-        <div className="space-y-4 mb-12">
+        <ol className="m-0 mt-5 grid list-none grid-cols-1 gap-4 p-0 sm:mt-6 lg:grid-cols-3">
           {stages.map((stage, index) => {
             const Icon = stage.icon;
-
             return (
-              <Card
+              <li
                 key={stage.label}
-                className="relative overflow-hidden transition-shadow hover:shadow-md"
+                className="flex flex-col gap-3 rounded-[18px] border border-sand-300 bg-white p-5 sm:p-6"
               >
-                <span className="absolute left-0 inset-y-0 w-1 bg-primary" />
-                <CardContent className="flex items-start gap-4 p-6 pl-7">
-                  <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-semibold text-primary">
-                        LANGKAH {index + 1}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        · {stage.label}
-                      </span>
-                    </div>
-                    <p className="font-medium text-foreground text-balance">
-                      {stage.title}
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-1.5 text-balance">
-                      {stage.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-unitar-orange font-display text-[17px] font-bold text-white">
+                    {index + 1}
+                  </span>
+                  <Icon
+                    className="h-[22px] w-[22px] text-unitar-orange-ink opacity-80"
+                    aria-hidden="true"
+                  />
+                </div>
+                <p className="m-0 text-[11.5px] font-bold uppercase tracking-[0.07em] text-unitar-orange-ink">
+                  {stage.label}
+                </p>
+                <h3 className="m-0 font-display text-base font-bold leading-snug text-sand-900 sm:text-[17px]">
+                  {stage.title}
+                </h3>
+                <p className="m-0 text-[13.5px] leading-relaxed text-sand-800">
+                  {stage.description}
+                </p>
+              </li>
             );
           })}
-        </div>
+        </ol>
 
         {/* Common mistakes */}
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0" />
-            <h3 className="text-xl font-semibold text-foreground text-balance">
+        <div className="mt-9 lg:mt-12">
+          <div className="flex items-center gap-2.5">
+            <AlertTriangle
+              className="h-5 w-5 shrink-0 text-[#B3261E]"
+              aria-hidden="true"
+            />
+            <h3 className="m-0 font-display text-lg font-bold text-sand-900 sm:text-xl">
               Kesilapan yang paling kerap berlaku
             </h3>
           </div>
 
-          <div className="grid gap-3 md:grid-cols-3">
+          <div className="mt-4 grid gap-3 sm:gap-4 md:grid-cols-3">
             {mistakes.map((mistake) => (
-              <Card
+              <div
                 key={mistake.title}
-                className="border-destructive/30 bg-destructive/5"
+                className="flex flex-col gap-1.5 rounded-[18px] border border-[#F0D3D0] bg-[#FDECEA] p-5"
               >
-                <CardContent className="p-5">
-                  <p className="font-medium text-foreground text-balance">
-                    {mistake.title}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1.5 text-balance">
-                    {mistake.detail}
-                  </p>
-                </CardContent>
-              </Card>
+                <p className="m-0 font-display text-[15px] font-bold leading-snug text-sand-900">
+                  {mistake.title}
+                </p>
+                <p className="m-0 text-[13px] leading-relaxed text-[#7A4A45]">
+                  {mistake.detail}
+                </p>
+              </div>
             ))}
           </div>
 
-          <p className="text-sm text-muted-foreground mt-4 text-balance">
-            Mana-mana satu daripada kesilapan ini boleh menyebabkan permohonan
-            anda ditolak. Kami akan semak kesemuanya bersama anda semasa sesi.
+          <p className="m-0 mt-4 text-[13.5px] leading-relaxed text-sand-800">
+            Mana-mana satu daripada kesilapan ini boleh menyebabkan permohonan anda
+            ditolak. Kami akan semak kesemuanya bersama anda semasa sesi.
           </p>
         </div>
 
         {/* Closing CTA */}
-        <div className="p-8 rounded-2xl bg-accent/10 border border-accent/20 text-center">
-          <p className="text-lg font-medium text-foreground text-balance mb-2">
+        <div className="mt-9 flex flex-col items-center gap-4 rounded-[22px] bg-sand-100 p-6 text-center sm:rounded-[30px] sm:p-10 lg:mt-12">
+          <p className="m-0 max-w-xl font-display text-lg font-bold text-sand-900 sm:text-xl">
             Tempahan slot adalah percuma dan mengambil masa kurang daripada satu
             minit.
           </p>
-          <p className="text-muted-foreground text-balance mb-6">
+          <p className="m-0 max-w-xl text-[14.5px] leading-relaxed text-sand-800">
             Kami amat menggalakkan setiap pelajar menempah slot sebelum membuat
             permohonan.
           </p>
-          <Button
+          <button
+            type="button"
             onClick={scrollToBooking}
-            size="lg"
-            className="rounded-full px-8 py-6 text-base gap-2"
+            className="flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-unitar-orange px-7 text-base font-bold text-white transition-colors hover:bg-unitar-orange-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-unitar-orange-ink"
           >
-            <CalendarCheck className="w-4 h-4" />
-            Tempah Slot Anda
-          </Button>
+            <CalendarCheck className="h-[18px] w-[18px]" aria-hidden="true" />
+            Tempah slot anda
+          </button>
         </div>
       </div>
     </section>

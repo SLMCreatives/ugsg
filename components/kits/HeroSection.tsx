@@ -1,17 +1,24 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../ui/carousel";
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { ArrowRight, Calendar, Package, Clock } from "lucide-react";
 
-const DEADLINE = new Date("2026-06-07T00:00:00");
-
-function getDaysLeft() {
-  return Math.max(0, Math.ceil((DEADLINE.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
-}
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi
+} from "../ui/carousel";
+import {
+  COLLECTION_RANGE_SHORT,
+  REGISTRATION_OPENS_LABEL,
+  REGISTRATION_RANGE_SHORT,
+  daysUntilClose,
+  registrationStatus,
+  type RegistrationStatus
+} from "@/lib/starter-kit-dates";
 
 const carouselImages = [
   "/starter-kit/pack/1.png",
@@ -25,7 +32,8 @@ const kitItems = ["UNITAR T-Shirt", "Notebook", "Sticker Pad", "Student Lanyard"
 export default function HeroSection() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [daysLeft, setDaysLeft] = useState(getDaysLeft());
+  const [daysLeft, setDaysLeft] = useState(daysUntilClose());
+  const [status, setStatus] = useState<RegistrationStatus>(registrationStatus());
 
   useEffect(() => {
     if (!api) return;
@@ -34,31 +42,130 @@ export default function HeroSection() {
   }, [api]);
 
   useEffect(() => {
-    const timer = setInterval(() => setDaysLeft(getDaysLeft()), 60_000);
+    const tick = () => {
+      setDaysLeft(daysUntilClose());
+      setStatus(registrationStatus());
+    };
+    tick();
+    const timer = setInterval(tick, 60_000);
     return () => clearInterval(timer);
   }, []);
 
   const handleScrollToForm = () => {
     const formSection = document.getElementById("form-section");
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: "smooth" });
-    }
+    if (!formSection) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    formSection.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
   };
 
   const autoplay = useMemo(() => Autoplay({ delay: 3000 }) as any, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#0b1628] py-16 md:py-24 px-4">
-      {/* Radial glow accents */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_80%_20%,rgba(255,128,0,0.1),transparent)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_10%_80%,rgba(18,101,149,0.18),transparent)]" />
+    <section className="px-5 pt-3 lg:px-10 lg:pt-4">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid overflow-hidden rounded-[22px] bg-sand-100 sm:rounded-[30px] lg:grid-cols-[1.05fr_0.95fr]">
+          {/* Content */}
+          <div className="flex flex-col gap-5 p-6 sm:gap-6 sm:p-12">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-unitar-orange px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white">
+                100% Free
+              </span>
+              <span className="text-[13.5px] text-sand-800">
+                For enrolled online students only
+              </span>
+            </div>
 
-      <div className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Image */}
-        <div className="flex justify-center items-center order-2 md:order-1">
-          <div className="relative w-full max-w-md">
-            <div className="absolute -inset-6 bg-gradient-to-br from-[#FF8000]/20 via-[#126595]/10 to-transparent rounded-3xl blur-2xl" />
-            <div className="relative">
+            <div className="flex flex-col gap-4">
+              <h1 className="m-0 font-display text-[33px] font-bold leading-[1.08] tracking-tight text-sand-900 sm:text-[52px]">
+                Your student life
+                <br />
+                <span className="text-unitar-orange-ink">starts here.</span>
+              </h1>
+              <p className="m-0 max-w-md text-[15px] leading-relaxed text-sand-800 sm:text-[17.5px]">
+                Grab your{" "}
+                <span className="font-bold text-sand-900">
+                  free UNITAR Starter Pack
+                </span>{" "}
+                — loaded with merch to rep your uni from day one.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p className="m-0 text-xs font-bold uppercase tracking-[0.08em] text-unitar-orange-ink">
+                What&apos;s inside
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {kitItems.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-sand-300 bg-white px-4 py-1.5 text-[13.5px] text-sand-800"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid max-w-md grid-cols-2 gap-3">
+              <div className="flex flex-col gap-1.5 rounded-2xl bg-white p-4">
+                <p className="m-0 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-sand-700">
+                  <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+                  Register
+                </p>
+                <p className="m-0 font-display text-[15px] font-bold text-sand-900">
+                  {REGISTRATION_RANGE_SHORT}
+                </p>
+              </div>
+              <div className="flex flex-col gap-1.5 rounded-2xl bg-white p-4">
+                <p className="m-0 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-sand-700">
+                  <Package className="h-3.5 w-3.5" aria-hidden="true" />
+                  Collection
+                </p>
+                <p className="m-0 font-display text-[15px] font-bold text-sand-900">
+                  {COLLECTION_RANGE_SHORT}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex max-w-md flex-col gap-3">
+              <button
+                type="button"
+                onClick={handleScrollToForm}
+                className="group flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-unitar-orange px-7 text-base font-bold text-white transition-colors hover:bg-unitar-orange-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-unitar-orange-ink"
+              >
+                Claim my Starter Pack
+                <ArrowRight
+                  className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </button>
+
+              {status === "upcoming" && (
+                <p className="m-0 flex items-center gap-1.5 text-[13.5px] text-unitar-orange-ink">
+                  <Clock className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>
+                    Registration opens{" "}
+                    <span className="font-bold">{REGISTRATION_OPENS_LABEL}</span>
+                  </span>
+                </p>
+              )}
+              {status === "open" && daysLeft > 0 && (
+                <p className="m-0 flex items-center gap-1.5 text-[13.5px] text-unitar-orange-ink">
+                  <Clock className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>
+                    <span className="font-bold">
+                      {daysLeft} day{daysLeft !== 1 ? "s" : ""}
+                    </span>{" "}
+                    left to register
+                  </span>
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Pack carousel */}
+          <div className="order-first flex items-center justify-center bg-sand-200 p-6 sm:p-10 lg:order-last">
+            <div className="w-full max-w-sm">
               <Carousel
                 setApi={setApi}
                 plugins={[autoplay]}
@@ -66,119 +173,36 @@ export default function HeroSection() {
               >
                 <CarouselContent>
                   {carouselImages.map((src, index) => (
-                    <CarouselItem key={index}>
+                    <CarouselItem key={src}>
                       <Image
                         src={src}
-                        alt={`Starter Kit Item ${index + 1}`}
+                        alt={`Starter kit item ${index + 1}`}
                         width={1080}
                         height={1080}
-                        className="object-cover rounded-2xl"
-                        priority
+                        className="rounded-2xl object-cover"
+                        priority={index === 0}
                       />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
               </Carousel>
 
-              {/* Dot indicators */}
-              <div className="flex justify-center gap-2 mt-4">
-                {carouselImages.map((_, index) => (
+              <div className="mt-4 flex justify-center gap-2">
+                {carouselImages.map((src, index) => (
                   <button
-                    key={index}
+                    key={src}
+                    type="button"
                     onClick={() => api?.scrollTo(index)}
                     aria-label={`Go to slide ${index + 1}`}
                     className={`h-2 rounded-full transition-all duration-300 ${
                       current === index
-                        ? "w-6 bg-[#FF8000]"
-                        : "w-2 bg-white/30 hover:bg-white/50"
+                        ? "w-6 bg-unitar-orange"
+                        : "w-2 bg-sand-400 hover:bg-sand-500"
                     }`}
                   />
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="flex flex-col justify-center gap-7 order-1 md:order-2 text-white">
-          {/* Label */}
-          <div className="flex items-center gap-3">
-            <span className="bg-[#FF8000] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
-              100% Free
-            </span>
-            <span className="text-slate-400 text-sm">
-              For Enrolled Online Students Only
-            </span>
-          </div>
-
-          {/* Headline */}
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-balance">
-              Your Student Life
-              <br />
-              <span className="text-[#FF8000]">Starts Here.</span>
-            </h1>
-            <p className="text-slate-300 text-lg leading-relaxed max-w-md">
-              Grab your{" "}
-              <span className="text-white font-semibold">
-                FREE UNITAR Starter Pack
-              </span>{" "}
-              — loaded with merch to rep your uni from day one.
-            </p>
-          </div>
-
-          {/* What's inside */}
-          <div className="space-y-2">
-            <p className="text-xs text-slate-500 uppercase tracking-widest">
-              What&apos;s inside
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {kitItems.map((item) => (
-                <span
-                  key={item}
-                  className="border border-white/15 bg-white/5 text-slate-200 text-sm rounded-full px-4 py-1.5"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Dates */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-1.5">
-              <p className="text-xs text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" />
-                Register By
-              </p>
-              <p className="text-base font-bold text-white">June 7, 2026</p>
-            </div>
-            <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-1.5">
-              <p className="text-xs text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                <Package className="w-3.5 h-3.5" />
-                Pick Up
-              </p>
-              <p className="text-base font-bold text-white">Jun 29 – Jul 30</p>
-            </div>
-          </div>
-
-          {/* CTA + urgency */}
-          <div className="space-y-3">
-            <Button
-              onClick={handleScrollToForm}
-              className="bg-[#FF8000] hover:bg-[#e07000] text-white font-bold py-6 text-lg rounded-xl w-full md:w-auto flex items-center gap-2 group transition-colors"
-            >
-              Claim My Starter Pack
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            {daysLeft > 0 && (
-              <p className="flex items-center gap-1.5 text-sm text-amber-400">
-                <Clock className="w-4 h-4 shrink-0" />
-                <span>
-                  <span className="font-bold">{daysLeft} day{daysLeft !== 1 ? "s" : ""}</span> left to register
-                </span>
-              </p>
-            )}
           </div>
         </div>
       </div>

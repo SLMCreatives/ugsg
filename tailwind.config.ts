@@ -49,7 +49,26 @@ const config: Config = {
   				'blue-light': '#1B5E8C',
   				'blue-dark': '#123E63',
   				orange: '#F08A1D',
-  				'orange-light': '#F5B041'
+  				'orange-light': '#F5B041',
+  				/* Deep orange that passes contrast on the warm tints. */
+  				'orange-ink': '#C26A0A'
+  			},
+  			/* Warm neutrals the orientation pages sit on. */
+  			sand: {
+  				50: '#FFFCF7',
+  				100: '#FDF0DE',
+  				200: '#F5EADB',
+  				300: '#F0E4D4',
+  				400: '#E3D5C2',
+  				500: '#C0AC95',
+  				600: '#A38F79',
+  				700: '#8A7059',
+  				800: '#6B5B4A',
+  				900: '#211A12'
+  			},
+  			done: {
+  				DEFAULT: '#2F7D45',
+  				tint: '#E4F1E8'
   			},
   			chart: {
   				'1': 'hsl(var(--chart-1))',
@@ -68,6 +87,10 @@ const config: Config = {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			}
+  		},
+  		fontFamily: {
+  			sans: ['var(--font-sans)', 'Segoe UI', 'system-ui', 'sans-serif'],
+  			display: ['var(--font-display)', 'Segoe UI', 'system-ui', 'sans-serif']
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" role="img" aria-label="A guided PTPTN loan application: a laptop showing the application form, a checklist, and an approved stamp">
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#FDF0DE"/>
+      <stop offset="1" stop-color="#F0E4D4"/>
+    </linearGradient>
+    <linearGradient id="screenTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1B5E8C"/>
+      <stop offset="1" stop-color="#0E4A73"/>
+    </linearGradient>
+    <linearGradient id="lid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E3D5C2"/>
+      <stop offset="1" stop-color="#C0AC95"/>
+    </linearGradient>
+    <filter id="lift" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#211A12" flood-opacity="0.13"/>
+    </filter>
+    <filter id="liftSm" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#211A12" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Warm ground with soft shapes, so any crop still reads as the same scene -->
+  <rect width="1000" height="1000" fill="url(#ground)"/>
+  <circle cx="165" cy="175" r="150" fill="#F5EADB"/>
+  <circle cx="865" cy="845" r="185" fill="#F5EADB"/>
+  <circle cx="905" cy="180" r="78" fill="#FBE3C4"/>
+
+  <!-- Laptop: the application being filled in -->
+  <g filter="url(#lift)">
+    <rect x="238" y="258" width="524" height="384" rx="20" fill="url(#screenTop)"/>
+    <rect x="256" y="276" width="488" height="348" rx="11" fill="#FFFFFF"/>
+
+    <!-- Form header -->
+    <rect x="256" y="276" width="488" height="58" rx="11" fill="#0E4A73"/>
+    <rect x="256" y="316" width="488" height="18" fill="#0E4A73"/>
+    <rect x="282" y="298" width="150" height="13" rx="6.5" fill="#FFFFFF" opacity="0.92"/>
+    <rect x="446" y="298" width="74" height="13" rx="6.5" fill="#FFFFFF" opacity="0.45"/>
+    <circle cx="712" cy="305" r="9" fill="#F08A1D"/>
+
+    <!-- Completed field -->
+    <rect x="284" y="360" width="104" height="11" rx="5.5" fill="#C0AC95"/>
+    <rect x="284" y="381" width="432" height="38" rx="9" fill="#F7FAFC" stroke="#E3D5C2" stroke-width="2"/>
+    <rect x="300" y="395" width="168" height="11" rx="5.5" fill="#8A7059"/>
+    <circle cx="694" cy="400" r="13" fill="#E4F1E8"/>
+    <path d="M688 400.5 l4.5 4.5 l8 -9" fill="none" stroke="#2F7D45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Completed field -->
+    <rect x="284" y="437" width="132" height="11" rx="5.5" fill="#C0AC95"/>
+    <rect x="284" y="458" width="432" height="38" rx="9" fill="#F7FAFC" stroke="#E3D5C2" stroke-width="2"/>
+    <rect x="300" y="472" width="212" height="11" rx="5.5" fill="#8A7059"/>
+    <circle cx="694" cy="477" r="13" fill="#E4F1E8"/>
+    <path d="M688 477.5 l4.5 4.5 l8 -9" fill="none" stroke="#2F7D45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- The field being filled right now, highlighted -->
+    <rect x="284" y="514" width="118" height="11" rx="5.5" fill="#C26A0A"/>
+    <rect x="284" y="535" width="432" height="40" rx="9" fill="#FFF7ED" stroke="#F08A1D" stroke-width="3"/>
+    <rect x="300" y="550" width="96" height="11" rx="5.5" fill="#C26A0A"/>
+    <rect x="402" y="545" width="3" height="21" rx="1.5" fill="#C26A0A"/>
+
+    <!-- Progress towards submission -->
+    <rect x="284" y="596" width="432" height="9" rx="4.5" fill="#F0E4D4"/>
+    <rect x="284" y="596" width="292" height="9" rx="4.5" fill="#F08A1D"/>
+
+    <!-- Lid and base -->
+    <path d="M186 650 h628 l44 52 a12 12 0 0 1 -9 20 H151 a12 12 0 0 1 -9 -20 Z" fill="url(#lid)"/>
+    <rect x="432" y="676" width="136" height="10" rx="5" fill="#A38F79"/>
+  </g>
+
+  <!-- Checklist: what we check with you before you submit -->
+  <g filter="url(#liftSm)">
+    <rect x="86" y="392" width="212" height="196" rx="20" fill="#FFFFFF"/>
+    <rect x="112" y="420" width="92" height="12" rx="6" fill="#211A12"/>
+
+    <circle cx="124" cy="466" r="13" fill="#E4F1E8"/>
+    <path d="M118 466.5 l4.5 4.5 l8 -9" fill="none" stroke="#2F7D45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="148" y="460" width="122" height="11" rx="5.5" fill="#C0AC95"/>
+
+    <circle cx="124" cy="510" r="13" fill="#E4F1E8"/>
+    <path d="M118 510.5 l4.5 4.5 l8 -9" fill="none" stroke="#2F7D45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="148" y="504" width="98" height="11" rx="5.5" fill="#C0AC95"/>
+
+    <circle cx="124" cy="554" r="13" fill="#FFF7ED" stroke="#F08A1D" stroke-width="3"/>
+    <rect x="148" y="548" width="112" height="11" rx="5.5" fill="#E3D5C2"/>
+  </g>
+
+  <!-- The SST officer on the call, guiding the student through it -->
+  <g filter="url(#liftSm)">
+    <rect x="676" y="150" width="238" height="128" rx="22" fill="#FFFFFF"/>
+    <circle cx="742" cy="214" r="34" fill="#E7F0F6"/>
+    <circle cx="742" cy="203" r="13" fill="#0E4A73"/>
+    <path d="M721 232 a21 21 0 0 1 42 0 Z" fill="#0E4A73"/>
+    <path d="M713 210 a29 29 0 0 1 58 0" fill="none" stroke="#F08A1D" stroke-width="6" stroke-linecap="round"/>
+    <rect x="709" y="208" width="11" height="18" rx="5.5" fill="#F08A1D"/>
+    <rect x="764" y="208" width="11" height="18" rx="5.5" fill="#F08A1D"/>
+    <rect x="794" y="192" width="96" height="12" rx="6" fill="#211A12"/>
+    <rect x="794" y="216" width="70" height="10" rx="5" fill="#C0AC95"/>
+    <path d="M700 268 l-24 34 l44 -18 Z" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Approved: the outcome the session is aiming at -->
+  <g filter="url(#liftSm)">
+    <rect x="626" y="676" width="266" height="120" rx="22" fill="#FFFFFF"/>
+    <circle cx="694" cy="736" r="34" fill="#2F7D45"/>
+    <path d="M681 737 l9 9 l17 -19" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="748" y="716" width="112" height="13" rx="6.5" fill="#211A12"/>
+    <rect x="748" y="744" width="78" height="11" rx="5.5" fill="#C0AC95"/>
+  </g>
+
+  <!-- Offer letter, the document students most often get wrong -->
+  <g filter="url(#liftSm)" transform="rotate(-9 172 768)">
+    <rect x="104" y="678" width="146" height="182" rx="14" fill="#FFFFFF"/>
+    <rect x="126" y="706" width="66" height="10" rx="5" fill="#0E4A73"/>
+    <rect x="126" y="730" width="102" height="8" rx="4" fill="#E3D5C2"/>
+    <rect x="126" y="750" width="102" height="8" rx="4" fill="#E3D5C2"/>
+    <rect x="126" y="770" width="74" height="8" rx="4" fill="#E3D5C2"/>
+    <circle cx="206" cy="818" r="24" fill="none" stroke="#C26A0A" stroke-width="4" opacity="0.75"/>
+    <path d="M195 818.5 l8 8 l14 -16" fill="none" stroke="#C26A0A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+  </g>
+
+  <!-- Pointer, showing the guidance happening live on the shared screen -->
+  <g filter="url(#liftSm)">
+    <path d="M470 566 l0 62 l16 -17 l11 25 l15 -7 l-11 -24 l23 -2 Z" fill="#FFFFFF" stroke="#211A12" stroke-width="4" stroke-linejoin="round"/>
+  </g>
+</svg>

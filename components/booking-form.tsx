@@ -134,11 +134,11 @@ export function BookingForm() {
 
     return (
       <Card className="w-full max-w-md mx-auto p-8 text-center bg-white">
-        <CheckCircle className="w-12 h-12 text-foreground mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-foreground mb-2">
+        <CheckCircle className="w-12 h-12 text-sand-900 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-sand-900 mb-2">
           Your Slot Has Been Booked!
         </h3>
-        <p className="text-muted-foreground mb-4 text-balance">
+        <p className="text-sand-800 mb-4 text-balance">
           Thank you, {name}! <br></br> Your booking for{" "}
           <span className="font-bold">
             1-1 Step-by-Step PTPTN Application Session
@@ -146,24 +146,24 @@ export function BookingForm() {
           has been confirmed. Please check your booking details below:
         </p>
         <div className="grid grid-cols-[auto_1fr] gap-2 mb-6 items-center justify-end">
-          <p className="text-muted-foreground text-balance text-sm text-right">
+          <p className="text-sand-800 text-balance text-sm text-right">
             Booking Date:
           </p>
           <Input
-            className="text-sm text-foreground text-center w-full"
+            className="text-sm text-sand-900 text-center w-full"
             readOnly
             value={`${date}`}
           />
-          <p className="text-muted-foreground text-balance text-sm text-right">
+          <p className="text-sand-800 text-balance text-sm text-right">
             Booking Time:
           </p>
           <Input
-            className="text-sm text-foreground text-center w-full"
+            className="text-sm text-sand-900 text-center w-full"
             readOnly
             value={`${selectedTimeLabel}`}
           />
         </div>
-        <p className="text-sm text-muted-foreground text-balance">
+        <p className="text-sm text-sand-800 text-balance">
           We will contact you at{" "}
           <span className="font-bold">({phone})</span> to confirm your
           appointment and share the meeting link.
@@ -181,7 +181,7 @@ export function BookingForm() {
           <div
             key={s}
             className={`h-2 flex-1 rounded-full transition-colors ${
-              s <= step ? "bg-primary" : "bg-muted"
+              s <= step ? "bg-unitar-orange" : "bg-sand-300"
             }`}
           />
         ))}
@@ -190,10 +190,10 @@ export function BookingForm() {
       {step === 1 && (
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold text-foreground mb-4">
+            <h3 className="text-lg font-semibold text-sand-900 mb-4">
               What is your full name?
             </h3>
-            <Label htmlFor="name" className="text-foreground mb-2 block">
+            <Label htmlFor="name" className="text-sand-900 mb-2 block">
               Full Name
             </Label>
             <Input
@@ -212,10 +212,10 @@ export function BookingForm() {
       {step === 2 && (
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold text-foreground mb-4">
+            <h3 className="text-lg font-semibold text-sand-900 mb-4">
               What is your phone number?
             </h3>
-            <Label htmlFor="phone" className="text-foreground mb-2 block">
+            <Label htmlFor="phone" className="text-sand-900 mb-2 block">
               Phone Number
             </Label>
             <Input
@@ -228,7 +228,7 @@ export function BookingForm() {
               autoFocus
             />
             {phoneError && (
-              <p className="text-destructive text-sm mt-2 flex items-center gap-1">
+              <p className="text-[#B3261E] text-sm mt-2 flex items-center gap-1">
                 <AlertCircle className="w-4 h-4" />
                 {phoneError}
               </p>
@@ -239,17 +239,17 @@ export function BookingForm() {
 
       {step === 3 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-foreground mb-4">
+          <h3 className="text-lg font-semibold text-sand-900 mb-4">
             Choose your slot
           </h3>
-          <p className="text-muted-foreground mb-2 text-sm">
+          <p className="text-sand-800 mb-2 text-sm">
             Select your preferred date and time. Please note that we have a
             limited number of slots per time period, so book early to secure
             your spot!
           </p>
 
           <div>
-            <Label htmlFor="date" className="text-foreground mb-2 block">
+            <Label htmlFor="date" className="text-sand-900 mb-2 block">
               Date
             </Label>
             <select
@@ -259,7 +259,7 @@ export function BookingForm() {
                 setDate(e.target.value);
                 setTimeSlot("");
               }}
-              className="w-full px-3 py-2 border border-border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 border border-sand-300 rounded-md bg-white text-sand-900 focus:outline-none focus:ring-2 focus:ring-unitar-orange"
               autoFocus
             >
               <option value="">Choose a date</option>
@@ -273,14 +273,14 @@ export function BookingForm() {
 
           {date && (
             <div>
-              <Label htmlFor="time" className="text-foreground mb-2 block">
+              <Label htmlFor="time" className="text-sand-900 mb-2 block">
                 Time
               </Label>
               <select
                 id="time"
                 value={timeSlot}
                 onChange={(e) => setTimeSlot(e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-3 py-2 border border-sand-300 rounded-md bg-white text-sand-900 focus:outline-none focus:ring-2 focus:ring-unitar-orange"
               >
                 <option value="">Choose a time</option>
                 {getAvailableTimeSlots().map((t) => (
@@ -296,8 +296,8 @@ export function BookingForm() {
 
       {error && (
         <div className="mt-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-destructive flex-shrink-0" />
-          <p className="text-sm text-destructive">{error}</p>
+          <AlertCircle className="w-4 h-4 text-[#B3261E] flex-shrink-0" />
+          <p className="text-sm text-[#B3261E]">{error}</p>
         </div>
       )}
 
@@ -326,7 +326,7 @@ export function BookingForm() {
         </Button>
       </div>
 
-      <p className="text-xs text-muted-foreground text-center mt-4">
+      <p className="text-xs text-sand-800 text-center mt-4">
         Step {step} of 3
       </p>
     </Card>

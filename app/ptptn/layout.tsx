@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { SiteHeader } from "@/components/site/site-header";
+import { SiteFooter } from "@/components/site/site-footer";
 
 export const metadata: Metadata = {
   title: "PTPTN Loan Application Guide",
@@ -11,5 +13,11 @@ export default function PTPTNLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return (
+    <div className="flex min-h-screen flex-col bg-sand-50 font-sans text-sand-900">
+      <SiteHeader />
+      <main className="flex-1">{children}</main>
+      <SiteFooter />
+    </div>
+  );
 }

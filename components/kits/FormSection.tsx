@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -19,11 +18,16 @@ import {
   AlertCircle,
   MapPin,
   Phone,
-  Building2,
+  CalendarClock,
   XCircle
 } from "lucide-react";
 
-const REGISTRATION_DEADLINE = new Date("2026-06-07T23:59:59");
+import {
+  COLLECTION_RANGE,
+  REGISTRATION_CLOSES_LABEL,
+  REGISTRATION_OPENS_LABEL,
+  registrationStatus
+} from "@/lib/starter-kit-dates";
 
 const newlocations = [
   {
@@ -190,6 +194,14 @@ export default function FormSection() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
+  const [status, setStatus] = useState(registrationStatus());
+
+  // Re-checked on a timer so the panel flips on its own if someone leaves the
+  // page open across the moment registration opens or closes.
+  useEffect(() => {
+    const timer = setInterval(() => setStatus(registrationStatus()), 60_000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -325,325 +337,370 @@ export default function FormSection() {
     }
   };
 
+  const fieldClass =
+    "border-sand-300 bg-white text-sand-900 placeholder:text-sand-500 focus-visible:ring-unitar-orange";
+  const errorClass = "m-0 text-[13px] font-medium text-[#B3261E]";
+  const hintClass = "m-0 text-xs text-sand-700";
+
   return (
-    <section
-      id="form-section"
-      className="bg-[#0d1e35] py-16 md:py-24 px-4 scroll-mt-20"
-    >
-      <div className="max-w-2xl mx-auto">
-        <div className="space-y-2 text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Claim Your Free Pack
+    <section id="form-section" className="scroll-mt-20 px-5 pt-9 lg:px-10 lg:pt-14">
+      <div className="mx-auto max-w-2xl">
+        <div className="flex flex-col gap-1.5 text-center">
+          <p className="m-0 text-xs font-bold uppercase tracking-[0.08em] text-unitar-orange-ink">
+            Step 1
+          </p>
+          <h2 className="m-0 font-display text-[26px] font-bold tracking-tight text-sand-900 sm:text-[38px]">
+            Claim your free pack
           </h2>
-          <p className="text-slate-400 text-lg">
-            Fill in your details below to reserve your starter kit
+          <p className="m-0 text-[14.5px] text-sand-800 sm:text-base">
+            Fill in your details below to reserve your starter kit.
           </p>
         </div>
 
-        {Date.now() > REGISTRATION_DEADLINE.getTime() ? (
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
-            <div className="bg-red-700 px-6 py-5 flex items-center gap-4">
-              <div className="bg-white/20 rounded-full p-2 shrink-0">
-                <XCircle className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <p className="text-white font-bold text-lg leading-tight">
-                  Registration Closed
-                </p>
-                <p className="text-red-100 text-sm mt-0.5">
-                  The deadline to register was June 7, 2026.
-                </p>
-              </div>
-            </div>
-            <div className="p-8 text-center space-y-4">
-              <p className="text-slate-300 text-base">
-                Sorry, registration for the UNITAR Starter Pack has ended. Stay tuned for future opportunities.
-              </p>
-              <Link
-                href="/"
-                className="inline-block mt-2 bg-[#FF8000] hover:bg-[#e07000] text-white font-semibold px-6 py-3 rounded-xl transition-colors"
-              >
-                Back to Homepage
-              </Link>
-            </div>
-          </div>
-        ) : success && submittedData ? (
-          <div className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden">
-            {/* Success banner */}
-            <div className="bg-green-600 px-6 py-5 flex items-center gap-4">
-              <div className="bg-white/20 rounded-full p-2 shrink-0">
-                <CheckCircle className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <p className="text-white font-bold text-lg leading-tight">
-                  Registration Successful!
-                </p>
-                <p className="text-green-100 text-sm mt-0.5">
-                  Your starter kit has been reserved.
-                </p>
-              </div>
-            </div>
-
-            <div className="p-6 space-y-6">
-              {/* Pickup location */}
-              {submittedLocation && (
-                <div className="space-y-3">
-                  <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">
-                    Your Pickup Location
+        <div className="mt-6 sm:mt-8">
+          {status === "upcoming" ? (
+            <div className="overflow-hidden rounded-[18px] border border-sand-300 bg-white">
+              <div className="flex items-center gap-4 bg-unitar-blue px-5 py-5 sm:px-6">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20">
+                  <CalendarClock className="h-6 w-6 text-white" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="m-0 font-display text-lg font-bold leading-tight text-white">
+                    Registration opens soon
                   </p>
-                  <div className="bg-slate-700/60 border border-slate-600 rounded-xl p-5 space-y-4">
-                    <h3 className="text-white font-bold text-base leading-snug">
-                      {submittedLocation.label}
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex items-start gap-3">
-                        <MapPin className="h-4 w-4 text-[#FF8000] mt-0.5 shrink-0" />
-                        <p className="text-slate-300 text-sm leading-relaxed">
-                          {submittedLocation.address}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Phone className="h-4 w-4 text-[#FF8000] shrink-0" />
-                        <p className="text-slate-300 text-sm">
-                          {submittedLocation.phone}
-                        </p>
+                  <p className="m-0 mt-0.5 text-[13.5px] text-[#C4DAE8]">
+                    Registration opens on {REGISTRATION_OPENS_LABEL}.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-4 p-6 text-center sm:p-8">
+                <p className="m-0 text-[14.5px] leading-relaxed text-sand-800">
+                  You will be able to claim your UNITAR Starter Pack from{" "}
+                  {REGISTRATION_OPENS_LABEL} until {REGISTRATION_CLOSES_LABEL}. Check
+                  back then to reserve yours.
+                </p>
+                <Link
+                  href="/"
+                  className="flex min-h-[48px] items-center rounded-full bg-unitar-orange px-6 text-[15px] font-bold text-white transition-colors hover:bg-unitar-orange-ink"
+                >
+                  Back to the orientation guide
+                </Link>
+              </div>
+            </div>
+          ) : status === "closed" ? (
+            <div className="overflow-hidden rounded-[18px] border border-sand-300 bg-white">
+              <div className="flex items-center gap-4 bg-[#B3261E] px-5 py-5 sm:px-6">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20">
+                  <XCircle className="h-6 w-6 text-white" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="m-0 font-display text-lg font-bold leading-tight text-white">
+                    Registration closed
+                  </p>
+                  <p className="m-0 mt-0.5 text-[13.5px] text-[#F6D5D2]">
+                    The deadline to register was {REGISTRATION_CLOSES_LABEL}.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-4 p-6 text-center sm:p-8">
+                <p className="m-0 text-[14.5px] leading-relaxed text-sand-800">
+                  Sorry, registration for the UNITAR Starter Pack has ended. Stay
+                  tuned for future opportunities.
+                </p>
+                <Link
+                  href="/"
+                  className="flex min-h-[48px] items-center rounded-full bg-unitar-orange px-6 text-[15px] font-bold text-white transition-colors hover:bg-unitar-orange-ink"
+                >
+                  Back to the orientation guide
+                </Link>
+              </div>
+            </div>
+          ) : success && submittedData ? (
+            <div className="overflow-hidden rounded-[18px] border border-sand-300 bg-white">
+              <div className="flex items-center gap-4 bg-done px-5 py-5 sm:px-6">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20">
+                  <CheckCircle className="h-6 w-6 text-white" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="m-0 font-display text-lg font-bold leading-tight text-white">
+                    Registration successful!
+                  </p>
+                  <p className="m-0 mt-0.5 text-[13.5px] text-[#D4EBDA]">
+                    Your starter kit has been reserved.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-6 p-5 sm:p-6">
+                {submittedLocation && (
+                  <div className="flex flex-col gap-3">
+                    <p className="m-0 text-xs font-bold uppercase tracking-[0.08em] text-unitar-orange-ink">
+                      Your pickup location
+                    </p>
+                    <div className="flex flex-col gap-4 rounded-xl border border-sand-300 bg-sand-50 p-5">
+                      <h3 className="m-0 font-display text-base font-bold leading-snug text-sand-900">
+                        {submittedLocation.label}
+                      </h3>
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-start gap-3">
+                          <MapPin
+                            className="mt-0.5 h-4 w-4 shrink-0 text-unitar-orange-ink"
+                            aria-hidden="true"
+                          />
+                          <p className="m-0 text-[13.5px] leading-relaxed text-sand-800">
+                            {submittedLocation.address}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Phone
+                            className="h-4 w-4 shrink-0 text-unitar-orange-ink"
+                            aria-hidden="true"
+                          />
+                          <p className="m-0 text-[13.5px] text-sand-800">
+                            {submittedLocation.phone}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Pickup slot */}
-              <div className="space-y-3">
-                <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">
-                  Pickup Window
+                <div className="flex flex-col gap-3">
+                  <p className="m-0 text-xs font-bold uppercase tracking-[0.08em] text-unitar-orange-ink">
+                    Collection period
+                  </p>
+                  <div className="rounded-xl bg-[#FFF7ED] px-5 py-4">
+                    <p className="m-0 font-display text-base font-bold text-unitar-orange-ink">
+                      {COLLECTION_RANGE}
+                    </p>
+                    <p className="m-0 mt-1 text-[13px] text-[#8A5417]">
+                      Exact date and time will be communicated to you via email.
+                    </p>
+                  </div>
+                </div>
+
+                <p className="m-0 border-t border-sand-300 pt-4 text-[13.5px] text-sand-800">
+                  Please check your inbox regularly for updates on your starter kit
+                  pickup.
                 </p>
-                <div className="bg-[#FF8000]/10 border border-[#FF8000]/30 rounded-xl px-5 py-4">
-                  <p className="text-[#FF8000] font-bold text-base">
-                    June 29 – July 30, 2026
-                  </p>
-                  <p className="text-slate-400 text-sm mt-1">
-                    Exact date and time will be communicated to you via email.
-                  </p>
-                </div>
               </div>
-
-              {/* Footer note */}
-              <p className="text-slate-400 text-sm border-t border-slate-700 pt-4">
-                Please check your inbox regularly for updates on your starter kit pickup.
-              </p>
             </div>
-          </div>
-        ) : (
-          <Card className="dark bg-slate-800 border-slate-700 p-8 space-y-6">
-            <p className="text-slate-400 text-sm">
-              All fields marked with <span className="text-red-400">*</span> are
-              required
-            </p>
-            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-              {/* Name */}
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-base">
-                  Full Name *
-                </Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Enter your full name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? "name-error" : undefined}
-                  disabled={loading}
-                  className="dark bg-slate-700 border-slate-600 placeholder-slate-400"
-                />
-                {errors.name && (
-                  <p id="name-error" className="text-red-400 text-sm">
-                    {errors.name}
-                  </p>
-                )}
-              </div>
+          ) : (
+            <div className="flex flex-col gap-6 rounded-[18px] border border-sand-300 bg-white p-5 sm:p-8">
+              <p className="m-0 text-[13.5px] text-sand-700">
+                All fields marked with{" "}
+                <span className="font-bold text-[#B3261E]">*</span> are required.
+              </p>
 
-              {/* Matric Number */}
-              <div className="space-y-2">
-                <Label htmlFor="matricNumber" className="text-base">
-                  Matric Number *
-                </Label>
-                <Input
-                  id="matricNumber"
-                  name="matricNumber"
-                  type="text"
-                  placeholder="e.g. U00012345"
-                  value={formData.matricNumber}
-                  onChange={handleInputChange}
-                  aria-invalid={!!errors.matricNumber}
-                  aria-describedby={
-                    errors.matricNumber ? "matricNumber-error" : undefined
-                  }
-                  disabled={loading}
-                  className="dark bg-slate-700 border-slate-600 placeholder-slate-400"
-                />
-                {errors.matricNumber ? (
-                  <p id="matricNumber-error" className="text-red-400 text-sm">
-                    {errors.matricNumber}
-                  </p>
-                ) : (
-                  <p className="text-slate-500 text-xs">
-                    Found on your offer letter or student portal
-                  </p>
-                )}
-              </div>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
+                {/* Name */}
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="name" className="text-[14.5px] text-sand-900">
+                    Full Name *
+                  </Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "name-error" : undefined}
+                    disabled={loading}
+                    className={fieldClass}
+                  />
+                  {errors.name && (
+                    <p id="name-error" className={errorClass}>
+                      {errors.name}
+                    </p>
+                  )}
+                </div>
 
-              {/* Phone */}
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-base">
-                  Phone Number *
-                </Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="e.g. 0123456789"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  aria-invalid={!!errors.phone}
-                  aria-describedby={errors.phone ? "phone-error" : undefined}
-                  disabled={loading}
-                  className="dark bg-slate-700 border-slate-600 placeholder-slate-400"
-                />
-                {errors.phone ? (
-                  <p id="phone-error" className="text-red-400 text-sm">
-                    {errors.phone}
-                  </p>
-                ) : (
-                  <p className="text-slate-500 text-xs">
-                    Malaysian number — include country code if international
-                    (e.g. +6012...)
-                  </p>
-                )}
-              </div>
-
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-base">
-                  Email Address *
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                  disabled={loading}
-                  className="dark bg-slate-700 border-slate-600 placeholder-slate-400"
-                />
-                {errors.email && (
-                  <p id="email-error" className="text-red-400 text-sm">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-
-              {/* Campus Selection */}
-              <div className="space-y-2">
-                <Label htmlFor="campus" className="text-base">
-                  Preferred Pickup Campus *
-                </Label>
-                <Select
-                  value={formData.campus}
-                  onValueChange={(value) => handleSelectChange("campus", value)}
-                  disabled={loading}
-                >
-                  <SelectTrigger
-                    id="campus"
-                    aria-invalid={!!errors.campus}
-                    aria-describedby={
-                      errors.campus ? "campus-error" : undefined
-                    }
-                    className="dark bg-slate-700 border-slate-600"
+                {/* Matric Number */}
+                <div className="flex flex-col gap-2">
+                  <Label
+                    htmlFor="matricNumber"
+                    className="text-[14.5px] text-sand-900"
                   >
-                    <SelectValue placeholder="Select a campus" />
-                  </SelectTrigger>
-                  <SelectContent className="dark bg-slate-700 border-slate-600">
-                    {newlocations.map((loc) => (
-                      <SelectItem key={loc.value} value={loc.value}>
-                        {loc.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.campus && (
-                  <p id="campus-error" className="text-red-400 text-sm">
-                    {errors.campus}
-                  </p>
-                )}
-              </div>
+                    Matric Number *
+                  </Label>
+                  <Input
+                    id="matricNumber"
+                    name="matricNumber"
+                    type="text"
+                    placeholder="e.g. MC26090123"
+                    value={formData.matricNumber}
+                    onChange={handleInputChange}
+                    aria-invalid={!!errors.matricNumber}
+                    aria-describedby={
+                      errors.matricNumber ? "matricNumber-error" : undefined
+                    }
+                    disabled={loading}
+                    className={fieldClass}
+                  />
+                  {errors.matricNumber ? (
+                    <p id="matricNumber-error" className={errorClass}>
+                      {errors.matricNumber}
+                    </p>
+                  ) : (
+                    <p className={hintClass}>
+                      Found on your offer letter or student portal
+                    </p>
+                  )}
+                </div>
 
-              {/* T-Shirt Size */}
-              <div className="space-y-2">
-                <div className="flex items-baseline justify-between">
-                  <Label htmlFor="tshirtSize" className="text-base">
+                {/* Phone */}
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="phone" className="text-[14.5px] text-sand-900">
+                    Phone Number *
+                  </Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="e.g. 0123456789"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    aria-invalid={!!errors.phone}
+                    aria-describedby={errors.phone ? "phone-error" : undefined}
+                    disabled={loading}
+                    className={fieldClass}
+                  />
+                  {errors.phone ? (
+                    <p id="phone-error" className={errorClass}>
+                      {errors.phone}
+                    </p>
+                  ) : (
+                    <p className={hintClass}>
+                      Malaysian number — include country code if international (e.g.
+                      +6012...)
+                    </p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="email" className="text-[14.5px] text-sand-900">
+                    Personal Email Address *
+                  </Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    disabled={loading}
+                    className={fieldClass}
+                  />
+                  {errors.email && (
+                    <p id="email-error" className={errorClass}>
+                      {errors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Campus */}
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="campus" className="text-[14.5px] text-sand-900">
+                    Preferred Pickup Campus *
+                  </Label>
+                  <Select
+                    value={formData.campus}
+                    onValueChange={(value) => handleSelectChange("campus", value)}
+                    disabled={loading}
+                  >
+                    <SelectTrigger
+                      id="campus"
+                      aria-invalid={!!errors.campus}
+                      aria-describedby={errors.campus ? "campus-error" : undefined}
+                      className="border-sand-300 bg-white text-left text-sand-900"
+                    >
+                      <SelectValue placeholder="Select a campus" />
+                    </SelectTrigger>
+                    <SelectContent className="border-sand-300 bg-white">
+                      {newlocations.map((loc) => (
+                        <SelectItem key={loc.value} value={loc.value}>
+                          {loc.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.campus ? (
+                    <p id="campus-error" className={errorClass}>
+                      {errors.campus}
+                    </p>
+                  ) : (
+                    <p className={hintClass}>
+                      Pick the campus closest to you — your pack will be sent there.
+                    </p>
+                  )}
+                </div>
+
+                {/* T-Shirt Size */}
+                <div className="flex flex-col gap-2">
+                  <Label
+                    htmlFor="tshirtSize"
+                    className="text-[14.5px] text-sand-900"
+                  >
                     T-Shirt Size *
                   </Label>
-                </div>
-                <Select
-                  value={formData.tshirtSize}
-                  onValueChange={(value) =>
-                    handleSelectChange("tshirtSize", value)
-                  }
-                  disabled={loading}
-                >
-                  <SelectTrigger
-                    id="tshirtSize"
-                    aria-invalid={!!errors.tshirtSize}
-                    aria-describedby={
-                      errors.tshirtSize ? "tshirtSize-error" : undefined
+                  <Select
+                    value={formData.tshirtSize}
+                    onValueChange={(value) =>
+                      handleSelectChange("tshirtSize", value)
                     }
-                    className="dark bg-slate-700 border-slate-600"
+                    disabled={loading}
                   >
-                    <SelectValue placeholder="Select your size" />
-                  </SelectTrigger>
-                  <SelectContent className="dark bg-slate-700 border-slate-600">
-                    <SelectItem value="S">Small (S)</SelectItem>
-                    <SelectItem value="M">Medium (M)</SelectItem>
-                    <SelectItem value="L">Large (L)</SelectItem>
-                    <SelectItem value="XL">Extra Large (XL)</SelectItem>
-                    <SelectItem value="2XL">2X Large (2XL)</SelectItem>
-                    <SelectItem value="3XL">3X Large (3XL)</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.tshirtSize && (
-                  <p id="tshirtSize-error" className="text-red-400 text-sm">
-                    {errors.tshirtSize}
-                  </p>
+                    <SelectTrigger
+                      id="tshirtSize"
+                      aria-invalid={!!errors.tshirtSize}
+                      aria-describedby={
+                        errors.tshirtSize ? "tshirtSize-error" : undefined
+                      }
+                      className="border-sand-300 bg-white text-left text-sand-900"
+                    >
+                      <SelectValue placeholder="Select your size" />
+                    </SelectTrigger>
+                    <SelectContent className="border-sand-300 bg-white">
+                      <SelectItem value="S">Small (S)</SelectItem>
+                      <SelectItem value="M">Medium (M)</SelectItem>
+                      <SelectItem value="L">Large (L)</SelectItem>
+                      <SelectItem value="XL">Extra Large (XL)</SelectItem>
+                      <SelectItem value="2XL">2X Large (2XL)</SelectItem>
+                      <SelectItem value="3XL">3X Large (3XL)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {errors.tshirtSize && (
+                    <p id="tshirtSize-error" className={errorClass}>
+                      {errors.tshirtSize}
+                    </p>
+                  )}
+                </div>
+
+                {error && (
+                  <Alert className="border-[#B3261E]/30 bg-[#FDECEA]">
+                    <AlertCircle className="h-4 w-4 text-[#B3261E]" />
+                    <AlertDescription className="text-[#8C1D18]">
+                      {error}
+                    </AlertDescription>
+                  </Alert>
                 )}
-              </div>
 
-              {/* Global API Error */}
-              {error && (
-                <Alert className="bg-red-500/10 border-red-500/30">
-                  <AlertCircle className="h-4 w-4 text-red-400" />
-                  <AlertDescription className="text-red-300">
-                    {error}
-                  </AlertDescription>
-                </Alert>
-              )}
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 text-lg rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {loading ? "Submitting..." : "Submit Registration"}
-              </Button>
-            </form>
-          </Card>
-        )}
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="flex min-h-[52px] w-full items-center justify-center rounded-full bg-unitar-orange px-7 text-base font-bold text-white transition-colors hover:bg-unitar-orange-ink disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {loading ? "Submitting..." : "Submit registration"}
+                </Button>
+              </form>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

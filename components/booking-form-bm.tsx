@@ -175,11 +175,11 @@ export function BookingFormBM() {
   if (success) {
     return (
       <Card className="w-full max-w-md mx-auto p-8 text-center bg-white">
-        <CheckCircle className="w-12 h-12 text-foreground mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-foreground mb-2">
+        <CheckCircle className="w-12 h-12 text-sand-900 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-sand-900 mb-2">
           Slot Anda Telah Ditempah!
         </h3>
-        <p className="text-muted-foreground mb-4 text-balance">
+        <p className="text-sand-800 mb-4 text-balance">
           Terima kasih, {name}! <br /> Tempahan anda untuk{" "}
           <span className="font-bold">
             1-1 Step-by-Step PTPTN Application Session
@@ -187,24 +187,24 @@ export function BookingFormBM() {
           telah berjaya dibuat. Sila semak butiran tempahan anda di bawah:
         </p>
         <div className="grid grid-cols-[auto_1fr] gap-2 mb-6 items-center justify-end">
-          <p className="text-muted-foreground text-balance text-sm text-right">
+          <p className="text-sand-800 text-balance text-sm text-right">
             Tarikh Tempahan:
           </p>
           <Input
-            className="text-sm text-foreground text-center w-full"
+            className="text-sm text-sand-900 text-center w-full"
             readOnly
             value={translateDate(date)}
           />
-          <p className="text-muted-foreground text-balance text-sm text-right">
+          <p className="text-sand-800 text-balance text-sm text-right">
             Masa Tempahan:
           </p>
           <Input
-            className="text-sm text-foreground text-center w-full"
+            className="text-sm text-sand-900 text-center w-full"
             readOnly
             value={translateTime(timeSlot)}
           />
         </div>
-        <p className="text-sm text-muted-foreground text-balance">
+        <p className="text-sm text-sand-800 text-balance">
           Kami akan menghubungi anda di{" "}
           <span className="font-bold">({phone})</span> untuk mengesahkan temu
           janji anda dan berkongsi pautan mesyuarat.
@@ -223,7 +223,7 @@ export function BookingFormBM() {
           <div
             key={s}
             className={`h-2 flex-1 rounded-full transition-colors ${
-              s <= step ? "bg-primary" : "bg-muted"
+              s <= step ? "bg-unitar-orange" : "bg-sand-300"
             }`}
           />
         ))}
@@ -232,10 +232,10 @@ export function BookingFormBM() {
       {step === 1 && (
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold text-foreground mb-4">
+            <h3 className="text-lg font-semibold text-sand-900 mb-4">
               Apakah nama penuh anda?
             </h3>
-            <Label htmlFor="name" className="text-foreground mb-2 block">
+            <Label htmlFor="name" className="text-sand-900 mb-2 block">
               Nama Penuh
             </Label>
             <Input
@@ -254,10 +254,10 @@ export function BookingFormBM() {
       {step === 2 && (
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold text-foreground mb-4">
+            <h3 className="text-lg font-semibold text-sand-900 mb-4">
               Apakah nombor telefon anda?
             </h3>
-            <Label htmlFor="phone" className="text-foreground mb-2 block">
+            <Label htmlFor="phone" className="text-sand-900 mb-2 block">
               Nombor Telefon
             </Label>
             <Input
@@ -270,7 +270,7 @@ export function BookingFormBM() {
               autoFocus
             />
             {phoneError && (
-              <p className="text-destructive text-sm mt-2 flex items-center gap-1">
+              <p className="text-[#B3261E] text-sm mt-2 flex items-center gap-1">
                 <AlertCircle className="w-4 h-4" />
                 {phoneError}
               </p>
@@ -281,17 +281,17 @@ export function BookingFormBM() {
 
       {step === 3 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-foreground mb-4">
+          <h3 className="text-lg font-semibold text-sand-900 mb-4">
             Pilih slot anda
           </h3>
-          <p className="text-muted-foreground mb-2 text-sm">
+          <p className="text-sand-800 mb-2 text-sm">
             Pilih tarikh dan masa pilihan anda. Sila ambil perhatian bahawa kami
             mempunyai bilangan slot yang terhad untuk setiap tempoh masa, jadi
             tempah awal untuk mendapatkan tempat anda!
           </p>
 
           <div>
-            <Label htmlFor="date" className="text-foreground mb-2 block">
+            <Label htmlFor="date" className="text-sand-900 mb-2 block">
               Tarikh
             </Label>
             <select
@@ -301,7 +301,7 @@ export function BookingFormBM() {
                 setDate(e.target.value);
                 setTimeSlot("");
               }}
-              className="w-full px-3 py-2 border border-border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 border border-sand-300 rounded-md bg-white text-sand-900 focus:outline-none focus:ring-2 focus:ring-unitar-orange"
               autoFocus
             >
               <option value="">Pilih tarikh</option>
@@ -315,14 +315,14 @@ export function BookingFormBM() {
 
           {date && (
             <div>
-              <Label htmlFor="time" className="text-foreground mb-2 block">
+              <Label htmlFor="time" className="text-sand-900 mb-2 block">
                 Masa
               </Label>
               <select
                 id="time"
                 value={timeSlot}
                 onChange={(e) => setTimeSlot(e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-md bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-3 py-2 border border-sand-300 rounded-md bg-white text-sand-900 focus:outline-none focus:ring-2 focus:ring-unitar-orange"
               >
                 <option value="">Pilih masa</option>
                 {getAvailableTimeSlots().map((t) => (
@@ -338,8 +338,8 @@ export function BookingFormBM() {
 
       {error && (
         <div className="mt-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 text-destructive flex-shrink-0" />
-          <p className="text-sm text-destructive">{error}</p>
+          <AlertCircle className="w-4 h-4 text-[#B3261E] flex-shrink-0" />
+          <p className="text-sm text-[#B3261E]">{error}</p>
         </div>
       )}
 
@@ -372,7 +372,7 @@ export function BookingFormBM() {
         </Button>
       </div>
 
-      <p className="text-xs text-muted-foreground text-center mt-4">
+      <p className="text-xs text-sand-800 text-center mt-4">
         Langkah {step} dari 3
       </p>
     </Card>

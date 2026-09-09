@@ -1,31 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowRight,
-  CheckCircle2,
-  HelpCircle,
-  Mail,
-  Shield,
-  BookOpen,
-  CheckSquare,
-  AlertCircle,
-  ChevronDown,
-  ChevronRight,
-  MessagesSquare,
-  HomeIcon
-} from "lucide-react";
+import { HomeIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Accordion,
   AccordionContent,
@@ -33,1188 +10,705 @@ import {
   AccordionTrigger
 } from "@/components/ui/accordion";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from "@/components/ui/tooltip";
+  SetupProvider,
+  SetupProgress,
+  SetupSteps,
+  type SetupStep
+} from "@/components/orientation/setup";
+import {
+  Callout,
+  HelpBand,
+  NextCard,
+  OrientationFooter,
+  SectionHeading,
+  StepFigure,
+  SubStep
+} from "@/components/orientation/chrome";
+import { Checklist } from "@/components/orientation/checklist";
+import { SiteHeader } from "@/components/site/site-header";
+import {
+  Roadmap,
+  type RoadmapPhase
+} from "@/components/orientation/roadmap";
+
+const LABELS = {
+  progress: "Your progress",
+  doneCount: "{done} of {total} done",
+  continueStep: "Continue step {n}",
+  allDone: "All steps done!",
+  currentStep: "Current step",
+  done: "Done",
+  markDone: "Mark as done",
+  markUndone: "Undo",
+  stepLabel: "Step {n}",
+  completeTitle: "You are all set!",
+  completeBody:
+    "Your account is ready. You can now start your learning journey.",
+  completeCta: "Go to your checklist",
+  completeHref: "#checklist"
+};
+
+const STEPS: SetupStep[] = [
+  {
+    id: "log-in",
+    title: "Log in to your Student Dashboard",
+    summary: "Use your Matric Number and default password.",
+    content: (
+      <>
+        <p className="m-0">
+          Go to the{" "}
+          <span className="font-bold text-sand-900">UNITAR Login Page</span>:
+        </p>
+        <Link href="https://auth.unitar.my/" target="_blank" className="self-start">
+          <span className="flex min-h-[48px] items-center gap-2 rounded-full bg-unitar-blue px-6 text-[15px] font-semibold text-white transition-colors hover:bg-unitar-blue-light">
+            <HomeIcon className="h-4 w-4" aria-hidden="true" />
+            auth.unitar.my
+          </span>
+        </Link>
+
+        <p className="m-0">Enter your login details:</p>
+        <div className="overflow-hidden rounded-xl border border-sand-300">
+          <div className="flex flex-col items-center gap-2 bg-unitar-blue px-4 py-4">
+            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-[#A9CBE0]">
+              Username
+            </span>
+            <span className="text-[15px] font-bold text-white">Matric Number</span>
+            <span className="text-xs italic text-[#91B9D3]">e.g. MC2301XXXXX</span>
+          </div>
+          <div className="flex flex-col items-center gap-2 bg-unitar-orange px-4 py-4">
+            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-[#FDEBD4]">
+              Default Password
+            </span>
+            <span className="text-center text-[15px] font-bold text-white">
+              Last 4 digits of your Matric No. + last 4 of your NRIC/Passport
+            </span>
+            <span className="text-xs italic text-[#FCE0BE]">e.g. 77993883</span>
+          </div>
+        </div>
+
+        <p className="m-0">
+          Click <span className="font-bold text-sand-900">"Login"</span>.
+        </p>
+        <StepFigure src="/auth_unitar.png" alt="UNITAR login screen" />
+      </>
+    )
+  },
+  {
+    id: "backup-email",
+    title: "Set up your backup email",
+    summary: "A one-time action, prompted by Microsoft.",
+    content: (
+      <>
+        <p className="m-0">
+          This is a <span className="font-bold text-sand-900">One-Time Action</span>{" "}
+          (prompted by Microsoft).
+        </p>
+        <SubStep letter="a">
+          Enter{" "}
+          <span className="font-bold text-unitar-orange-ink">
+            your personal email — TWICE!
+          </span>
+        </SubStep>
+        <SubStep letter="b">
+          Click <span className="font-bold">"Add/Change Email"</span>
+        </SubStep>
+        <StepFigure src="/secondary_email.png" alt="Backup email setup" />
+      </>
+    )
+  },
+  {
+    id: "student-email",
+    title: "Activate your student email",
+    summary: "Open Office 365 from your dashboard.",
+    content: (
+      <>
+        <p className="m-0">
+          In your <span className="font-bold text-sand-900">"Student Dashboard"</span>:
+        </p>
+        <SubStep letter="a">
+          Click <span className="font-bold">Office 365</span>
+        </SubStep>
+        <StepFigure
+          src="/big-o.png"
+          alt="Office 365 icon"
+          cap={140}
+        />
+        <SubStep letter="b">
+          Enter your{" "}
+          <span className="font-bold uppercase text-unitar-orange-ink">
+            student email
+          </span>
+          , then click <span className="font-bold">"Next"</span>
+        </SubStep>
+        <StepFigure src="/mfa1.png" alt="Enter your student email" />
+        <SubStep letter="c">
+          Enter your{" "}
+          <span className="font-bold uppercase text-unitar-orange-ink">password</span>
+          , then click <span className="font-bold">"Sign In"</span>
+        </SubStep>
+        <StepFigure src="/mfa2-password.png" alt="Enter your password" />
+        <SubStep letter="d">
+          Click <span className="font-bold">"Next"</span> (more information is
+          required to protect your account)
+        </SubStep>
+        <StepFigure src="/mfa3.png" alt="More information required" />
+      </>
+    )
+  },
+  {
+    id: "mfa",
+    title: "Secure your account — MFA setup",
+    summary: "Install Microsoft Authenticator and scan the QR code.",
+    content: (
+      <>
+        <SubStep letter="a">
+          Download and install{" "}
+          <span className="font-bold">"Microsoft Authenticator"</span> on your device
+          (iOS or Android).
+        </SubStep>
+        <div className="flex flex-wrap items-center gap-4">
+          <Image
+            src="/mauthlogo.png"
+            width={200}
+            height={200}
+            alt="Microsoft Authenticator"
+            className="h-auto w-20 rounded-xl drop-shadow"
+          />
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Link
+              href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458"
+              target="_blank"
+            >
+              <Image
+                src="/appstore.png"
+                width={300}
+                height={100}
+                alt="App Store"
+                className="h-auto w-32"
+              />
+            </Link>
+            <Link
+              href="https://play.google.com/store/apps/details?id=com.azure.authenticator&pli=1"
+              target="_blank"
+            >
+              <Image
+                src="/gplay.png"
+                width={300}
+                height={100}
+                alt="Google Play"
+                className="h-auto w-32"
+              />
+            </Link>
+          </div>
+        </div>
+
+        <SubStep letter="b">
+          Open the app and allow Microsoft Authenticator to{" "}
+          <span className="font-bold">access your Camera.</span>
+        </SubStep>
+        <SubStep letter="c">
+          Tap <span className="font-bold">"Add Account (+)"</span>
+        </SubStep>
+        <StepFigure src="/mauth2.png" alt="Add account" />
+        <SubStep letter="d">
+          Choose <span className="font-bold">"Work or School Account"</span>, then
+          select <span className="font-bold">"Scan QR code"</span>
+        </SubStep>
+        <StepFigure src="/mfad.png" alt="Scan QR code" />
+        <SubStep letter="e">
+          Click the registered account <span className="font-bold">displayed</span>.
+        </SubStep>
+        <StepFigure src="/mfae.png" alt="Registered account" />
+        <SubStep letter="f">
+          Enter the number displayed into the authenticator.
+        </SubStep>
+        <StepFigure src="/mfaf.png" alt="Enter the authenticator number" />
+        <SubStep letter="g">
+          If setup is successful you'll see{" "}
+          <span className="font-bold">"Notification Approved"</span>. Click{" "}
+          <span className="font-bold">"Next"</span>.
+        </SubStep>
+        <StepFigure src="/mfag.png" alt="Setup successful" />
+
+        <Callout>
+          Please note: accounts may take up to 24 hours to be activated.
+        </Callout>
+
+        <div className="rounded-xl border border-sand-300 bg-sand-50 p-4">
+          <h4 className="m-0 mb-1.5 font-display text-[15px] font-bold text-sand-900">
+            Alternative MFA options
+          </h4>
+          <p className="m-0 mb-3 text-[13.5px] text-sand-800">
+            If you can't set up Microsoft Authenticator, you can use these
+            alternatives:
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-1.5 text-[13.5px]">
+              <p className="m-0 font-semibold text-sand-900">Phone verification:</p>
+              <ul className="m-0 list-disc space-y-1 pl-5 text-sand-800">
+                <li>Click "I want to set up a different method"</li>
+                <li>Choose "Phone" and click "Confirm"</li>
+                <li>Enter your mobile number</li>
+                <li>Choose "Receive a code" and follow the instructions</li>
+              </ul>
+            </div>
+            <div className="flex flex-col gap-1.5 text-[13.5px]">
+              <p className="m-0 font-semibold text-sand-900">For Huawei users:</p>
+              <ul className="m-0 list-disc space-y-1 pl-5 text-sand-800">
+                <li>Download "Cooper Authy" from the Huawei AppGallery</li>
+                <li>Open the app and tap + in the top right corner</li>
+                <li>Scan the QR code on the Authentication screen</li>
+                <li>Enter the 6-digit code and click "Submit"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+];
+
+const ROADMAP: RoadmapPhase[] = [
+  {
+    eyebrow: "Upon completion of registration",
+    title: "Your student journey starts here",
+    steps: [
+      {
+        title: "Obtain your Matric Number & default password",
+        note: "In the welcome email from UNITAR, sent to your personal email."
+      },
+      {
+        title: "Log in to your Student Dashboard",
+        note: "Use the Chrome browser."
+      },
+      { title: "Activate your Student Email (Office 365)" },
+      { title: "Access the Student Resource Backpack (SRB) on CN" },
+      {
+        title: "Check your registered courses and class schedule",
+        note: "On UNIEC Campus V2 (UNIECOLLEGE for UNITAR College)."
+      },
+      { title: "Access your courses on CN" }
+    ],
+    finish: {
+      title: "You are ready!",
+      note: "Let us begin your learning journey."
+    },
+    badges: [
+      { title: "Be prepared", note: "Get everything set for a smooth start." },
+      {
+        title: "Stay informed",
+        note: "Access the right information at the right time."
+      },
+      {
+        title: "We are here to support you",
+        note: "Our team is ready to assist you."
+      },
+      {
+        title: "Your journey, our priority",
+        note: "Let us make your first semester a successful one."
+      }
+    ]
+  },
+  {
+    eyebrow: "Key activities during the semester",
+    title: "Your semester journey continues",
+    steps: [
+      { title: "Go through your course materials" },
+      { title: "Attend your scheduled classes" },
+      { title: "Complete (and submit) the tasks required" },
+      { title: "Settle outstanding fees", note: "If any." },
+      {
+        title: "Perform course registration",
+        note: "On UNIEC Campus V2 / UNIECOLLEGE."
+      },
+      { title: "Download (or print) your exam slip", note: "If applicable." },
+      { title: "Sit for your final exam", note: "If applicable." }
+    ],
+    finish: {
+      title: "Semester successfully completed!",
+      note: "Great job — keep up the momentum and finish strong."
+    },
+    badges: [
+      {
+        title: "Stay engaged",
+        note: "Go through your materials and participate actively."
+      },
+      {
+        title: "Stay on schedule",
+        note: "Attend classes and keep track of important dates."
+      },
+      {
+        title: "Complete your assessments",
+        note: "Submit tasks on time and to the best of your ability."
+      },
+      {
+        title: "Finish strong",
+        note: "Prepare well and do your best in the final examinations."
+      }
+    ]
+  }
+];
+
+const CHECKLIST = [
+  {
+    title: "Preparing for your First Semester",
+    items: [
+      'Get your Matric Number & default password (in the "Welcome" email from UNITAR)',
+      "Log in to your Student Dashboard",
+      "Activate your Student Email (Office 365)",
+      "Access the Student Resource Backpack (SRB) in CN",
+      "Check your registered courses and class schedule in UNIEC Campus V2",
+      "Access your courses in CN"
+    ]
+  },
+  {
+    title: "During the Semester",
+    items: [
+      "Study the course materials",
+      "Attend your scheduled classes",
+      "Complete (and submit) the required assignments",
+      "Settle any outstanding fees",
+      "Complete course registration (in UNIEC Campus V2/UNIECCOLLEGE)",
+      "Download (or print) your exam slip (if applicable)",
+      "Sit your final exams (if applicable)"
+    ]
+  },
+  {
+    title: "Preparing for the Next Semester",
+    items: [
+      "Check your registered courses and class schedule in UNIEC Campus V2",
+      "Access your courses in CN",
+      'Repeat the "During the Semester" list'
+    ]
+  }
+];
+
+const FAQS = [
+  {
+    q: "How do I get my student Matric Number to access UNITAR systems?",
+    a: (
+      <p className="m-0">
+        Your Matric Number is stated in the{" "}
+        <span className="font-bold text-sand-900">OFFER LETTER</span> that you have
+        received via your registered personal email address.
+      </p>
+    )
+  },
+  {
+    q: "How do I collect my matric card?",
+    a: (
+      <>
+        <p className="m-0">
+          <span className="font-bold text-sand-900">Conventional Students</span>:
+          Students may collect their physical matric card during the Onboarding
+          Session, or visit the respective campus to check if the card is ready for
+          collection.
+        </p>
+        <p className="m-0 mt-2">
+          <span className="font-bold text-sand-900">Online Students</span>: A
+          Digital Matric Card is available for Online Students and will be generated
+          upon request. You may{" "}
+          <span className="font-bold text-sand-900">create a ticket</span> (via the{" "}
+          <span className="font-bold text-sand-900">OSC Helpdesk</span> icon on your
+          Student Dashboard) to request the{" "}
+          <span className="font-bold text-sand-900">digital matric card</span>.
+        </p>
+      </>
+    )
+  },
+  {
+    q: "How do I join my (online) scheduled classes?",
+    a: (
+      <>
+        <p className="m-0 mb-2">
+          NOTE: Your (online) scheduled classes will be conducted on Ms Teams. The
+          Teams meeting button is in your course. If you have a personal/work
+          Microsoft account, make sure you are signed in to your UNITAR Student
+          Microsoft account.
+        </p>
+        <ol className="m-0 list-[lower-alpha] space-y-1 pl-5">
+          <li>Login to your Student Dashboard: auth.unitar.my</li>
+          <li>
+            Click CourseNetworking &gt; Courses &gt; Scheduled Classes &gt; Link to
+            Join Your Classes (click the Teams Meeting button at the bottom of the
+            page)
+          </li>
+        </ol>
+        <p className="m-0 mt-3 text-sm text-sand-800">
+          IF you try to join a Teams session WITHOUT signing in to your UNITAR
+          Microsoft account (skipping Step a), you will end up:
+        </p>
+        <ul className="m-0 list-disc space-y-1 pl-5 text-sm text-sand-800">
+          <li>
+            Stuck in the session Lobby, waiting for someone to let you enter the
+            room.
+          </li>
+          <li>Joining the session as a Guest.</li>
+        </ul>
+      </>
+    )
+  },
+  {
+    q: "Is it OK to join a Teams class session as a Guest?",
+    a: (
+      <>
+        <p className="m-0">
+          <span className="font-semibold">
+            You are strongly advised NOT to do so.
+          </span>{" "}
+          Please refer to FAQ 3.
+        </p>
+        <ul className="m-0 mt-2 list-disc space-y-1 pl-5">
+          <li>
+            A "guest" in a Teams session is an "outsider". This means you have not
+            logged in to your student UNITAR Microsoft account.
+          </li>
+          <li>
+            As long as there is ONE Guest present in a Teams session:
+            <ul className="m-0 mt-1 list-[circle] space-y-1 pl-5">
+              <li>The guest will not have access to the full Teams functions.</li>
+              <li>
+                EVERYONE in the session will not be able to share files.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </>
+    )
+  }
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col w-full">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full mx-auto border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center px-8 mx-auto">
-          <div className="flex items-center">
-            <Image
-              src="/logo_unitar.png"
-              width={40}
-              height={40}
-              alt="UNITAR Logo"
-              className=" w-36 h-28 rounded-full object-cover -ml-4"
-            />
-            <span className="hidden font-bold sr-only sm:inline-block">
-              UNITAR International University
-            </span>
-          </div>
-          <nav className="flex flex-1 items-center justify-end space-x-4">
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="#help">Help & Support</Link>
-            </Button>
-            <Link href="/">
-              <Button size="sm" variant="ghost" className="p-0 font-bold">
-                <Image
-                  src="/mal.png"
-                  width={20}
-                  height={20}
-                  alt="Bahasa Malaysia"
-                  className="w-auto max-h-6"
-                />
-              </Button>
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-sand-50 font-sans text-sand-900">
+      <SiteHeader />
 
-      {/* Hero Section */}
-      <section className="w-full py-12 min-h-[80vh] md:py-24 lg:py-32 bg-gradient-to-b from-blue-200 via-[#e5f5ff] to-white dark:from-gray-900 dark:to-gray-950 items-center justify-center flex px-2 lg:px-0">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
-            <div className="flex flex-col justify-center space-y-4">
-              <div className="space-y-2">
-                <div className="py-0">
-                  <p className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none">
-                    Welcome To
-                  </p>
-                  <h1 className="text-3xl font-bold tracking-tighter xl:text-6xl/none">
-                    <span className="font-black text-8xl text-nowrap">
-                      UNITAR
-                    </span>
-                  </h1>
+      <SetupProvider steps={STEPS} labels={LABELS} storageKey="unitar-orientation-en">
+        {/* Welcome + progress */}
+        <section className="px-5 pt-3 lg:px-10 lg:pt-4">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid overflow-hidden rounded-[22px] bg-sand-100 sm:rounded-[30px] lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="flex flex-col gap-4 p-6 sm:gap-5 sm:p-12">
+                <span className="text-xs font-bold uppercase tracking-[0.08em] text-unitar-orange-ink">
+                  New student orientation
+                </span>
+                <h1 className="m-0 font-display text-[33px] font-bold leading-[1.08] tracking-tight text-sand-900 sm:text-[52px]">
+                  Welcome.
+                  <br />
+                  Let's get you started.
+                </h1>
+                <p className="m-0 max-w-md text-[15px] leading-relaxed text-sand-800 sm:text-[17.5px]">
+                  Four steps to activate your student account, access your courses,
+                  and get ready for your first semester.
+                </p>
+
+                <div className="max-w-md">
+                  <SetupProgress />
                 </div>
-                <h2 className="text-2xl font-semibold tracking-tighter sm:text-4xl xl:text-5xl/none pt-10">
-                  Let's Get You Started!
-                </h2>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                  Find out what you need to do to activate your student account,
-                  access your courses, and basically get a great head-start on
-                  your learning journey with UNITAR!
-                </p>
+
+                <div className="max-w-md">
+                  <Callout>
+                    Check your personal email for your{" "}
+                    <span className="font-bold text-sand-900">Matric Number</span> and{" "}
+                    <span className="font-bold text-sand-900">Default Password</span>{" "}
+                    before you start.
+                  </Callout>
+                </div>
               </div>
-              <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Link href="#start">
-                  <Button size="sm" className="gap-1.5">
-                    Start My Orientation
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-                {/* <Link href="/orientation/eng">
-                  <Button size="sm" className="gap-1.5" variant="outline">
-                    Orientation Agenda
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link> */}
-              </div>
-              <div className="flex items-start gap-2 text-sm italic">
-                <AlertCircle className="min-h-4 min-w-4 text-amber-500" />
-                <p className="font-medium text-muted-foreground pt-1">
-                  Before you start, check your{" "}
-                  <span className="font-bold">personal email</span> for your{" "}
-                  <span className="font-bold">Matric Number</span> and{" "}
-                  <span className="font-bold">Default Password.</span>
-                </p>
-              </div>
+
+              <Image
+                src="/hero.jpeg"
+                width={900}
+                height={700}
+                alt="UNITAR students"
+                priority
+                className="order-first h-48 w-full object-cover sm:h-64 lg:order-last lg:h-full"
+              />
             </div>
-            <Image
-              src="/hero.jpeg"
-              width={550}
-              height={550}
-              alt="Student Orientation"
-              className="mx-auto order-first md:order-last aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full drop-shadow-lg"
+          </div>
+        </section>
+
+        {/* The whole journey at a glance, before the detailed steps */}
+        <section className="px-5 pt-9 lg:px-10 lg:pt-14">
+          <div className="mx-auto max-w-6xl">
+            <Roadmap
+              id="roadmap"
+              eyebrow="Your roadmap"
+              heading="The 13 steps of your first semester"
+              intro="Here is the whole journey at a glance — from your welcome email to your final exam. Work through the account setup below, then keep this roadmap to hand as the semester goes on."
+              phases={ROADMAP}
+              footnote="Every step counts towards your success!"
+            />
+          </div>
+        </section>
+
+        {/* Account setup */}
+        <section className="px-5 pt-9 lg:px-10 lg:pt-14">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading id="setup">Account setup</SectionHeading>
+            <div className="mt-4 sm:mt-6">
+              <SetupSteps />
+            </div>
+          </div>
+        </section>
+      </SetupProvider>
+
+      {/* What's next */}
+      <section className="px-5 pt-9 lg:px-10 lg:pt-14">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading id="whats-next">What's next</SectionHeading>
+          <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+            <NextCard
+              href="#checklist"
+              title="Checklist"
+              body="Track your progress through the semester."
+              tint="bg-sand-100"
+              dot="bg-unitar-orange"
+            />
+            <NextCard
+              href="#materials"
+              title="Materials"
+              body="Access your Student Resource Backpack in CN."
+              tint="bg-[#E7F0F6]"
+              dot="bg-unitar-blue"
+            />
+            <NextCard
+              href="#faqs"
+              title="FAQs"
+              body="Answers to common get-started questions."
+              tint="bg-done-tint"
+              dot="bg-done"
             />
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section
-        className="container px-4 py-12 md:px-6 flex self-center"
-        id="start"
-      >
-        <Tabs defaultValue="account-setup" className="w-full">
-          <TabsList className="lg:flex flex-row flex-wrap grid grid-cols-2 lg:justify-around justify-around w-full h-fit sticky top-2 z-50 bg-gray-200 gap-x-4">
-            <TabsTrigger
-              value="account-setup"
-              className="flex items-center gap-2 justify-between py-2"
-            >
-              <span>Account Setup</span>
-              <Shield className="h-4 w-4" />
-            </TabsTrigger>
-            <TabsTrigger
-              value="checklist"
-              className="flex items-center gap-2 justify-between py-2"
-            >
-              <span>Checklist</span>
-              <CheckSquare className="h-4 w-4" />
-            </TabsTrigger>
-            <TabsTrigger
-              value="materials"
-              className="flex items-center gap-2 justify-between py-2"
-            >
-              <span>Materials</span>
-              <BookOpen className="h-4 w-4" />
-            </TabsTrigger>
-            <TabsTrigger
-              value="faqs"
-              className="flex items-center gap-2 justify-between py-2"
-            >
-              <span>FAQs</span>
-              <HelpCircle className="h-4 w-4" />
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Account Setup Tab */}
-          <TabsContent value="account-setup" className="mt-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Set Up Your Student Account</CardTitle>
-                <CardDescription>
-                  Follow these steps to set up your UNITAR student account and
-                  secure it with Multi-Factor Authentication (MFA).
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-8">
-                {/* Step 1 */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                      1
-                    </div>
-                    <h3 className="text-xl font-semibold">
-                      Login to Student Dashboard
-                    </h3>
-                  </div>
-                  <div className="ml-11 space-y-4">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="space-y-2">
-                        <ul className="ml-6 list-disc space-y-2">
-                          <li>
-                            <p>
-                              Go to{" "}
-                              <span className="font-bold">
-                                UNITAR's Login Page
-                              </span>
-                              :{" "}
-                            </p>
-                            <Link
-                              href="https://auth.unitar.my/"
-                              className=""
-                              target="_blank"
-                            >
-                              <Button
-                                variant={"default"}
-                                size="default"
-                                className="my-4"
-                              >
-                                <HomeIcon className="h-4 w-4 mr-2" />
-                                auth.unitar.my
-                              </Button>
-                            </Link>
-                            <Image
-                              src="/auth_unitar.png"
-                              width={500}
-                              height={500}
-                              alt="Login Screen"
-                              className="mx-auto rounded-md w-full h-auto flex lg:hidden"
-                            />
-                          </li>
-                          <li className="space-y-2 pt-2">
-                            <p>Key in Your Login Details:</p>
-                            <div className="flex flex-col gap-0">
-                              <Card className="bg-[#005b90] text-white rounded-none">
-                                <CardContent className="space-y-2 p-2">
-                                  <p className="font-medium text-md text-center">
-                                    Username
-                                  </p>
-                                  <p className="text-red-400 uppercase tracking-tighter font-bold bg-gray-100 text-center py-2 rounded-sm">
-                                    Matric Number
-                                  </p>
-                                  <p className="italic text-xs text-center">
-                                    Eg. MC2301XXXXX
-                                  </p>
-                                </CardContent>
-                              </Card>
-                              <Card className="bg-[#f39313] text-white rounded-none py-2">
-                                <CardContent className="space-y-2 p-2">
-                                  <p className="font-medium text-md text-center">
-                                    Default Password
-                                  </p>
-                                  <div className="grid grid-cols-[1fr,auto,1fr] gap-2 justify-center w-full items-center text-balance text-xs">
-                                    <p className="text-red-400 uppercase tracking-tighter font-black bg-gray-100 text-center p-2  w-full">
-                                      Last 4 Digits of Martic No
-                                    </p>
-                                    <p className="font-bold text-lg">+</p>
-                                    <p className="text-red-400 uppercase tracking-tighter font-black bg-gray-100 text-center p-2 w-full">
-                                      Last 4 Digits of NRIC/Passport No
-                                    </p>
-                                  </div>
-                                  <p className="italic text-center text-xs">
-                                    Eg. 77993883
-                                  </p>
-                                </CardContent>
-                              </Card>
-                            </div>
-                          </li>
-                          <li className="pt-4">
-                            Click <span className="font-bold">Login</span>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="rounded-lg border bg-muted/50 p-4 hidden lg:flex">
-                        <Image
-                          src="/auth_unitar.png"
-                          width={500}
-                          height={500}
-                          alt="Login Screen"
-                          className="mx-auto rounded-md w-full h-auto"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 2 */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                      2
-                    </div>
-                    <h3 className="text-xl font-semibold">
-                      Provide Your Backup Email
-                    </h3>
-                  </div>
-                  <div className="ml-11 space-y-4">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="space-y-2">
-                        <p>
-                          This is a{" "}
-                          <span className="font-bold">One-Time Action</span>{" "}
-                          (prompted by Microsoft)
-                        </p>
-                        <ul className="ml-6 list-disc space-y-2">
-                          <li>
-                            Enter your{" "}
-                            <span className="font-bold text-red-500">
-                              Personal Email - TWICE!
-                            </span>
-                          </li>
-                          <li>
-                            Click{" "}
-                            <span className="font-bold">Add/Change Email</span>
-                          </li>
-                        </ul>
-                        <Image
-                          src="/secondary_email.png"
-                          width={500}
-                          height={500}
-                          alt="Backup Email Setup"
-                          className="mx-auto rounded-md w-full h-auto lg:hidden flex"
-                        />
-                      </div>
-                      <div className="rounded-lg border bg-muted/50 p-4 hidden lg:flex">
-                        <Image
-                          src="/secondary_email.png"
-                          width={500}
-                          height={500}
-                          alt="Backup Email Setup"
-                          className="mx-auto rounded-md w-full h-auto"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Step 3 */}
-                <div className="space-y-4 ">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                      3
-                    </div>
-                    <h3 className="text-xl font-semibold">
-                      Set Up Your Student Account
-                    </h3>
-                  </div>
-                  <div className="ml-11 space-y-4">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="space-y-2">
-                        <div className="flex flex-row gap-4 items-center">
-                          <p>
-                            On your{" "}
-                            <span className="font-bold">Student Dashboard</span>
-                          </p>
-                        </div>
-                        <ol className="ml-6 list-none space-y-6 ">
-                          <li className="flex flex-col gap-2 w-fit items-start">
-                            <p>
-                              a. Click{" "}
-                              <span className="font-bold">Office 365</span>
-                            </p>
-                            <Image
-                              src="/big-o.png"
-                              width={300}
-                              height={200}
-                              alt="Office 365"
-                              className="mx-auto rounded-md w-32 h-auto md:hidden flex"
-                            />
-                          </li>
-                          <li className="flex flex-col gap-2 w-fit items-start">
-                            <p>
-                              b. Key in your{" "}
-                              <span className="font-bold uppercase text-red-500">
-                                STUDENT EMAIL.
-                              </span>{" "}
-                              Then click <span className="font-bold">Next</span>
-                            </p>
-                            <Image
-                              src="/mfa1.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md h-auto md:hidden flex w-full"
-                            />
-                          </li>
-                          <li className="flex flex-col gap-2 w-fit items-start">
-                            <p>
-                              c. Key in your{" "}
-                              <span className="font-bold uppercase text-red-500">
-                                PASSWORD.
-                              </span>{" "}
-                              Then click{" "}
-                              <span className="font-bold">Sign In</span>
-                            </p>
-                            <Image
-                              src="/mfa2-password.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
-                            />
-                          </li>
-                          <li className="flex flex-col gap-2 w-fit items-start justify-start">
-                            <p>
-                              d. Click <span className="font-bold">Next</span>{" "}
-                              (More information required to secure your account)
-                            </p>
-                            <Image
-                              src="/mfa3.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
-                            />
-                          </li>
-                        </ol>
-                      </div>
-                      <div className="rounded-lg border bg-muted/50 p-4 hidden md:flex flex-col gap-2">
-                        <div className="grid grid-cols-2 gap-4">
-                          <Image
-                            src="/big-o.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-32 h-auto"
-                          />
-                          <Image
-                            src="/mfa1.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-54 h-auto"
-                          />
-                          <Image
-                            src="/mfa2-password.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-54 h-auto"
-                          />
-                          <Image
-                            src="/mfa3.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-54 h-auto"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Step 4 */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                      4
-                    </div>
-                    <h3 className="text-xl font-semibold">
-                      Secure Your Account - MFA Setup
-                    </h3>
-                  </div>
-                  <div className="ml-11 space-y-4">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="space-y-2">
-                        <ol className="ml-6 list-none space-y-6">
-                          <li className="space-y-2 w-fit items-start">
-                            a. Install{" "}
-                            <span className="font-bold">
-                              Microsoft Authenticator
-                            </span>{" "}
-                            on your device (iOS or Android)
-                            <div className="w-fit flex flex-row gap-4 items-center py-2">
-                              <Image
-                                src="/mauthlogo.png"
-                                width={500}
-                                height={500}
-                                alt="Microsoft Authenticator App"
-                                className="mx-auto w-24 h-auto drop-shadow-lg rounded-xl"
-                              />
-                              <div className="flex flex-col lg:flex-row">
-                                <Link
-                                  href="https://apps.apple.com/us/app/microsoft-authenticator/id983156458"
-                                  target="_blank"
-                                >
-                                  <Image
-                                    src="/appstore.png"
-                                    width={500}
-                                    height={500}
-                                    alt="App Store"
-                                    className="mx-auto w-32 h-auto drop-shadow-sm"
-                                  />
-                                </Link>
-                                <Link
-                                  href="https://play.google.com/store/apps/details?id=com.azure.authenticator&pli=1"
-                                  target="_blank"
-                                >
-                                  <Image
-                                    src="/gplay.png"
-                                    width={500}
-                                    height={500}
-                                    alt="App Store"
-                                    className="mx-auto w-32 h-auto drop-shadow-md"
-                                  />
-                                </Link>
-                              </div>
-                            </div>
-                            <p className="italic text-sm flex flex-row gap-2 items-center">
-                              Alternative MFA options below{" "}
-                              <ChevronDown className="h-4 w-4 text-black" />
-                            </p>
-                          </li>
-                          <li className="space-y-2 w-fit items-start">
-                            b. Open the app and allow Microsoft Authenticator to{" "}
-                            <span className="font-bold">
-                              access your Camera.
-                            </span>
-                          </li>
-                          <li className="space-y-2 w-fit items-start">
-                            <p>
-                              c. Click{" "}
-                              <span className="font-bold">Add Account (+)</span>
-                            </p>
-                            <Image
-                              src="/mauth2.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto lg:col-span-2 md:hidden flex"
-                            />
-                          </li>
-                          <li className="space-y-2 w-fit items-start justify-start">
-                            <p>
-                              d. Select{" "}
-                              <span className="font-bold">
-                                Work or School Account
-                              </span>
-                              , then choose{" "}
-                              <span className="font-bold">Scan QR code</span>
-                            </p>
-                            <Image
-                              src="/mfad.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
-                            />
-                          </li>
-                          <li className="space-y-2 w-fit items-start">
-                            <p>
-                              e. Click the registered account that is{" "}
-                              <span className="font-bold">displayed</span>.
-                            </p>
-                            <Image
-                              src="/mfae.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
-                            />
-                          </li>
-                          <li className="space-y-2 w-fit items-start">
-                            <p>
-                              f. Enter the number displayed into the
-                              authenticator.
-                            </p>
-                            <Image
-                              src="/mfaf.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
-                            />
-                          </li>
-                          <li className="space-y-2 w-fit items-start">
-                            g. If the setup is successful, you will receive the
-                            following confirmation. Click{" "}
-                            <span className="font-bold">Next</span>
-                            <p className="font-bold flex flex-row gap-2 items-center py-2">
-                              <CheckCircle2 className="h-4 w-4 text-green-500" />{" "}
-                              Notification Approved
-                            </p>
-                            <Image
-                              src="/mfag.png"
-                              width={300}
-                              height={200}
-                              alt="MFA Setup"
-                              className="mx-auto rounded-md w-full h-auto md:hidden flex"
-                            />
-                          </li>
-                        </ol>
-                        <div className="bg-gray-50 p-4 rounded-xl flex w-fit">
-                          <p className="text-sm text-muted-background">
-                            ⚠️ Attention: Account might take 24 hours to be
-                            activated.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="rounded-lg border bg-muted/50 p-4 md:flex flex-col gap-2 hidden">
-                        <div className="grid grid-cols-2 gap-4">
-                          <Image
-                            src="/mauth2.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
-                          />
-                          <Image
-                            src="/mfad.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-full h-auto lg:col-span-2"
-                          />
-                          <Image
-                            src="/mfae.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
-                          />
-                          <Image
-                            src="/mfaf.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-full h-auto lg:col-span-2"
-                          />
-                          <Image
-                            src="/mfag.png"
-                            width={300}
-                            height={200}
-                            alt="MFA Setup"
-                            className="mx-auto rounded-md w-54 h-auto lg:col-span-2"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Alternative MFA */}
-                <div className="rounded-lg border bg-muted/10 p-4">
-                  <h4 className="mb-2 font-medium">Alternative MFA Options</h4>
-                  <p className="mb-2 text-sm text-muted-foreground">
-                    If you cant set up Microsoft Authenticator, you can use
-                    these alternatives:
-                  </p>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2 text-sm">
-                      <p className="font-medium">Phone Authentication:</p>
-                      <ul className="ml-6 list-disc space-y-1">
-                        <li>Click I want to set up a different method</li>
-                        <li>Select Phone and click Confirm</li>
-                        <li>Enter your mobile number</li>
-                        <li>Select Receive a code and follow the prompts</li>
-                      </ul>
-                    </div>
-                    <div className="space-y-2 text-sm">
-                      <p className="font-medium">For Huawei Users:</p>
-                      <ul className="ml-6 list-disc space-y-1">
-                        <li>
-                          Download the Cooper Authy app via the Huawei
-                          AppGallery
-                        </li>
-                        <li>
-                          Open the app and tap the + at the top right corner
-                        </li>
-                        <li>
-                          Scan the QR code at the {"Authentication"} Screen
-                        </li>
-                        <li>Enter the 6-digit code and click Submit</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Link href="#help" className="w-full">
-                  <Button variant="outline" className="w-full">
-                    Need Help? Contact Support
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-
-          {/* Onboarding Materials Tab */}
-          <TabsContent value="materials" className="mt-6" id="materials">
-            <Card>
-              <CardHeader>
-                <CardTitle>Access Your Onboarding Materials</CardTitle>
-                <CardDescription>
-                  Learn how to access your{" "}
-                  <span className="font-bold">
-                    Student Resource Backpack (SRB)
-                  </span>{" "}
-                  with all your onboarding materials.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="rounded-lg border bg-amber-50 dark:bg-amber-950/20 p-4">
-                  <div className="flex items-start gap-3">
-                    <AlertCircle className="mt-1 h-5 w-5 text-amber-600 dark:text-amber-500" />
-                    <div>
-                      <h4 className="font-medium text-amber-800 dark:text-amber-400">
-                        Important Note
-                      </h4>
-                      <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-amber-700 dark:text-amber-300">
-                        <li>
-                          You will be able to access your Student Resource
-                          Backpack (SRB) on Wednesday of your Onboarding Week.
-                        </li>
-                        <li>
-                          For late enrollment: the SRB will be available 12 noon
-                          the following day.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Follow these steps:</h3>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
-                          1
-                        </div>
-                        <p>
-                          Log-in to your{" "}
-                          <span className="font-bold">auth.unitar.my</span>{" "}
-                          dashboard.
-                        </p>
-                      </div>
-                      <div className="flex flex-row items-center gap-3">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
-                          2
-                        </div>
-                        <p>
-                          Click{" "}
-                          <span className="font-bold">CourseNetworking</span>
-                        </p>
-                        <Image
-                          src="/cn.png"
-                          width={300}
-                          height={200}
-                          alt="Student Resource Backpack"
-                          className="mx-auto rounded-md w-28 h-28 md:hidden flex"
-                        />
-                      </div>
-                      <div className="flex flex-row items-center gap-3">
-                        <div className="flex min-h-7 min-w-7 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm">
-                          3
-                        </div>
-                        <p>
-                          Click <span className="font-bold">Courses</span> and
-                          then select{" "}
-                          <span className="font-bold">
-                            Student Resource Backpack
-                          </span>{" "}
-                          to access your onboarding materials.
-                        </p>
-                      </div>
-                      <Image
-                        src="/srb.png"
-                        width={300}
-                        height={200}
-                        alt="Student Resource Backpack"
-                        className="mx-auto rounded-md w-full h-auto md:hidden flex"
-                      />
-                    </div>
-                    <div className="rounded-lg border bg-muted/50 p-4 md:flex hidden flex-col gap-4">
-                      <Image
-                        src="/cn.png"
-                        width={300}
-                        height={200}
-                        alt="Student Resource Backpack"
-                        className="mx-auto rounded-md w-32 h-32"
-                      />
-                      <Image
-                        src="/srb.png"
-                        width={300}
-                        height={200}
-                        alt="Student Resource Backpack"
-                        className="mx-auto rounded-md w-full h-auto"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="flex flex-col gap-4 pt-10">
-                <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
-                  <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-                    Having Trouble?
-                  </h2>
-                  <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-balance">
-                    If you have any CN-related queries or issues, follow these
-                    steps to get help:
-                  </p>
-                </div>
-                <div className="mx-auto mt-8 grid max-w-5xl gap-6 md:grid-cols-3">
-                  <Card className="flex flex-col  items-center justify-center">
-                    <CardHeader>
-                      <CardTitle className="flex flex-row gap-8 items-center justify-center">
-                        <div className="mx-auto mb-4 flex min-h-12 min-w-12 items-center justify-center rounded-full bg-primary/10">
-                          <span className="text-xl font-bold text-primary">
-                            1
-                          </span>
-                        </div>
-                        <div className="flex flex-col gap-2 items-start">
-                          <p>Access One Stop Centre</p>
-                          <p className="text-sm text-muted-foreground text-left">
-                            On your AUTH Student Dashboard, click the{" "}
-                            <span className="font-bold">One Stop Centre</span>{" "}
-                            icon.
-                          </p>
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex items-center justify-center">
-                      <Image
-                        src="/osc.png"
-                        width={300}
-                        height={300}
-                        alt="One Stop Centre"
-                        className="mx-auto rounded-md w-32 h-auto"
-                      />
-                    </CardContent>
-                  </Card>
-                  <Card className="flex flex-col items-center justify-between">
-                    <CardHeader className="text-center">
-                      <CardTitle className="flex flex-row gap-8 items-center justify-center">
-                        <div className="mx-auto mb-4 flex min-h-12 min-w-12 items-center justify-center rounded-full bg-primary/10">
-                          <span className="text-xl font-bold text-primary">
-                            2
-                          </span>
-                        </div>
-                        <div className="flex flex-col gap-2 items-start">
-                          <p>Select Help Topic</p>
-                          <p className="text-sm text-muted-foreground text-left">
-                            For Help Topic, select Portal/Course/Class/Email
-                            Access.
-                          </p>
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex-1">
-                      <Image
-                        src="/help_topic.png"
-                        width={200}
-                        height={120}
-                        alt="Help Topic"
-                        className="mx-auto rounded-md w-full h-auto"
-                      />
-                    </CardContent>
-                  </Card>
-                  <Card className="flex flex-col items-center justify-between">
-                    <CardHeader className="text-center ">
-                      <CardTitle className="flex flex-row gap-8 items-center justify-center">
-                        <div className="mx-auto mb-4 flex min-h-12 min-w-12 items-center justify-center rounded-full bg-primary/10">
-                          <span className="text-xl font-bold text-primary">
-                            3
-                          </span>
-                        </div>
-                        <div className="flex flex-col gap-2 items-start">
-                          <p>Select Sub-Topic</p>
-                          <p className="text-sm text-muted-foreground text-left">
-                            Select the Sub-Topic related to your issue/query.
-                          </p>
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <Image
-                        src="/sub_topic.png"
-                        width={200}
-                        height={120}
-                        alt="Sub-Topic"
-                        className="mx-auto rounded-md w-full h-auto"
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-
-          {/* Checklist Tab */}
-          <TabsContent value="checklist" className="mt-6" id="checklist">
-            <Card>
-              <CardHeader>
-                <CardTitle>Your Starting-Out Checklist</CardTitle>
-                <CardDescription>
-                  Keep track of your onboarding progress with this comprehensive
-                  checklist.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-8 md:grid-cols-3">
-                  {/* First Semester Prep */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">
-                      Prepping for your First Semester
-                    </h3>
-                    <div className="space-y-2">
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check1" className="mt-1" />
-                        <label htmlFor="check1" className="text-sm">
-                          Obtain Matric Number & default password (in welcome
-                          email from UNITAR)
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check2" className="mt-1" />
-                        <label htmlFor="check2" className="text-sm">
-                          Log in to your Student Dashboard (use Chrome Browser)
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check3" className="mt-1" />
-                        <label htmlFor="check3" className="text-sm">
-                          Activate your Student Email (Office365)
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check4" className="mt-1" />
-                        <label htmlFor="check4" className="text-sm">
-                          Access Student Resource Backpack (SRB) on CN
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check5" className="mt-1" />
-                        <label htmlFor="check5" className="text-sm">
-                          Check course(s) registered and class schedule on UNIEC
-                          Campus V2
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check6" className="mt-1" />
-                        <label htmlFor="check6" className="text-sm">
-                          Access course(s) on CN
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* During the Semester */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">
-                      During the Semester
-                    </h3>
-                    <div className="space-y-2">
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check7" className="mt-1" />
-                        <label htmlFor="check7" className="text-sm">
-                          Go through course materials
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check8" className="mt-1" />
-                        <label htmlFor="check8" className="text-sm">
-                          Attend scheduled classes
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check9" className="mt-1" />
-                        <label htmlFor="check9" className="text-sm">
-                          Complete (and submit) tasks required
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check10" className="mt-1" />
-                        <label htmlFor="check10" className="text-sm">
-                          Settle (if any) outstanding fees
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check11" className="mt-1" />
-                        <label htmlFor="check11" className="text-sm">
-                          Perform course registration (on UNIEC Campus
-                          V2/UNIECCOLLEGE)
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check12" className="mt-1" />
-                        <label htmlFor="check12" className="text-sm">
-                          Download (or print) exam slip (if applicable)
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check13" className="mt-1" />
-                        <label htmlFor="check13" className="text-sm">
-                          Sit for final exam (if applicable)
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Subsequent Semesters */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">
-                      Prepping for Subsequent Semesters
-                    </h3>
-                    <div className="space-y-2">
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check14" className="mt-1" />
-                        <label htmlFor="check14" className="text-sm">
-                          Check course(s) registered and class schedule on UNIEC
-                          Campus V2
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check15" className="mt-1" />
-                        <label htmlFor="check15" className="text-sm">
-                          Access course(s) on CN
-                        </label>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <input type="checkbox" id="check16" className="mt-1" />
-                        <label htmlFor="check16" className="text-sm">
-                          Repeat items "During the Semester"
-                        </label>
-                      </div>
-                    </div>
-                    <div className="mt-6 rounded-lg border bg-muted/30 p-4">
-                      <p className="text-sm text-muted-foreground">
-                        For clarifications on any of these items, refer to your
-                        Student Resource Backpack (SRB).
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              {/* <CardFooter>
-                <Button variant="outline" className="w-full">
-                  Download Printable Checklist
-                </Button>
-              </CardFooter> */}
-            </Card>
-          </TabsContent>
-
-          {/* FAQs Tab */}
-          <TabsContent value="faqs" className="mt-6" id="faqs">
-            <Card>
-              <CardHeader>
-                <CardTitle>Get-Started FAQs</CardTitle>
-                <CardDescription>
-                  Find answers to commonly asked questions about getting started
-                  at UNITAR.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full text-left"
-                >
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger className="font-medium text-left">
-                      How do I find my student matric ID to access UNITAR
-                      systems?
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <p>
-                        Check your personal email (inbox or spam) for the
-                        welcome email from UNITAR.
-                      </p>
-                      <p className="mt-2 text-sm text-muted-foreground">
-                        NOTE: If you are unable to find the{" "}
-                        <span className="font-bold">welcome email</span>, email
-                        to admission@unitar.my.
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-2">
-                    <AccordionTrigger className="font-medium text-left">
-                      How to request for your Digital Matric Card
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <p>
-                        Head over to One-Stop-Center, request for E-Matric Card
-                        and follow instructions that follows.
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-3">
-                    <AccordionTrigger className="font-medium text-left">
-                      How do I join my (online) scheduled classes?
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <p className="mb-2">
-                        NOTE: Your (online) scheduled classes will be conducted
-                        on Ms Teams. The Teams meeting button is in your course.
-                        If you have a personal/work Microsoft account, make sure
-                        you are signed in to your UNITAR Student Microsoft
-                        account.
-                      </p>
-                      <ol className="ml-5 list-decimal space-y-1">
-                        <li>Login to your Student Dashboard: auth.unitar.my</li>
-                        <li>
-                          Click CourseNetworking &gt; Courses &gt; Scheduled
-                          Classes &gt; Link to Join Your Classes (Click the
-                          Teams Meeting button at the bottom of the page)
-                        </li>
-                      </ol>
-                      <p className="mt-3 text-sm text-muted-foreground">
-                        IF you try to join a Teams session WITHOUT signing in to
-                        your UNITAR Microsoft account (skipping Step 1), you
-                        will end up:
-                      </p>
-                      <ul className="ml-5 list-disc space-y-1 text-sm text-muted-foreground">
-                        <li>
-                          Stuck in the session Lobby, waiting for someone to let
-                          you enter the room.
-                        </li>
-                        <li>Joining the session as a Guest.</li>
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-4">
-                    <AccordionTrigger className="font-medium text-left">
-                      Is it OK to join a Teams class session as a Guest?
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <p className="font-medium">
-                        You are strongly advised NOT to do so. Please refer to
-                        FAQ3.
-                      </p>
-                      <ul className="ml-5 mt-2 list-disc space-y-1">
-                        <li>
-                          A {"guest"} in a Teams session is an {"outsider"}.
-                          This means you have not logged in to your student
-                          UNITAR Microsoft account.
-                        </li>
-                        <li>
-                          As long as there is ONE Guest present in a Teams
-                          session, the guest will not have access to the full
-                          Teams functions.
-                        </li>
-                        <li>
-                          EVERYONE in the session will not be able to share
-                          files.
-                        </li>
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </section>
-
-      {/* Help & Support Section */}
-      <section id="help" className="w-full py-12 md:py-16 lg:py-20 bg-muted/30">
-        <div className="container px-4 md:px-6 self-center mx-auto">
-          <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
-            <h2 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-              Help & Support
-            </h2>
-            <p className="max-w-[85%] leading-normal text-muted-foreground text-balance sm:text-lg sm:leading-7">
-              If you have any issues or queries, please reach out to us via:
-            </p>
+      {/* Checklist */}
+      <section className="px-5 pt-9 lg:px-10 lg:pt-14">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading id="checklist">Your checklist</SectionHeading>
+          <p className="m-0 mt-2 text-[14.5px] text-sand-800">
+            Tick items off as you go — your progress is saved on this device.
+          </p>
+          <div className="mt-5">
+            <Checklist
+              groups={CHECKLIST}
+              labels={{ count: "{done}/{total}", reset: "Clear this list" }}
+              storageKey="unitar-checklist-en"
+            />
           </div>
-          <div className="mx-auto mt-8 max-w-md flex flex-row flex-wrap gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-center">
-                  Dedicated UNITAR Personnels
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center gap-2">
-                  <MessagesSquare className="h-5 w-5 text-primary" />
-                  <p className="font-medium">WhatsApp</p>
-                </div>
-                <p className="mt-4 text-center text-sm text-muted-foreground">
-                  Their WhatsApp contact details are available in the Welcome
-                  Email sent to your personal email.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-center">Direct Contact</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center gap-2">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <p className="font-medium">admission@unitar.my</p>
-                </div>
-                <p className="mt-4 text-center text-sm text-muted-foreground">
-                  For urgent matters or if you cannot access the One Stop
-                  Centre, please email us directly.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full" asChild>
-                  <Link href="mailto:admission@unitar.my">Send Email</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="w-full border-t bg-background py-6 mx-auto">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row mx-auto">
-          <p className="text-center text-sm text-muted-foreground md:text-left">
-            &copy; {new Date().getFullYear()} UNITAR International University.
-            All rights reserved.
+          <p className="m-0 mt-4 text-[13px] text-sand-700">
+            For clarification on any of these items, refer to your Student Resource
+            Backpack (SRB).
           </p>
         </div>
-      </footer>
+      </section>
+
+      {/* Materials */}
+      <section className="px-5 pt-9 lg:px-10 lg:pt-14">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading id="materials">Onboarding materials</SectionHeading>
+          <p className="m-0 mt-2 max-w-2xl text-[14.5px] text-sand-800">
+            Find out how to access your{" "}
+            <span className="font-semibold text-sand-900">
+              Student Resource Backpack (SRB)
+            </span>{" "}
+            with all your onboarding materials.
+          </p>
+
+          <div className="mt-5">
+            <Callout>
+              You will be able to access your Student Resource Backpack (SRB) on the
+              Monday of your Onboarding Week. For late enrolment, the SRB will be
+              available at 12 noon the following day.
+            </Callout>
+          </div>
+
+          <div className="mt-5 grid gap-5 rounded-[18px] border border-sand-300 bg-white p-5 sm:p-6 lg:grid-cols-2 lg:items-center">
+            <ol className="m-0 flex list-none flex-col gap-4 p-0">
+              {[
+                <>
+                  Log in to the{" "}
+                  <span className="font-bold text-sand-900">auth.unitar.my</span>{" "}
+                  dashboard.
+                </>,
+                <>
+                  Click{" "}
+                  <span className="font-bold text-sand-900">CourseNetworking</span>
+                </>,
+                <>
+                  Click <span className="font-bold text-sand-900">Courses</span> and
+                  select{" "}
+                  <span className="font-bold text-sand-900">
+                    Student Resource Backpack
+                  </span>{" "}
+                  to access your onboarding materials.
+                </>
+              ].map((text, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-unitar-blue text-sm font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <span className="text-[14.5px] leading-relaxed text-sand-800">
+                    {text}
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <div className="flex flex-col items-center gap-4 rounded-xl bg-sand-50 p-5">
+              <Image
+                src="/cn.png"
+                width={200}
+                height={200}
+                alt="CourseNetworking"
+                className="h-auto w-24"
+              />
+              <StepFigure src="/srb.png" alt="Student Resource Backpack" />
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="px-5 pt-9 lg:px-10 lg:pt-14">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading id="faqs">Get-started FAQs</SectionHeading>
+          <div className="mt-4 rounded-[18px] border border-sand-300 bg-white px-5 sm:mt-6 sm:px-6">
+            <Accordion type="single" collapsible className="w-full">
+              {FAQS.map((faq, i) => (
+                <AccordionItem
+                  key={i}
+                  value={`item-${i}`}
+                  className="border-sand-300"
+                >
+                  <AccordionTrigger className="text-left font-semibold text-sand-900 hover:no-underline">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[14.5px] leading-relaxed text-sand-800">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      <HelpBand
+        eyebrow="Help & support"
+        heading="Stuck on any step?"
+        body="You don't have to work it out on your own. A dedicated Student Success Team member has already been assigned to you for your first semester."
+        team={{
+          badge: "Your first stop",
+          name: "Student Success Team (SST)",
+          body: "The SST is here to support you through your first semester experience — from getting your account working to finding your way around your courses. We have already assigned a dedicated SST member to you.",
+          note: "Email us and your SST will take it from there.",
+          email: "sst@unitar.my"
+        }}
+      />
+
+      <OrientationFooter text="Â© 2026 UNITAR International University. All rights reserved." />
     </div>
   );
 }

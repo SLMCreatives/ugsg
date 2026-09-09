@@ -1,68 +1,67 @@
 "use client";
 
 import { PartyPopper, Clock, Target } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription
-} from "@/components/ui/card";
+
 import { BookingFormBM } from "./booking-form-bm";
 
 export function BookingSectionBM() {
   return (
-    <section id="booking" className="py-16 px-4 scroll-mt-8">
-      <div className="max-w-2xl mx-auto">
-        <Card className="border-primary border-2 shadow-lg">
-          <CardHeader className="text-center pb-4">
-            <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-              <PartyPopper className="w-8 h-8 text-primary" />
-            </div>
-            <CardTitle className="text-2xl md:text-3xl">
-              {"Tempah Slot Anda"}
-            </CardTitle>
-            <CardDescription className="text-base mt-2 text-balance">
-              Pilih masa yang sesuai untuk anda dan{" "}
-              {"mari pastikan permohonan anda 100% betul!"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="grid grid-cols-[1fr_auto] items-center gap-3 p-4 rounded-lg bg-muted/50">
-                  <Clock className="w-8 h-8 text-primary mt-0.5" />
-                  <div className="text-left">
-                    <p className="font-medium text-foreground">
-                      Apa yang Perlu Dijangka
-                    </p>
-                    <p className="text-sm text-muted-foreground text-balance">
-                      Sesi 30 minit, secara bersemuka di mana kami akan
-                      membimbing anda melalui portal dalam talian langkah demi
-                      langkah.
-                    </p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-[1fr_auto] items-center gap-3 p-4 rounded-lg bg-muted/50 justify-center">
-                  <Target className="w-8 h-8 text-primary" />
-                  <div className="pr-10">
-                    <p className="font-medium text-foreground">Matlamat</p>
-                    <p className="text-sm text-muted-foreground text-balance">
-                      Menghantar permohonan anda dengan betul pada masa pertama.
-                    </p>
-                  </div>
+    <section id="booking" className="scroll-mt-20 px-5 pt-9 lg:px-10 lg:pt-14">
+      <div className="mx-auto max-w-2xl">
+        <div className="overflow-hidden rounded-[22px] border border-sand-300 bg-white sm:rounded-[30px]">
+          <div className="flex flex-col items-center gap-3 bg-sand-100 px-5 py-8 text-center sm:px-10">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-unitar-orange">
+              <PartyPopper className="h-7 w-7 text-white" aria-hidden="true" />
+            </span>
+            <h2 className="m-0 font-display text-[24px] font-bold tracking-tight text-sand-900 sm:text-[32px]">
+              Tempah slot anda
+            </h2>
+            <p className="m-0 max-w-md text-[14.5px] leading-relaxed text-sand-800">
+              Pilih masa yang sesuai untuk anda dan mari pastikan permohonan anda
+              100% betul!
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-6 p-5 sm:p-8">
+            <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
+              <div className="flex items-start gap-3 rounded-xl border border-sand-300 bg-sand-50 p-4">
+                <Clock
+                  className="mt-0.5 h-6 w-6 shrink-0 text-unitar-orange-ink"
+                  aria-hidden="true"
+                />
+                <div>
+                  <p className="m-0 font-display text-[15px] font-bold text-sand-900">
+                    Apa yang perlu dijangka
+                  </p>
+                  <p className="m-0 mt-1 text-[13px] leading-relaxed text-sand-800">
+                    Sesi 30 minit, satu-ke-satu di mana kami akan membimbing anda
+                    melalui portal dalam talian langkah demi langkah.
+                  </p>
                 </div>
               </div>
-
-              <BookingFormBM />
-
-              <p className="text-center text-xs text-muted-foreground">
-                Kami berharap dapat membantu anda mendapatkan pinjaman PTPTN
-                anda!
-              </p>
+              <div className="flex items-start gap-3 rounded-xl border border-sand-300 bg-sand-50 p-4">
+                <Target
+                  className="mt-0.5 h-6 w-6 shrink-0 text-unitar-orange-ink"
+                  aria-hidden="true"
+                />
+                <div>
+                  <p className="m-0 font-display text-[15px] font-bold text-sand-900">
+                    Matlamat
+                  </p>
+                  <p className="m-0 mt-1 text-[13px] leading-relaxed text-sand-800">
+                    Menghantar permohonan anda dengan betul pada kali pertama.
+                  </p>
+                </div>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+
+            <BookingFormBM />
+
+            <p className="m-0 text-center text-xs text-sand-700">
+              Kami berharap dapat membantu anda mendapatkan pinjaman PTPTN anda!
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
