@@ -80,6 +80,7 @@ function Article({
             caption={section.caption}
             placeholder={section.placeholder}
             label={section.heading}
+            frame={section.frame}
           />
         </div>
 

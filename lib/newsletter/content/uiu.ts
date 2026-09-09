@@ -317,18 +317,20 @@ export const uiu: CampusNewsletter = {
           text: "Faster, safer, and more flexible ways to make payments."
         }
       ],
+      frame: "portrait",
       images: [
         {
-          src: "/newsletter/uiu/payment/payment-options.svg",
-          alt: "Illustration of three payment routes — a credit card, a bank, and an e-wallet on a phone — all feeding into a single payment gateway",
+          src: "/newsletter/shared/payment-gateway.jpg",
+          fit: "contain",
+          alt: "UNITAR Payment Gateway poster — convenient online payments from 3 September 2026, covering tuition and hostel fees, accessed through UNIEC Campus V2 or UNIEC College, with credit/debit card, online banking, and eWallet options, and receipts sent to your UNITAR student email",
           caption:
-            "Illustration: card, bank transfer, and e-wallet, all through one gateway."
+            "The full guide: what the gateway covers, how to reach it, and how to pay."
         }
       ],
       placeholder: {
         label: "Photos needed",
         brief:
-          "Add a payment portal, mobile payment, or finance services image to public/newsletter/uiu/payment/."
+          "Add a payment portal, mobile payment, or finance services image to public/newsletter/shared/."
       },
       caption: "More convenient payment options are on the way."
     }

@@ -626,6 +626,12 @@
   overscroll-behavior-x: contain;
 }
 
+/* Tall poster artwork — matches the 2:3 artwork so it fills the frame edge
+   to edge instead of sitting letterboxed inside the 16:10 default. */
+.gallery-frame.portrait {
+  aspect-ratio: 2 / 3;
+}
+
 .gallery-frame::-webkit-scrollbar {
   display: none;
 }
@@ -1216,6 +1222,15 @@ a.campus-card:focus-visible {
     flex: none;
     height: auto;
     aspect-ratio: 16 / 10;
+  }
+
+  /* A single tall poster prints full width rather than in the 2-up grid. */
+  .gallery-frame.portrait {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-frame.portrait .gallery-slide {
+    aspect-ratio: 2 / 3;
   }
 
   .newsletter-section,

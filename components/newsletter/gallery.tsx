@@ -10,6 +10,8 @@ interface GalleryProps {
   placeholder: SectionPlaceholder;
   /** Used to label the gallery for screen readers. */
   label: string;
+  /** Frame shape — "portrait" swaps the 16:10 frame for a 2:3 one. */
+  frame?: "wide" | "portrait";
 }
 
 /**
@@ -20,7 +22,15 @@ interface GalleryProps {
  * needs no extra dependency. The script only adds the arrows, dots, and the
  * caption that tracks the current slide.
  */
-export function Gallery({ images, caption, placeholder, label }: GalleryProps) {
+export function Gallery({
+  images,
+  caption,
+  placeholder,
+  label,
+  frame = "wide"
+}: GalleryProps) {
+  const frameClass =
+    frame === "portrait" ? "gallery-frame portrait" : "gallery-frame";
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -85,7 +95,7 @@ export function Gallery({ images, caption, placeholder, label }: GalleryProps) {
   if (count === 0) {
     return (
       <figure className="visual">
-        <div className="gallery-frame">
+        <div className={frameClass}>
           <div className="photo-placeholder">
             <div>
               {placeholder.label}
@@ -109,7 +119,7 @@ export function Gallery({ images, caption, placeholder, label }: GalleryProps) {
         aria-label={isGallery ? `${label} — ${count} photos` : undefined}
       >
         <div
-          className="gallery-frame"
+          className={frameClass}
           ref={trackRef}
           tabIndex={isGallery ? 0 : undefined}
         >

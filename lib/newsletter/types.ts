@@ -75,6 +75,12 @@ export interface NewsletterSection {
   placeholder: SectionPlaceholder;
   /** Default caption, used for slides that do not set their own. */
   caption: string;
+  /**
+   * Shape of the photo frame. "wide" (default) is 16:10 and suits photographs
+   * and landscape artwork; "portrait" is 2:3, for tall poster artwork that
+   * would otherwise sit letterboxed between white bars.
+   */
+  frame?: "wide" | "portrait";
   /** "coming-soon" renders the dark blue treatment. */
   variant?: "default" | "coming-soon";
 }
