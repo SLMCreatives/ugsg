@@ -1,6 +1,13 @@
+import type { LucideIcon } from "lucide-react";
 import { Mail, Ticket, Shirt, BookOpen, BadgeCheck, Layers } from "lucide-react";
 
-const kitContents = [
+const kitContents: {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  /** Optional small print, pinned to the foot of the card. */
+  note?: string;
+}[] = [
   {
     icon: Shirt,
     title: "UNITAR T-Shirt",
@@ -22,7 +29,9 @@ const kitContents = [
   {
     icon: BadgeCheck,
     title: "Student Lanyard",
-    description: "A stylish lanyard to carry your student ID with UNITAR pride."
+    description:
+      "Carry your essentials with the UNITAR lanyard — access card, keys, event passes, anything. Keep them close and never lose them again.",
+    note: "*Fully online students receive a Digital Matric Card on request."
   }
 ];
 
@@ -40,7 +49,7 @@ export default function InfoSection() {
           </h2>
 
           <div className="mt-5 grid grid-cols-1 gap-4 sm:mt-6 sm:grid-cols-2 lg:grid-cols-4">
-            {kitContents.map(({ icon: Icon, title, description }) => (
+            {kitContents.map(({ icon: Icon, title, description, note }) => (
               <div
                 key={title}
                 className="flex flex-col gap-3 rounded-[18px] border border-sand-300 bg-white p-5 sm:p-6"
@@ -54,6 +63,11 @@ export default function InfoSection() {
                 <p className="m-0 text-[13.5px] leading-relaxed text-sand-800">
                   {description}
                 </p>
+                {note && (
+                  <p className="m-0 mt-auto pt-1 text-[12px] leading-snug text-sand-700">
+                    {note}
+                  </p>
+                )}
               </div>
             ))}
           </div>
