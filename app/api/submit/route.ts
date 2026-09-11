@@ -18,9 +18,40 @@ export async function POST(request: Request) {
     const date = String(body.date || "").trim();
     const timeSlot = String(body.timeSlot || "").trim();
 
+    // Account numbers are optional — students share them if they have them to
+    // hand. Capped so a malformed client cannot write a huge cell.
+    const bankIslamAccount = String(body.bankIslamAccount || "")
+      .trim()
+      .slice(0, 30);
+    const sspnAccount = String(body.sspnAccount || "")
+      .trim()
+      .slice(0, 30);
+
     if (!name || !phone || !date || !timeSlot) {
       return NextResponse.json(
         { error: "All booking fields are required." },
+        { status: 400 }
+      );
+    }
+
+    // The four prerequisites are the point of the checklist, so enforce them
+    // here too — the UI gate alone is bypassable.
+    const prerequisites = (body.prerequisites ?? {}) as Record<string, unknown>;
+    const REQUIRED = [
+      "bankIslam",
+      "sspn",
+      "myDigitalId",
+      "offerLetter"
+    ] as const;
+    const missing = REQUIRED.filter((key) => prerequisites[key] !== true);
+
+    if (missing.length > 0) {
+      return NextResponse.json(
+        {
+          error:
+            "Please confirm all four requirements before booking a slot.",
+          missing
+        },
         { status: 400 }
       );
     }
@@ -54,12 +85,18 @@ export async function POST(request: Request) {
       );
     }
 
+    // Columns A-E are unchanged; the checklist adds F-I, so the slot-count
+    // lookup above (which reads columns D and E) keeps working.
     await appendToSheet([
       new Date().toLocaleString("en-MY", { timeZone: "Asia/Kuala_Lumpur" }),
       name,
       phone,
       date,
-      timeSlot
+      timeSlot,
+      bankIslamAccount || "Confirmed (no number given)",
+      sspnAccount || "Confirmed (no number given)",
+      "Yes",
+      "Yes"
     ]);
 
     return NextResponse.json({ ok: true });

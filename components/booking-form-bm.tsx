@@ -54,6 +54,62 @@ function translateTime(time: string) {
   return TIME_BM[time] ?? time;
 }
 
+/**
+ * Everything a student must already have before the session is worth booking.
+ * Walked one at a time between the phone number and the slot picker, so nobody
+ * takes a 30-minute slot they cannot use.
+ */
+type PrereqId = "bankIslam" | "sspn" | "myDigitalId" | "offerLetter";
+
+const PREREQS: {
+  id: PrereqId;
+  question: string;
+  body: string;
+  /** Optional account number we collect while they are here. */
+  account?: { label: string; placeholder: string; hint: string };
+  /** Shown when they answer "not yet" — what to do about it. */
+  help: string;
+}[] = [
+  {
+    id: "bankIslam",
+    question: "Adakah anda sudah ada akaun Bank Islam?",
+    body: "PTPTN menyalurkan pembiayaan melalui akaun Bank Islam, jadi akaun ini perlu dibuka sebelum anda memohon.",
+    account: {
+      label: "Nombor akaun Bank Islam",
+      placeholder: "Contoh: 12345678901234",
+      hint: "Pilihan — kongsikan jika anda ada nombornya sekarang."
+    },
+    help: "Buka akaun di mana-mana cawangan Bank Islam. Bawa kad pengenalan dan surat tawaran UNITAR anda."
+  },
+  {
+    id: "sspn",
+    question: "Adakah anda sudah ada akaun SSPN Prime?",
+    body: "Akaun SSPN Prime adalah syarat wajib PTPTN. Ia boleh dibuka dalam talian dalam beberapa minit.",
+    account: {
+      label: "Nombor akaun SSPN Prime",
+      placeholder: "Contoh: 1234567890",
+      hint: "Pilihan — kongsikan jika anda ada nombornya sekarang."
+    },
+    help: "Daftar di sspn.ptptn.gov.my atau melalui aplikasi myPTPTN. Deposit permulaan minimum RM20 sudah memadai."
+  },
+  {
+    id: "myDigitalId",
+    question: "Adakah MyDigital ID anda sudah diaktifkan?",
+    body: "Permohonan PTPTN memerlukan pengesahan identiti melalui MyDigital ID yang aktif.",
+    help: "Muat turun aplikasi MyDigital ID, daftar dengan kad pengenalan anda dan lengkapkan pengesahan wajah. Pengaktifan boleh mengambil masa sehingga 24 jam."
+  },
+  {
+    id: "offerLetter",
+    question: "Adakah surat tawaran UNITAR anda sudah tersedia?",
+    body: "Salinan lembut (PDF) memadai. Anda perlu memuat naiknya bersama permohonan dan menyalin butiran daripadanya ke dalam borang, jadi pastikan ia surat terkini bagi program anda.",
+    help: "Surat tawaran dihantar ke emel peribadi anda dalam bentuk PDF. Jika anda tidak menemuinya, hubungi Student Success Team di sst@unitar.my."
+  }
+];
+
+const FIRST_PREREQ_STEP = 3;
+const SLOT_STEP = FIRST_PREREQ_STEP + PREREQS.length;
+const TOTAL_STEPS = SLOT_STEP;
+
 export function BookingFormBM() {
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
@@ -65,6 +121,10 @@ export function BookingFormBM() {
   const [success, setSuccess] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const [bookingCounts, setBookingCounts] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<Partial<Record<PrereqId, "yes" | "no">>>(
+    {}
+  );
+  const [accounts, setAccounts] = useState<Partial<Record<PrereqId, string>>>({});
 
   useEffect(() => {
     fetch("/api/slots")
@@ -133,7 +193,18 @@ export function BookingFormBM() {
       return;
     }
 
-    if (step === 3) {
+    if (step >= FIRST_PREREQ_STEP && step < SLOT_STEP) {
+      const prereq = PREREQS[step - FIRST_PREREQ_STEP];
+      if (answers[prereq.id] !== "yes") {
+        setError("Sila sahkan perkara ini sebelum meneruskan");
+        return;
+      }
+      setError("");
+      setStep(step + 1);
+      return;
+    }
+
+    if (step === SLOT_STEP) {
       if (!date || !timeSlot) {
         setError("Sila pilih tarikh dan masa");
         return;
@@ -154,7 +225,15 @@ export function BookingFormBM() {
           name: name.trim(),
           phone: phone.replace(/\s/g, "").trim(),
           date,
-          timeSlot
+          timeSlot,
+          prerequisites: {
+            bankIslam: answers.bankIslam === "yes",
+            sspn: answers.sspn === "yes",
+            myDigitalId: answers.myDigitalId === "yes",
+            offerLetter: answers.offerLetter === "yes"
+          },
+          bankIslamAccount: (accounts.bankIslam ?? "").trim(),
+          sspnAccount: (accounts.sspn ?? "").trim()
         })
       });
 
@@ -219,7 +298,7 @@ export function BookingFormBM() {
   return (
     <Card className="w-full max-w-md mx-auto p-6 bg-white">
       <div className="flex gap-2 mb-6">
-        {[1, 2, 3].map((s) => (
+        {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((s) => (
           <div
             key={s}
             className={`h-2 flex-1 rounded-full transition-colors ${
@@ -279,8 +358,118 @@ export function BookingFormBM() {
         </div>
       )}
 
-      {step === 3 && (
+      {step >= FIRST_PREREQ_STEP &&
+        step < SLOT_STEP &&
+        (() => {
+          const prereq = PREREQS[step - FIRST_PREREQ_STEP];
+          const answer = answers[prereq.id];
+
+          return (
+            <div className="space-y-4">
+              <p className="m-0 text-[11.5px] font-bold uppercase tracking-[0.07em] text-unitar-orange-ink">
+                Senarai semak {step - FIRST_PREREQ_STEP + 1} daripada{" "}
+                {PREREQS.length}
+              </p>
+              <div>
+                <h3 className="text-lg font-semibold text-sand-900 mb-2">
+                  {prereq.question}
+                </h3>
+                <p className="m-0 text-sm leading-relaxed text-sand-800">
+                  {prereq.body}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                {(
+                  [
+                    { value: "yes", label: "Ya, saya ada" },
+                    { value: "no", label: "Belum ada" }
+                  ] as const
+                ).map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => {
+                      setAnswers((prev) => ({
+                        ...prev,
+                        [prereq.id]: option.value
+                      }));
+                      // Drop any number they typed if they change their mind.
+                      if (option.value === "no") {
+                        setAccounts((prev) => ({ ...prev, [prereq.id]: "" }));
+                      }
+                      setError("");
+                    }}
+                    aria-pressed={answer === option.value}
+                    className={`flex min-h-[48px] items-center justify-center rounded-xl border-2 px-3 text-sm font-semibold transition-colors ${
+                      answer === option.value
+                        ? option.value === "yes"
+                          ? "border-done bg-done-tint text-[#1F5A31]"
+                          : "border-unitar-orange bg-[#FFF7ED] text-unitar-orange-ink"
+                        : "border-sand-300 bg-white text-sand-800 hover:bg-sand-50"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+
+              {answer === "yes" && prereq.account && (
+                <div>
+                  <Label
+                    htmlFor={`${prereq.id}-account`}
+                    className="text-sand-900 mb-2 block"
+                  >
+                    {prereq.account.label}
+                  </Label>
+                  <Input
+                    id={`${prereq.id}-account`}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={30}
+                    placeholder={prereq.account.placeholder}
+                    value={accounts[prereq.id] ?? ""}
+                    onChange={(e) =>
+                      setAccounts((prev) => ({
+                        ...prev,
+                        [prereq.id]: e.target.value
+                      }))
+                    }
+                    className="w-full"
+                  />
+                  <p className="m-0 mt-2 text-xs text-sand-700">
+                    {prereq.account.hint}
+                  </p>
+                </div>
+              )}
+
+              {answer === "no" && (
+                <div className="rounded-xl bg-[#FFF7ED] px-4 py-3.5">
+                  <p className="m-0 text-[13px] font-bold text-[#8A5417]">
+                    Sediakan ini dahulu
+                  </p>
+                  <p className="m-0 mt-1 text-[13px] leading-relaxed text-[#8A5417]">
+                    {prereq.help}
+                  </p>
+                  <p className="m-0 mt-2 text-[13px] leading-relaxed text-[#8A5417]">
+                    Kembali dan tempah slot anda setelah ia sedia — sesi ini
+                    memerlukan kesemua empat perkara.
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })()}
+
+      {step === SLOT_STEP && (
         <div className="space-y-4">
+          <div className="flex items-center gap-2 rounded-xl bg-done-tint px-4 py-3">
+            <CheckCircle className="h-4 w-4 shrink-0 text-done" />
+            <p className="m-0 text-[13px] font-semibold text-[#1F5A31]">
+              Kesemua {PREREQS.length} keperluan disahkan.
+            </p>
+          </div>
+
           <h3 className="text-lg font-semibold text-sand-900 mb-4">
             Pilih slot anda
           </h3>
@@ -366,14 +555,14 @@ export function BookingFormBM() {
         >
           {loading
             ? "Menghantar..."
-            : step === 3
+            : step === SLOT_STEP
             ? "Sahkan Tempahan"
             : "Seterusnya"}
         </Button>
       </div>
 
       <p className="text-xs text-sand-800 text-center mt-4">
-        Langkah {step} dari 3
+        Langkah {step} dari {TOTAL_STEPS}
       </p>
     </Card>
   );

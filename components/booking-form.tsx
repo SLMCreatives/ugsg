@@ -9,8 +9,68 @@ import { AlertCircle, CheckCircle } from "lucide-react";
 import { SLOTS, isSlotPast } from "@/lib/slots";
 export { SLOTS };
 
+/**
+ * Everything a student must already have before the session is worth booking.
+ * Walked one at a time between the phone number and the slot picker, so nobody
+ * takes a 30-minute slot they cannot use.
+ */
+type PrereqId = "bankIslam" | "sspn" | "myDigitalId" | "offerLetter";
+
+const PREREQS: {
+  id: PrereqId;
+  question: string;
+  body: string;
+  /** Optional account number we collect while they are here. */
+  account?: { label: string; placeholder: string; hint: string };
+  /** Shown when they answer "not yet" — what to do about it. */
+  help: string;
+}[] = [
+  {
+    id: "bankIslam",
+    question: "Do you already have a Bank Islam account?",
+    body: "PTPTN disburses funding through a Bank Islam account, so this needs to be open before you apply.",
+    account: {
+      label: "Bank Islam account number",
+      placeholder: "e.g. 12345678901234",
+      hint: "Optional — share it if you have the number to hand."
+    },
+    help: "Open an account at any Bank Islam branch. Bring your IC and your UNITAR offer letter."
+  },
+  {
+    id: "sspn",
+    question: "Do you already have an SSPN Prime account?",
+    body: "An SSPN Prime account is a PTPTN requirement. It can be opened online in a few minutes.",
+    account: {
+      label: "SSPN Prime account number",
+      placeholder: "e.g. 1234567890",
+      hint: "Optional — share it if you have the number to hand."
+    },
+    help: "Register at sspn.ptptn.gov.my or through the myPTPTN app. A minimum opening deposit of RM20 is enough."
+  },
+  {
+    id: "myDigitalId",
+    question: "Is your MyDigital ID activated?",
+    body: "The PTPTN application verifies your identity through an active MyDigital ID.",
+    help: "Download the MyDigital ID app, register with your IC and complete the face verification. Activation can take up to 24 hours."
+  },
+  {
+    id: "offerLetter",
+    question: "Do you have your UNITAR offer letter?",
+    body: "A soft copy (PDF) is fine. You will upload it with your application and copy the details from it into the form, so make sure it is the current letter for your programme.",
+    help: "The offer letter is sent to your personal email as a PDF. If you cannot find it, contact the Student Success Team at sst@unitar.my."
+  }
+];
+
+const FIRST_PREREQ_STEP = 3;
+const SLOT_STEP = FIRST_PREREQ_STEP + PREREQS.length;
+const TOTAL_STEPS = SLOT_STEP;
+
 export function BookingForm() {
   const [step, setStep] = useState(1);
+  const [answers, setAnswers] = useState<Partial<Record<PrereqId, "yes" | "no">>>(
+    {}
+  );
+  const [accounts, setAccounts] = useState<Partial<Record<PrereqId, string>>>({});
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
@@ -88,7 +148,18 @@ export function BookingForm() {
       return;
     }
 
-    if (step === 3) {
+    if (step >= FIRST_PREREQ_STEP && step < SLOT_STEP) {
+      const prereq = PREREQS[step - FIRST_PREREQ_STEP];
+      if (answers[prereq.id] !== "yes") {
+        setError("Please confirm this before continuing");
+        return;
+      }
+      setError("");
+      setStep(step + 1);
+      return;
+    }
+
+    if (step === SLOT_STEP) {
       if (!date || !timeSlot) {
         setError("Please choose a date and time slot");
         return;
@@ -111,7 +182,15 @@ export function BookingForm() {
           name: name.trim(),
           phone: phone.replace(/\s/g, "").trim(),
           date,
-          timeSlot
+          timeSlot,
+          prerequisites: {
+            bankIslam: answers.bankIslam === "yes",
+            sspn: answers.sspn === "yes",
+            myDigitalId: answers.myDigitalId === "yes",
+            offerLetter: answers.offerLetter === "yes"
+          },
+          bankIslamAccount: (accounts.bankIslam ?? "").trim(),
+          sspnAccount: (accounts.sspn ?? "").trim()
         })
       });
 
@@ -177,7 +256,7 @@ export function BookingForm() {
   return (
     <Card className="w-full max-w-md mx-auto p-6 bg-white">
       <div className="flex gap-2 mb-6">
-        {[1, 2, 3].map((s) => (
+        {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((s) => (
           <div
             key={s}
             className={`h-2 flex-1 rounded-full transition-colors ${
@@ -237,8 +316,117 @@ export function BookingForm() {
         </div>
       )}
 
-      {step === 3 && (
+      {step >= FIRST_PREREQ_STEP &&
+        step < SLOT_STEP &&
+        (() => {
+          const prereq = PREREQS[step - FIRST_PREREQ_STEP];
+          const answer = answers[prereq.id];
+
+          return (
+            <div className="space-y-4">
+              <p className="m-0 text-[11.5px] font-bold uppercase tracking-[0.07em] text-unitar-orange-ink">
+                Checklist {step - FIRST_PREREQ_STEP + 1} of {PREREQS.length}
+              </p>
+              <div>
+                <h3 className="text-lg font-semibold text-sand-900 mb-2">
+                  {prereq.question}
+                </h3>
+                <p className="m-0 text-sm leading-relaxed text-sand-800">
+                  {prereq.body}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                {(
+                  [
+                    { value: "yes", label: "Yes, I have this" },
+                    { value: "no", label: "Not yet" }
+                  ] as const
+                ).map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => {
+                      setAnswers((prev) => ({
+                        ...prev,
+                        [prereq.id]: option.value
+                      }));
+                      // Drop any number they typed if they change their mind.
+                      if (option.value === "no") {
+                        setAccounts((prev) => ({ ...prev, [prereq.id]: "" }));
+                      }
+                      setError("");
+                    }}
+                    aria-pressed={answer === option.value}
+                    className={`flex min-h-[48px] items-center justify-center rounded-xl border-2 px-3 text-sm font-semibold transition-colors ${
+                      answer === option.value
+                        ? option.value === "yes"
+                          ? "border-done bg-done-tint text-[#1F5A31]"
+                          : "border-unitar-orange bg-[#FFF7ED] text-unitar-orange-ink"
+                        : "border-sand-300 bg-white text-sand-800 hover:bg-sand-50"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+
+              {answer === "yes" && prereq.account && (
+                <div>
+                  <Label
+                    htmlFor={`${prereq.id}-account`}
+                    className="text-sand-900 mb-2 block"
+                  >
+                    {prereq.account.label}
+                  </Label>
+                  <Input
+                    id={`${prereq.id}-account`}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={30}
+                    placeholder={prereq.account.placeholder}
+                    value={accounts[prereq.id] ?? ""}
+                    onChange={(e) =>
+                      setAccounts((prev) => ({
+                        ...prev,
+                        [prereq.id]: e.target.value
+                      }))
+                    }
+                    className="w-full"
+                  />
+                  <p className="m-0 mt-2 text-xs text-sand-700">
+                    {prereq.account.hint}
+                  </p>
+                </div>
+              )}
+
+              {answer === "no" && (
+                <div className="rounded-xl bg-[#FFF7ED] px-4 py-3.5">
+                  <p className="m-0 text-[13px] font-bold text-[#8A5417]">
+                    Sort this out first
+                  </p>
+                  <p className="m-0 mt-1 text-[13px] leading-relaxed text-[#8A5417]">
+                    {prereq.help}
+                  </p>
+                  <p className="m-0 mt-2 text-[13px] leading-relaxed text-[#8A5417]">
+                    Come back and book your slot once it is ready — the session
+                    needs all four.
+                  </p>
+                </div>
+              )}
+            </div>
+          );
+        })()}
+
+      {step === SLOT_STEP && (
         <div className="space-y-4">
+          <div className="flex items-center gap-2 rounded-xl bg-done-tint px-4 py-3">
+            <CheckCircle className="h-4 w-4 shrink-0 text-done" />
+            <p className="m-0 text-[13px] font-semibold text-[#1F5A31]">
+              All {PREREQS.length} requirements confirmed.
+            </p>
+          </div>
+
           <h3 className="text-lg font-semibold text-sand-900 mb-4">
             Choose your slot
           </h3>
@@ -322,12 +510,16 @@ export function BookingForm() {
           className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90"
           type="button"
         >
-          {loading ? "Submitting..." : step === 3 ? "Confirm Booking" : "Next"}
+          {loading
+            ? "Submitting..."
+            : step === SLOT_STEP
+            ? "Confirm Booking"
+            : "Next"}
         </Button>
       </div>
 
       <p className="text-xs text-sand-800 text-center mt-4">
-        Step {step} of 3
+        Step {step} of {TOTAL_STEPS}
       </p>
     </Card>
   );
