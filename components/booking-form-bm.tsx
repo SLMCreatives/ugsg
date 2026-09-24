@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckCircle } from "lucide-react";
-import { SLOTS, isSlotPast } from "@/lib/slots";
+import { SLOTS, isSlotBookable } from "@/lib/slots";
 
 const DATE_BM: Record<string, string> = {
   Monday: "Isnin",
@@ -30,19 +30,6 @@ const DATE_BM: Record<string, string> = {
   December: "Disember"
 };
 
-const TIME_BM: Record<string, string> = {
-  "11:00 - 11:30 am": "11:00 - 11:30 pagi",
-  "11:30 am - 12:00 pm": "11:30 pagi - 12:00 tengahari",
-  "12:00 - 12:30 pm": "12:00 - 12:30 tengahari",
-  "12:30 - 1:00 pm": "12:30 tengahari - 1:00 petang",
-  "1:00 - 1:30 pm": "1:00 - 1:30 petang",
-  "1:30 - 2:00 pm": "1:30 - 2:00 petang",
-  "2:00 - 2:30 pm": "2:00 - 2:30 petang",
-  "2:30 - 3:00 pm": "2:30 - 3:00 petang",
-  "3:00 - 3:30 pm": "3:00 - 3:30 petang",
-  "3:30 - 4:00 pm": "3:30 - 4:00 petang"
-};
-
 function translateDate(date: string) {
   return Object.entries(DATE_BM).reduce(
     (s, [en, bm]) => s.replace(en, bm),
@@ -50,8 +37,22 @@ function translateDate(date: string) {
   );
 }
 
+// am → pagi, 12:xx pm → tengahari, other pm → petang.
+// "11:30 am - 12:00 pm" → "11:30 pagi - 12:00 tengahari"
 function translateTime(time: string) {
-  return TIME_BM[time] ?? time;
+  const [startRaw, endRaw] = time.split(" - ");
+  const endMeridiem = endRaw.slice(-2);
+  const startMeridiem = /(am|pm)$/.test(startRaw) ? startRaw.slice(-2) : endMeridiem;
+  const startClock = startRaw.replace(/\s*(am|pm)$/, "");
+  const endClock = endRaw.replace(/\s*(am|pm)$/, "");
+  const period = (clock: string, meridiem: string) =>
+    meridiem === "am" ? "pagi" : clock.startsWith("12:") ? "tengahari" : "petang";
+
+  const startPeriod = period(startClock, startMeridiem);
+  const endPeriod = period(endClock, endMeridiem);
+  return startPeriod === endPeriod
+    ? `${startClock} - ${endClock} ${endPeriod}`
+    : `${startClock} ${startPeriod} - ${endClock} ${endPeriod}`;
 }
 
 /**
@@ -156,12 +157,12 @@ export function BookingFormBM() {
   const getAvailableDates = () => {
     return SLOTS.map((s) => s.date)
       .filter((v, i, a) => a.indexOf(v) === i)
-      .filter((d) => SLOTS.some((s) => s.date === d && !isSlotFull(d, s.time) && !isSlotPast(d, s.time)));
+      .filter((d) => SLOTS.some((s) => s.date === d && !isSlotFull(d, s.time) && isSlotBookable(d)));
   };
 
   const getAvailableTimeSlots = () => {
     return SLOTS.filter(
-      (s) => s.date === date && !isSlotFull(date, s.time) && !isSlotPast(date, s.time)
+      (s) => s.date === date && !isSlotFull(date, s.time) && isSlotBookable(date)
     ).map((s) => {
       const booked = bookingCounts[`${date}__${s.time}`] || 0;
       const remaining = s.slots - booked;
@@ -476,7 +477,8 @@ export function BookingFormBM() {
           <p className="text-sand-800 mb-2 text-sm">
             Pilih tarikh dan masa pilihan anda. Sila ambil perhatian bahawa kami
             mempunyai bilangan slot yang terhad untuk setiap tempoh masa, jadi
-            tempah awal untuk mendapatkan tempat anda!
+            tempah awal untuk mendapatkan tempat anda! Slot perlu ditempah
+            sekurang-kurangnya sehari lebih awal.
           </p>
 
           <div>

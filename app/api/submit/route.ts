@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { appendToSheet, getSheetRows } from "@/lib/googlesheets";
-import { SLOTS } from "@/lib/slots";
+import { SLOTS, isSlotBookable } from "@/lib/slots";
 
 function isValidMalaysianPhone(phone: string) {
   const cleaned = phone.replace(/\s/g, "");
@@ -67,6 +67,13 @@ export async function POST(request: Request) {
     if (!slotDef) {
       return NextResponse.json(
         { error: "Invalid slot selected." },
+        { status: 400 }
+      );
+    }
+
+    if (!isSlotBookable(date)) {
+      return NextResponse.json(
+        { error: "Slots must be booked at least one day in advance. Please choose a later date." },
         { status: 400 }
       );
     }

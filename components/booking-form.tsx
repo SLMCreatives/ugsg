@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckCircle } from "lucide-react";
-import { SLOTS, isSlotPast } from "@/lib/slots";
+import { SLOTS, isSlotBookable } from "@/lib/slots";
 export { SLOTS };
 
 /**
@@ -111,11 +111,11 @@ export function BookingForm() {
   const getAvailableDates = () => {
     return SLOTS.map((s) => s.date)
       .filter((v, i, a) => a.indexOf(v) === i)
-      .filter((d) => SLOTS.some((s) => s.date === d && !isSlotFull(d, s.time) && !isSlotPast(d, s.time)));
+      .filter((d) => SLOTS.some((s) => s.date === d && !isSlotFull(d, s.time) && isSlotBookable(d)));
   };
 
   const getAvailableTimeSlots = () => {
-    return SLOTS.filter((s) => s.date === date && !isSlotFull(date, s.time) && !isSlotPast(date, s.time)).map(
+    return SLOTS.filter((s) => s.date === date && !isSlotFull(date, s.time) && isSlotBookable(date)).map(
       (s) => {
         const booked = bookingCounts[`${date}__${s.time}`] || 0;
         const remaining = s.slots - booked;
@@ -433,7 +433,7 @@ export function BookingForm() {
           <p className="text-sand-800 mb-2 text-sm">
             Select your preferred date and time. Please note that we have a
             limited number of slots per time period, so book early to secure
-            your spot!
+            your spot! Slots must be booked at least one day in advance.
           </p>
 
           <div>
