@@ -93,12 +93,14 @@ export async function POST(request: Request) {
       ? a.ug_onboarding_topic_learned.join("; ")
       : a.ug_onboarding_topic_learned || "";
 
-    // Column order — keep this in sync with your sheet header row:
-    // Timestamp | Form Type | Name | Matric | Email | Programme | Study Level | Employment |
-    // Laptop Access | App Rating | Onboarding Rating | Onboarding Topics |
-    // Platform Rating | Lecturer Rating | Additional Support (UG) |
-    // Campus Interest | Activities Interested (PG) |
-    // Supportive Dept | Other Dept | Fees Understanding | NPS Score
+    // Column order (A–U) — keep this in sync with the sheet header row and with
+    // STAT_COLUMNS in lib/survey-stats.ts. Every header cell must be filled, or
+    // Sheets' append can misplace rows:
+    // Timestamp | Form Type | Name | Matric No | Email | Programme | Study Level | Employment |
+    // Device Used | Application Rating | Onboarding Rating | Onboarding Topics |
+    // Platform Confidence | Lecturer Guidance | Additional Support (UG) |
+    // Campus Programme Interest | Activities Interested (PG) |
+    // Most Supportive Dept | Other Dept | Fees Understanding | Recommendation (0-10)
     const row: (string | number)[] = [
       new Date().toLocaleString("en-MY", { timeZone: "Asia/Kuala_Lumpur" }),
       form_type,
