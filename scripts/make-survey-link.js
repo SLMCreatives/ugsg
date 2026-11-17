@@ -7,8 +7,11 @@
  *     --base https://your-site.com \
  *     --name "Sulaiman Munaff" --matric UG12345 --programme BBA --level Degree --email a@b.com
  *
- * Bulk from CSV (headers: name,matric,programme,level,email):
- *   node scripts/make-survey-link.js --base https://your-site.com --csv students.csv > links.csv
+ * Bulk from CSV (headers: name,matric,programme,level,email — common variants such
+ * as "Student Name", "Matric No" or "Personal Email" are recognised too):
+ *   node scripts/make-survey-link.js --base https://your-site.com --csv scripts/students.csv --out scripts/links.csv
+ *
+ * Rows without a matric number, or repeating one, are skipped and reported.
  *
  * The secret is read from .env.local (SURVEY_TOKEN_SECRET) or the environment.
  */
@@ -82,16 +85,72 @@ function makeLink(base, secret, student) {
   return url.toString();
 }
 
+// Quote-aware CSV parsing: Excel/SRB exports quote any field containing a comma,
+// quote or newline (e.g. "Bachelor of Business (Hons), Marketing").
+function parseCsvRows(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (quoted) {
+      if (ch === '"' && text[i + 1] === '"') {
+        cell += '"';
+        i++;
+      } else if (ch === '"') {
+        quoted = false;
+      } else {
+        cell += ch;
+      }
+    } else if (ch === '"') {
+      quoted = true;
+    } else if (ch === ",") {
+      row.push(cell);
+      cell = "";
+    } else if (ch === "\n" || ch === "\r") {
+      if (ch === "\r" && text[i + 1] === "\n") i++;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += ch;
+    }
+  }
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+  return rows.filter((r) => r.some((c) => c.trim()));
+}
+
+// Common header spellings in student exports, mapped to the token fields.
+const HEADER_ALIASES = {
+  name: ["name", "student name", "full name", "nama"],
+  matric: ["matric", "matric no", "matric number", "matric_no", "student id", "student no"],
+  programme: ["programme", "program", "programme name", "program name", "course"],
+  level: ["level", "study level", "study-level", "programme level", "level of study"],
+  email: ["email", "personal email", "email address", "student email", "e-mail"]
+};
+
 function parseCsv(text) {
-  const lines = text.split(/\r?\n/).filter((l) => l.trim().length > 0);
-  const headers = lines[0].split(",").map((h) => h.trim().toLowerCase());
-  return lines.slice(1).map((line) => {
-    const cells = line.split(",");
+  const rows = parseCsvRows(text.replace(/^﻿/, "")); // strip Excel's BOM
+  const headers = rows[0].map((h) => h.trim().toLowerCase());
+  const indexOf = {};
+  for (const [field, aliases] of Object.entries(HEADER_ALIASES)) {
+    indexOf[field] = headers.findIndex((h) => aliases.includes(h));
+  }
+  return rows.slice(1).map((cells) => {
     const row = {};
-    headers.forEach((h, i) => (row[h] = (cells[i] || "").trim()));
+    for (const [field, i] of Object.entries(indexOf)) {
+      row[field] = i >= 0 ? (cells[i] || "").trim() : "";
+    }
     return row;
   });
 }
+
+const csvCell = (v) => `"${String(v || "").replace(/"/g, '""')}"`;
 
 function main() {
   const args = parseArgs(process.argv);
@@ -105,14 +164,39 @@ function main() {
 
   if (args.csv) {
     const rows = parseCsv(fs.readFileSync(args.csv, "utf8"));
-    console.log("name,matric,programme,level,email,link");
-    for (const r of rows) {
+    const lines = ["name,matric,programme,level,email,link"];
+    const seen = new Set();
+    let skipped = 0;
+
+    rows.forEach((r, i) => {
+      const where = `row ${i + 2}`; // +1 header, +1 one-based
+      const matricKey = r.matric.toUpperCase();
+      if (!r.matric) {
+        console.error(`Skipped ${where}: no matric number (${r.name || "no name"})`);
+        skipped++;
+        return;
+      }
+      if (seen.has(matricKey)) {
+        console.error(`Skipped ${where}: duplicate matric ${r.matric}`);
+        skipped++;
+        return;
+      }
+      seen.add(matricKey);
+      if (r.level && !LEVEL_MAP[r.level.toLowerCase()]) {
+        console.error(`Warning ${where}: unknown level "${r.level}" — student will be asked to pick one`);
+      }
       const link = makeLink(base, secret, r);
-      console.log(
-        [r.name, r.matric, r.programme, r.level, r.email, link]
-          .map((v) => `"${String(v || "").replace(/"/g, '""')}"`)
-          .join(",")
-      );
+      lines.push([r.name, r.matric, r.programme, r.level, r.email, link].map(csvCell).join(","));
+    });
+
+    const csv = lines.join("\r\n") + "\r\n";
+    if (args.out) {
+      // UTF-8 with BOM so Excel shows names with accents correctly. Written
+      // directly because PowerShell's `>` would re-encode the file as UTF-16.
+      fs.writeFileSync(args.out, "﻿" + csv, "utf8");
+      console.error(`Wrote ${lines.length - 1} links to ${args.out} (${skipped} skipped)`);
+    } else {
+      process.stdout.write(csv);
     }
     return;
   }
